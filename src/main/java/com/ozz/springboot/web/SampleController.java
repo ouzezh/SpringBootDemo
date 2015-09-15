@@ -17,8 +17,9 @@ public class SampleController {
   @Autowired
   private SampleDao dao;
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-  public String test(String sampleAutosetParam) {
+  @RequestMapping(value = "/test")
+  public String test(String param, String sampleAutosetParam) {
+    log.debug("param=" + param);
     log.debug("sampleAutosetParam=" + sampleAutosetParam);
     return dao.sevice();
   }

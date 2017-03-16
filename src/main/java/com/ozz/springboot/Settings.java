@@ -2,7 +2,7 @@ package com.ozz.springboot;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "ozz")
+@ConfigurationProperties(prefix = "ouzezh")
 public class Settings {
   private String sampleConfig;
 

@@ -17,8 +17,8 @@ public class SampleController {
   private SampleDao dao;
 
   @RequestMapping(value = "/test")
-  public String test(String param) {
-    log.debug("param=" + param);
+  public String test(String p) {
+    log.debug("p=" + p);
     return dao.sevice();
   }
 

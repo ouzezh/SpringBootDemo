@@ -1,5 +1,8 @@
 package com.ozz.springboot.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,11 @@ public class SampleDao {
   @Autowired
   private Settings settings;
 
-  public String sevice() {
+  public Map<String, String> sevice(String p) {
     log.debug("test sample dao service");
-    return settings.getSampleConfig();
+    Map<String, String> map = new HashMap<>();
+    map.put("p", p);
+    map.put("config", settings.getSampleConfig());
+    return map;
   }
 }

@@ -15,7 +15,7 @@ public class SampleDaoTest {
 
   @Test
   public void testService() {
-    dao.sevice();
+    dao.sevice("p");
   }
 
 }

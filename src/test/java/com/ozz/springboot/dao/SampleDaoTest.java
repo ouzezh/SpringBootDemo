@@ -8,8 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = SampleApplication.class)
 public class SampleDaoTest {
   @Autowired
   SampleDao dao;

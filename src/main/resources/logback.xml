@@ -34,11 +34,11 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.ozz" level="INFO" additivity="true">
+	<logger name="com.ozz" level="DEBUGE" additivity="false">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="file" />
 	</logger>
-	<root level="ERROR">
+	<root level="ERROR" additivity="false">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="file" />
 	</root>

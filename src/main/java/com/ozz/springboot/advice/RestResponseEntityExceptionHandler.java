@@ -1,4 +1,4 @@
-package com.ozz.springboot;
+package com.ozz.springboot.advice;
 
 import java.sql.SQLException;
 import org.slf4j.Logger;

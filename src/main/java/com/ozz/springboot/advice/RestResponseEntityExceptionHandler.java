@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 /**
  * 针对SQL异常定制化处理，防止数据库信息泄露到前端
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.ozz.springboot.web")
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
   private final Logger log = LoggerFactory.getLogger(getClass());
 

@@ -14,18 +14,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 /**
  * 针对SQL异常定制化处理，防止数据库信息泄露到前端
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.ozz.springboot.web")
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
   private final Logger log = LoggerFactory.getLogger(getClass());
 
   @ExceptionHandler(value = {SQLException.class})
   protected ResponseEntity<Object> handleConflict(SQLException ex, WebRequest request) {
-    log.error(null, ex);
-    String bodyOfResponse = "系统错误，请联系管理员！";
     return handleExceptionInternal(ex,
-                                   bodyOfResponse,
+                                   "系统错误,请联系管理员("+System.currentTimeMillis()+")",
                                    new HttpHeaders(),
                                    HttpStatus.INTERNAL_SERVER_ERROR,
                                    request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
+      HttpHeaders headers, HttpStatus status, WebRequest request) {
+    log.error(body==null?null:body.toString(), ex);
+    if(body==null && ex!=null) {
+      body = ex.toString();
+    }
+    return super.handleExceptionInternal(ex, body, headers, status, request);
   }
 }

@@ -9,7 +9,9 @@
 3.添加jasypt加密
 --添加jar
 com.github.ulisesbocchio:jasypt-spring-boot-starter:1.12
---properties中添加密码
-jasypt.encryptor.password=master_key	#主密码(加密密码的密码)
-password:ENC(encrypt_string)	#密码密文
---可选:修改算法
+--properties中修改配置
+security.password=ENC(gGPAnX2MZmxKsqLkz4Ns8RiJjGJie1FTlWWi2JqCtGg=)	#密码密文
+jasypt.encryptor.password=ncsoft	#主密码(加密密码的密码)
+jasypt.encryptor.algorithm=PBEWithMD5AndDES	#加密算法
+jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptography Extension)
+

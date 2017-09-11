@@ -14,9 +14,6 @@ tasks.withType(JavaCompile) {
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
-bootRepackage  {
-    classifier = 'exec'
-}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

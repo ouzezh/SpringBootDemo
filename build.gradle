@@ -7,6 +7,12 @@ buildscript {
 	}
 }
 
+eclipse {
+  classpath {
+    downloadSources = false
+    downloadJavadoc = false
+  }
+}
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }

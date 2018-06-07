@@ -26,7 +26,7 @@ public class SampleController {
   }
 
   @RequestMapping(value = "/test/{id}", method = RequestMethod.GET)
-  public void testPathParam(@PathVariable Long id) {
-    log.debug(String.valueOf(id));
+  public String testPathParam(@PathVariable Long id) {
+    return "id=" + id;
   }
 }

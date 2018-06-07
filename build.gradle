@@ -3,7 +3,7 @@ buildscript {
 	    maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
     }
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:+")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin")
 	}
 }
 
@@ -27,9 +27,9 @@ jar {
 }
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web:+")
-	compile("ch.qos.logback:logback-classic:1.2.3")
-	testCompile("org.springframework.boot:spring-boot-devtools:+")//热部署
-    testCompile("org.springframework.boot:spring-boot-starter-test:+")
-    testCompile("junit:junit:+")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("ch.qos.logback:logback-classic")
+	testCompile("org.springframework.boot:spring-boot-devtools")//热部署
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("junit:junit")
 }

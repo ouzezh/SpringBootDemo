@@ -7,12 +7,6 @@ buildscript {
 	}
 }
 
-eclipse {
-  classpath {
-    downloadSources = false
-    downloadJavadoc = false
-  }
-}
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
@@ -33,10 +27,9 @@ jar {
 }
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
-	//providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    compile("ch.qos.logback:logback-classic:+")
-    //providedCompile
+	compile("org.springframework.boot:spring-boot-starter-web:+")
+	compile("ch.qos.logback:logback-classic:1.2.3")
+	testCompile("org.springframework.boot:spring-boot-devtools:+")//热部署
     testCompile("org.springframework.boot:spring-boot-starter-test:+")
     testCompile("junit:junit:+")
 }

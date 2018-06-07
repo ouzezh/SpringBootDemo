@@ -3,12 +3,11 @@ package com.ozz.springboot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 
 @EnableConfigurationProperties({Settings.class})
 @SpringBootApplication
-public class SampleApplication extends SpringBootServletInitializer {
+public class SampleApplication {
 
   private static ApplicationContext ctx;
 

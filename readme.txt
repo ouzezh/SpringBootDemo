@@ -15,3 +15,5 @@ jasypt.encryptor.password=ncsoft	#主密码(加密密码的密码)
 jasypt.encryptor.algorithm=PBEWithMD5AndDES	#加密算法
 jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptography Extension)
 
+4.热部署jar包
+testCompile("org.springframework.boot:spring-boot-devtools")

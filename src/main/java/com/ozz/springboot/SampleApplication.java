@@ -5,8 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 
-@EnableConfigurationProperties({Settings.class})
 @SpringBootApplication
+@EnableConfigurationProperties({Settings.class})
+//@ImportResource(locations={"classpath:spring-context.xml"})
 public class SampleApplication {
 
   private static ApplicationContext ctx;

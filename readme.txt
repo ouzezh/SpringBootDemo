@@ -17,3 +17,6 @@ jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptogra
 
 4.热部署jar包
 testCompile("org.springframework.boot:spring-boot-devtools")
+
+5.拦截器Interceptor
+	SampleHandlerInterceptor

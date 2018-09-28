@@ -19,4 +19,6 @@ jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptogra
 testCompile("org.springframework.boot:spring-boot-devtools")
 
 5.拦截器Interceptor
-	SampleHandlerInterceptor,SampleWebMvcConfigurer
+	SampleHandlerInterceptor,SampleConfiguration
+
+6.StringToDateConverter

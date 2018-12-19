@@ -27,10 +27,11 @@ jar {
 }
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web:+")
-	compile("ch.qos.logback:logback-classic:+")
-	compile("org.apache.commons:commons-lang3:+")
-	testCompile("org.springframework.boot:spring-boot-devtools:+")//热部署
-    testCompile("org.springframework.boot:spring-boot-starter-test:+")
-    testCompile("junit:junit:+")
+	implementation 'org.springframework.boot:spring-boot-starter-web:+'
+	implementation 'ch.qos.logback:logback-classic:+'
+	implementation 'org.apache.commons:commons-lang3:+'
+
+	testImplementation 'org.springframework.boot:spring-boot-devtools:+'//热部署
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:+'
+    testImplementation 'junit:junit:+'
 }

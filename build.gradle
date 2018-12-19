@@ -22,7 +22,7 @@ repositories {
 }
 
 jar {
-    baseName='SpringBootDemo'
+    baseName='target'
     version='0.1'
 }
 

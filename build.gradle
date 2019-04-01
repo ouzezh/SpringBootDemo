@@ -29,7 +29,7 @@ jar {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:+'
-	implementation 'ch.qos.logback:logback-classic:+'
+	implementation 'ch.qos.logback:logback-classic:1.2.3'
 	implementation 'org.apache.commons:commons-lang3:+'
 
 	testImplementation 'org.springframework.boot:spring-boot-devtools:+'//热部署

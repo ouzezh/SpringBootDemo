@@ -22,3 +22,6 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 	SampleHandlerInterceptor,SampleConfiguration
 
 6.StringToDateConverter
+
+7.ApplicationRunner
+	SampleApplicationRunner.run

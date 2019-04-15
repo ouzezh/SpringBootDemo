@@ -25,3 +25,7 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 
 7.ApplicationRunner
 	SampleApplicationRunner.run
+
+8.定时任务
+	@EnableScheduling
+	SampleSchedule

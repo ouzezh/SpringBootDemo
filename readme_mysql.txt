@@ -37,7 +37,7 @@ mybatis:
   mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.xdf.cdcadmin.model
   configuration:
-    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     mapUnderscoreToCamelCase: true
 
 三、定义接口，直接调用即可

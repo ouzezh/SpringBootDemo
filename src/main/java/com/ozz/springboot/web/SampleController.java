@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ozz.springboot.dao.SampleDao;
+import com.ozz.springboot.service.SampleDao;
 
 @RestController
 public class SampleController {

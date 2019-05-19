@@ -35,9 +35,12 @@ spring:
           max-pool-prepared-statement-per-connection-size: 20
 mybatis:
   mapper-locations: classpath*:mapping/*.xml
-  type-aliases-package: com.xdf.cdcadmin.model
+  type-aliases-package: com.ozz.springboot.model
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     mapUnderscoreToCamelCase: true
 
-三、定义接口，直接调用即可
+三、SampleApplication上添加注解
+@MapperScan("com.ozz.springboot.dao")
+
+四、定义接口，直接调用即可

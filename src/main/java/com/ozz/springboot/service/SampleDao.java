@@ -1,4 +1,4 @@
-package com.ozz.springboot.dao;
+package com.ozz.springboot.service;
 
 import java.util.HashMap;
 import java.util.Map;

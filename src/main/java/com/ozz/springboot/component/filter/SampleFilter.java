@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ozz.springboot.SampleApplication;
-import com.ozz.springboot.dao.SampleDao;
+import com.ozz.springboot.service.SampleDao;
 
 @Component
 public class SampleFilter implements Filter {

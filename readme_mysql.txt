@@ -1,8 +1,12 @@
 一、添加依赖
-  implementation 'mysql:mysql-connector-java:5.1.34'
-  implementation 'com.alibaba:druid-spring-boot-starter:1.1.16'
+  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:{version}'
+  implementation 'mysql:mysql-connector-java:{version}'
+  implementation 'com.alibaba:druid-spring-boot-starter:{version}'
 
-二、添加配置
+二、添加注解：SampleApplication.java
+@MapperScan("com.ozz.springboot.dao")
+
+三、添加配置：application.yml
 spring:
     datasource:
         name: mysql_test
@@ -39,8 +43,5 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     mapUnderscoreToCamelCase: true
-
-三、SampleApplication上添加注解
-@MapperScan("com.ozz.springboot.dao")
 
 四、定义接口，直接调用即可

@@ -1,14 +1,17 @@
 package com.ozz.springboot.component;
 
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ozz.springboot.component.converter.StringToDateConverter;
@@ -40,4 +43,13 @@ public class SampleConfiguration implements WebMvcConfigurer {
     }
   }
 
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**")// 允许跨域访问的路径
+            .allowedOrigins("*")
+            .allowedMethods("*")
+//            .exposedHeaders("header1", "header2")
+            .allowCredentials(true)
+            .maxAge(3600);
+  }
 }

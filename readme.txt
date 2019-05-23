@@ -29,3 +29,6 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 8.定时任务
 	@EnableScheduling
 	SampleSchedule
+
+9.跨域CROS
+  SampleConfiguration.addCorsMappings

@@ -30,7 +30,7 @@ spring:
           time-between-eviction-runs-millis: 60000
           #一个连接在池中最小生存的时间
           min-evictable-idle-time-millis: 300000
-          validation-query: SELECT 1
+          validation-query: SELECT 1 FROM DUAL
           test-while-idle: true
           test-on-borrow: false
           test-on-return: false

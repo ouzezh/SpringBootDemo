@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +28,7 @@ public class SampleController {
   private SampleDao dao;
 
   @RequestMapping(value = "/home_page")
-  public String homePage(String p) {
+  public String homePage() {
     return "welcome home";
   }
 
@@ -35,6 +36,11 @@ public class SampleController {
   public Map<String, String> test(String p) {
     log.debug("p=" + p);
     return dao.sevice(p);
+  }
+
+  @RequestMapping(value = "/test")
+  public Map<String, String> testMap(@RequestParam Map<String, String> map) {
+    return map;
   }
 
   @GetMapping(value = "/test/{id}")

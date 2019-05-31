@@ -42,7 +42,7 @@ public class SampleConfiguration implements WebMvcConfigurer {
   }
 
   /**
-   * HTTP请求参数格式转化
+   * HTTP请求参数格式转化:[]默认转为数组
    */
   @Bean
   public ObjectMapper objectMapper() {
@@ -52,7 +52,7 @@ public class SampleConfiguration implements WebMvcConfigurer {
   }
 
   /**
-   * HTTP请求参数格式转化
+   * HTTP请求参数格式转化:String->Date
    */
   @PostConstruct
   public void initWebBinding() {

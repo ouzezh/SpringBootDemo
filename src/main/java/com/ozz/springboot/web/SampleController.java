@@ -26,6 +26,11 @@ public class SampleController {
   @Autowired
   private SampleDao dao;
 
+  @RequestMapping(value = "/home_page")
+  public String homePage(String p) {
+    return "welcome home";
+  }
+
   @RequestMapping(value = "/test")
   public Map<String, String> test(String p) {
     log.debug("p=" + p);

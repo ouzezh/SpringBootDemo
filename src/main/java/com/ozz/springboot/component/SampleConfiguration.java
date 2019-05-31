@@ -5,10 +5,12 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -22,11 +24,26 @@ public class SampleConfiguration implements WebMvcConfigurer {
   @Autowired
   private RequestMappingHandlerAdapter handlerAdapter;
 
+  /**
+   * 设置首页
+   */
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/").setViewName("forward:/home_page");
+    registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+  }
+
+  /**
+   * 拦截器
+   */
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(new SampleHandlerInterceptor() {}).addPathPatterns("/**").excludePathPatterns("/xx/**");
   }
 
+  /**
+   * HTTP请求参数格式转化
+   */
   @Bean
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -34,6 +51,9 @@ public class SampleConfiguration implements WebMvcConfigurer {
     return objectMapper;
   }
 
+  /**
+   * HTTP请求参数格式转化
+   */
   @PostConstruct
   public void initWebBinding() {
     ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter.getWebBindingInitializer();
@@ -43,6 +63,9 @@ public class SampleConfiguration implements WebMvcConfigurer {
     }
   }
 
+  /**
+   * 允许跨域访问
+   */
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**")// 允许跨域访问的路径

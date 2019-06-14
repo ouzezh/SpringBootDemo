@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ozz.springboot.service.SampleDao;
 
 @RestController
-public class SampleController {
+public class SampleRestController {
   private Logger log = LoggerFactory.getLogger(getClass());
 
   @Autowired
@@ -38,7 +38,7 @@ public class SampleController {
     return dao.sevice(p);
   }
 
-  @RequestMapping(value = "/test")
+  @RequestMapping(value = "/test_map")
   public Map<String, String> testMap(@RequestParam Map<String, String> map) {
     return map;
   }

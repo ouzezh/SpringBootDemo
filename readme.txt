@@ -32,3 +32,8 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 
 9.跨域CROS
   SampleConfiguration.addCorsMappings
+
+10.thymeleaf
+build.gradle add spring-boot-starter-thymeleaf
+SampleMvcController add /greeting
+src/main/resources/templates/greeting.html

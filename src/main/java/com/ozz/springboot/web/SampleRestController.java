@@ -28,7 +28,7 @@ public class SampleRestController {
   private SampleDao dao;
 
   @RequestMapping(value = "/test")
-  public Map<String, String> test(String p) {
+  public Map<String, String> test(@RequestParam(required=true) String p) {
     log.debug("p=" + p);
     return dao.sevice(p);
   }

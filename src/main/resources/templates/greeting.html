@@ -7,6 +7,27 @@
 <!-- 	<script type="text/javascript" th:src="@{/bootstrap/js/jquery-3.3.1.js}"></script> -->
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+
+  <p th:text="'Hello, ' + ${name} + '! There are ' + ${#lists.size(books)} +' books.'" />
+  <br/>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${books.empty}">
+				<td colspan="2">No Books Available</td>
+			</tr>
+			<tr th:each="book : ${books}">
+				<td><span th:text="${book.title}"> Title </span></td>
+				<td><span th:text="${book.author}"> Author </span></td>
+			</tr>
+		</tbody>
+	</table>
+
 </body>
 </html>

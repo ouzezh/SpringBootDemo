@@ -32,6 +32,7 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 
 9.跨域CROS
   SampleConfiguration.addCorsMappings
+  SampleHandlerInterceptor,CorsInterceptor(旧版本配置)
 
 10.thymeleaf
 build.gradle add spring-boot-starter-thymeleaf

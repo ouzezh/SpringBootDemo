@@ -23,6 +23,8 @@ import com.ozz.springboot.component.interceptor.SampleHandlerInterceptor;
 public class SampleConfiguration implements WebMvcConfigurer {
   @Autowired
   private RequestMappingHandlerAdapter handlerAdapter;
+//  @Resource
+//  private CorsInterceptor corsInterceptor;
 
   /**
    * 设置首页
@@ -38,6 +40,7 @@ public class SampleConfiguration implements WebMvcConfigurer {
    */
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
+//    registry.addInterceptor(corsInterceptor);// 必须放在最前面
     registry.addInterceptor(new SampleHandlerInterceptor() {}).addPathPatterns("/**").excludePathPatterns("/xx/**");
   }
 
@@ -71,6 +74,7 @@ public class SampleConfiguration implements WebMvcConfigurer {
     registry.addMapping("/**")// 允许跨域访问的路径
             .allowedOrigins("*")
             .allowedMethods("*")
+            .allowedHeaders("*")
 //            .exposedHeaders("header1", "header2")
             .allowCredentials(true)
             .maxAge(3600);

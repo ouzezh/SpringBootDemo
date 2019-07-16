@@ -1,6 +1,7 @@
 package com.ozz.springboot.component.advice;
 
 import java.sql.SQLException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +19,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
   private final Logger log = LoggerFactory.getLogger(getClass());
 
-  @ExceptionHandler(value = {SQLException.class})
-  protected ResponseEntity<Object> handleConflict(SQLException ex, WebRequest request) {
+  @ExceptionHandler({SQLException.class})
+  protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Content-Type", "application/json;charset=UTF-8");
     return handleExceptionInternal(ex,
-                                   "系统错误,请联系管理员("+System.currentTimeMillis()+")",
-                                   new HttpHeaders(),
+                                   String.format("{\"status\": 500,\"message\": \"%s\"}", ex.getMessage()!=null?ex.getMessage():ex.getClass().getName()),
+                                   headers,
                                    HttpStatus.INTERNAL_SERVER_ERROR,
                                    request);
   }
@@ -30,10 +33,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   @Override
   protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
       HttpHeaders headers, HttpStatus status, WebRequest request) {
-    log.error(body==null?null:body.toString(), ex);
-    if(body==null && ex!=null) {
-      body = ex.toString();
-    }
+    log.error(null, ex);
     return super.handleExceptionInternal(ex, body, headers, status, request);
   }
 }

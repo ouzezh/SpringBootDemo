@@ -33,7 +33,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     log.error(null, ex);
     headers.add("Content-Type", "application/json;charset=UTF-8");
     Map<String, Object> map = new HashMap<>();
-    map.put("status", status.value());
     map.put("message", ex.getMessage()!=null?ex.getMessage():ex.getClass().getName());
     body = JsonUtil.toJson(map);
     return super.handleExceptionInternal(ex, body, headers, status, request);

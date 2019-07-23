@@ -38,3 +38,6 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 build.gradle add spring-boot-starter-thymeleaf
 SampleMvcController add /greeting
 src/main/resources/templates/greeting.html
+
+11.jasypt
+  application.properties  ENC(JavaUtils...JasyptUtil.encrypt)

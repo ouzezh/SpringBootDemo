@@ -10,12 +10,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableConfigurationProperties({Settings.class})
 @EnableScheduling
 //@ImportResource(locations={"classpath:spring-context.xml"})
-public class SampleApplication {
+public class SpringbootApp {
 
   private static ApplicationContext ctx;
 
   public static void main(String[] args) {
-    ctx = SpringApplication.run(SampleApplication.class, args);
+    ctx = SpringApplication.run(SpringbootApp.class, args);
   }
 
   public static ApplicationContext getApplicationContext() {

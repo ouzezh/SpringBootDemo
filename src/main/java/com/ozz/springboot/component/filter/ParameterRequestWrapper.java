@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class ParameterRequestWrapper extends HttpServletRequestWrapper {
   private Map params;
 
+  /**
+   * 包装http请求并添加参数
+   */
   public ParameterRequestWrapper(HttpServletRequest request, Map newParams) {
     super(request);
     this.params = newParams;

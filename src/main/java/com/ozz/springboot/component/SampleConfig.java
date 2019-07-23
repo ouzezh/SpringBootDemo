@@ -20,7 +20,7 @@ import com.ozz.springboot.component.converter.StringToDateConverter;
 import com.ozz.springboot.component.interceptor.SampleHandlerInterceptor;
 
 @Configuration
-public class SampleConfiguration implements WebMvcConfigurer {
+public class SampleConfig implements WebMvcConfigurer {
   @Autowired
   private RequestMappingHandlerAdapter handlerAdapter;
 //  @Resource

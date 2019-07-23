@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ozz.springboot.SampleApplication;
+import com.ozz.springboot.SpringbootApp;
 import com.ozz.springboot.service.SampleDao;
 
 @Component
@@ -32,7 +32,7 @@ public class SampleFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     log.debug("do SampleFilter");
     if (dao == null) {
-      dao = SampleApplication.getApplicationContext().getBean(SampleDao.class);
+      dao = SpringbootApp.getApplicationContext().getBean(SampleDao.class);
     }
 
     ParameterRequestWrapper w = setInfo(request);

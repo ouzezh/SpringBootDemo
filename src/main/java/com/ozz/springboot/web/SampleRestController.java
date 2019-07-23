@@ -53,7 +53,7 @@ public class SampleRestController {
   public void testDownload(HttpServletResponse response) {
     try {
       response.reset();
-      response.setContentType("application/octet-stream; charset=utf-8");// 需要改成对应的文件类型（restlet_client上传可以自动生成）
+      response.setContentType("application/vnd.ms-excel; charset=utf-8");// 需要改成对应的文件类型（restlet_client上传可以自动生成）
       response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("test.csv", "UTF-8"));
 
       PrintWriter out = response.getWriter();

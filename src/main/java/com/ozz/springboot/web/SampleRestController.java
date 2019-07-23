@@ -25,12 +25,12 @@ public class SampleRestController {
   private Logger log = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  private SampleDao dao;
+  private SampleDao sampleDao;
 
   @RequestMapping(value = "/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {
     log.debug("p=" + p);
-    return dao.sevice(p);
+    return sampleDao.sevice(p);
   }
 
   @RequestMapping(value = "/test_map")

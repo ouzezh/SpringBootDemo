@@ -23,6 +23,8 @@ import com.ozz.springboot.component.interceptor.SampleHandlerInterceptor;
 public class SampleConfig implements WebMvcConfigurer {
   @Autowired
   private RequestMappingHandlerAdapter handlerAdapter;
+  @Autowired
+  private SampleHandlerInterceptor sampleHandlerInterceptor;
 //  @Resource
 //  private CorsInterceptor corsInterceptor;
 
@@ -41,7 +43,7 @@ public class SampleConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
 //    registry.addInterceptor(corsInterceptor);// 必须放在最前面
-    registry.addInterceptor(new SampleHandlerInterceptor() {}).addPathPatterns("/**").excludePathPatterns("/xx/**");
+    registry.addInterceptor(sampleHandlerInterceptor).addPathPatterns("/**").excludePathPatterns("/xx/**");
   }
 
   /**

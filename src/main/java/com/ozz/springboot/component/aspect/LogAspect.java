@@ -24,7 +24,9 @@ public class LogAspect {
    * 第一个*代表返回类型不限，第二个*表示所有类，第三个*表示所有方法，..两个点表示方法里的参数不限
    */
   @Pointcut("execution(public * com.ozz.springboot.web.*.*(..))")
-  public void pointcut() {}
+  public void pointcut() {
+    log.debug("@Aspect:@Pointcut");
+  }
 
   @Before("pointcut()")
   public void before() {
@@ -47,10 +49,10 @@ public class LogAspect {
   }
 
   @Around("pointcut()")
-  public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-    log.debug("@Aspect:@Around before");
+  public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
+    log.debug("@Aspect:@Around@Pointcut begin");
     Object object = pjp.proceed();
-    log.debug("@Aspect:@Around after");
+    log.debug("@Aspect:@Around@Pointcut end");
     return object;
   }
 }

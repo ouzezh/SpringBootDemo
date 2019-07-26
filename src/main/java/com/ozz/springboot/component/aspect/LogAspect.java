@@ -25,7 +25,7 @@ public class LogAspect {
    */
   @Pointcut("execution(public * com.ozz.springboot.web.*.*(..))")
   public void pointcut() {
-    log.debug("@Aspect:@Pointcut");
+    // do nothing
   }
 
   @Before("pointcut()")

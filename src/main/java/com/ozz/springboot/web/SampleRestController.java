@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +20,11 @@ import com.ozz.springboot.service.SampleDao;
 
 @RestController
 public class SampleRestController {
-  private Logger log = LoggerFactory.getLogger(getClass());
-
   @Autowired
   private SampleDao sampleDao;
 
   @RequestMapping(value = "/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {
-    log.debug("p=" + p);
     return sampleDao.sevice(p);
   }
 

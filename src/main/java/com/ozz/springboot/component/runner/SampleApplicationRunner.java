@@ -24,6 +24,6 @@ public class SampleApplicationRunner implements ApplicationRunner {
    */
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    log.info("start SampleApplicationRunner: read config {}", settings.getSampleConfig());
+    log.info("start SampleApplicationRunner: read config: {}", settings.getSampleConfig());
   }
 }

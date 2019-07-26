@@ -24,7 +24,7 @@ public class AnnotationAspect {
     MethodSignature signature = (MethodSignature) pjp.getSignature();
     Method method = signature.getMethod();
     RequestMapping ann = method.getAnnotation(RequestMapping.class);
-    log.debug(String.format("@Aspect:@Around@annotation read field of annotation: %s", Arrays.toString(ann.value())));
+    log.debug(String.format("@Aspect:@Around@annotation read field of annotation: %s %s", method.getName(), Arrays.toString(ann.value())));
 
     Object object = pjp.proceed();
     log.debug("@Aspect:@Around@annotation end");

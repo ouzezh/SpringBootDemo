@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class LogAspect {
+public class PointcutAspect {
   private Logger log = LoggerFactory.getLogger(getClass());
 
   /**

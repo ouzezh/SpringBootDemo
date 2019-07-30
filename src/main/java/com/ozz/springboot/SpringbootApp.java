@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableConfigurationProperties({Settings.class})
 @EnableScheduling
-//@EnableTransactionManagement
 //@ImportResource(locations={"classpath:spring-context.xml"})
 public class SpringbootApp {
 

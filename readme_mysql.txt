@@ -45,5 +45,3 @@ mybatis:
     mapUnderscoreToCamelCase: true
 
 四、定义接口，直接调用即可
-
-五、如需开启事务，在service方法上使用  @Transactional注解

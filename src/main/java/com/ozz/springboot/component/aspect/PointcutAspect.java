@@ -21,9 +21,9 @@ public class PointcutAspect {
   private Logger log = LoggerFactory.getLogger(getClass());
 
   /**
-   * 第一个*代表返回类型不限，第二个*表示所有类，第三个*表示所有方法，..两个点表示方法里的参数不限
+   * 第一个*代表返回类型不限，第二个*表示所有类，第三个*表示所有方法，第一个..表示当前包及子包，第二个..点表示方法里的参数不限
    */
-  @Pointcut("execution(public * com.ozz.springboot.web.*.*(..))")
+  @Pointcut("execution(public * com.ozz.springboot.web..*.*(..))")
   public void pointcut() {
     // do nothing
   }

@@ -41,3 +41,7 @@ src/main/resources/templates/greeting.html
 
 11.jasypt
   application.properties  ENC(JavaUtils...JasyptUtil.encrypt)
+
+12.aspect
+  AnnotationAspect
+  PointcutAspect

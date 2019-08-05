@@ -23,28 +23,28 @@ public class SampleRestController {
   @Autowired
   private SampleDao sampleDao;
 
-  @RequestMapping(value = "/test")
+  @RequestMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {
     return sampleDao.sevice(p);
   }
 
-  @RequestMapping(value = "/test_map")
+  @RequestMapping(value = "/v1/test_map")
   public Map<String, String> testMap(@RequestParam Map<String, String> map) {
     return map;
   }
 
-  @GetMapping(value = "/test/{id}")
+  @GetMapping(value = "/v1/test/{id}")
   public String testPathParam(@PathVariable Long id) {
     return "id=" + id;
   }
 
-  @RequestMapping(value = "/test/upload")
+  @RequestMapping(value = "/v1/test/upload")
   public void testUpload(MultipartFile file) {
     System.out.println(file.getName());
     System.out.println(file.getSize());
   }
 
-  @RequestMapping(value = "/test/download")
+  @RequestMapping(value = "/v1/test/download")
   public void testDownload(HttpServletResponse response) {
     try {
       response.reset();

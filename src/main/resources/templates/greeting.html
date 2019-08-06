@@ -19,17 +19,19 @@
 	<table border="1">
 		<thead>
 			<tr>
+			  <th>index</th>
 				<th>Title</th>
 				<th>Author</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:if="${books.empty}">
-				<td colspan="2">No Books Available</td>
+				<td colspan="3">No Books Available</td>
 			</tr>
-			<tr th:each="book : ${books}">
-				<td><span th:text="${book.title}"> Title </span></td>
-				<td><span th:text="${book.author}"> Author </span></td>
+			<tr th:each="book,status : ${books}">
+			  <td th:text="${status.index}"></td>
+				<td th:text="${book.title}"></td>
+				<td><span th:text="${book.author}"/></td>
 			</tr>
 		</tbody>
 	</table>

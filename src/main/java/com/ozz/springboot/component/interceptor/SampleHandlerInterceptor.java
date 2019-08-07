@@ -14,11 +14,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class SampleHandlerInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    System.out.println("spring拦截器：preHandle");
+    System.out.println(String.format("%s.preHandle(): contextPath=%s, requestURI=%s", getClass().getSimpleName(), request.getContextPath(), request.getRequestURI()));
     return true;
   }
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
-    System.out.println("spring拦截器：afterCompletion");
+    System.out.println(String.format("%s.afterCompletion(): contextPath=%s, requestURI=%s", getClass().getSimpleName(), request.getContextPath(), request.getRequestURI()));
   }
 }

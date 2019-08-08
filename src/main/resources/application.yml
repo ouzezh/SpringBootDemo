@@ -7,16 +7,14 @@
 spring:
     jackson:
         date-format: yyyy-MM-dd HH:mm:ss
+    thymeleaf:
+        #开发配置为false,避免修改模板还要重启服务器
+        cache: false
 
 #加密密钥
 jasypt:
     encryptor:
         password: 2BTRS4Q6cmDsXOvquQq0qmjWtqvKnHEW
-
-spring:
-  thymeleaf:
-    #开发配置为false,避免修改模板还要重启服务器
-    cache: false
 
 #应用配置文件
 ozz:

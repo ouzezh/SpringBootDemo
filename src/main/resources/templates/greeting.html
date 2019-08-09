@@ -31,7 +31,7 @@
 			<tr th:each="book,status : ${books}">
 			  <td th:text="${status.index}"></td>
 				<td th:text="${book.title}"></td>
-				<td><span th:text="${book.author}"/></td>
+				<td><span th:if="${book.author!=null and book.author!=''}" th:text="${book.author}"/></td>
 			</tr>
 		</tbody>
 	</table>

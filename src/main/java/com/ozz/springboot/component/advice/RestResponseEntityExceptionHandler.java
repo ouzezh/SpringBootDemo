@@ -1,11 +1,10 @@
 package com.ozz.springboot.component.advice;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,17 +23,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
   @ExceptionHandler({Exception.class})
   protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
-    return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-  }
-
-  @Override
-  protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
-      HttpHeaders headers, HttpStatus status, WebRequest request) {
     log.error(null, ex);
-    headers.add("Content-Type", "application/json;charset=UTF-8");
-    Map<String, Object> map = new HashMap<>();
-    map.put("message", ex.getMessage()!=null?ex.getMessage():ex.getClass().getName());
-    body = JsonUtil.toJson(map);
-    return super.handleExceptionInternal(ex, body, headers, status, request);
+    Map<String, Object> map = Collections.singletonMap("message", ex.getMessage()!=null?ex.getMessage():ex.getClass().getName());
+    return new ResponseEntity<>(JsonUtil.toJson(map), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

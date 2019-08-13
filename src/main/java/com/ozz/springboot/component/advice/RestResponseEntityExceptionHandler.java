@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -24,7 +26,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   @ExceptionHandler({Exception.class})
   protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
     log.error(null, ex);
-    Map<String, Object> map = Collections.singletonMap("message", ex.getMessage()!=null?ex.getMessage():ex.getClass().getName());
-    return new ResponseEntity<>(JsonUtil.toJson(map), HttpStatus.INTERNAL_SERVER_ERROR);
+    Map<String, Object> map = Collections.singletonMap("message", ex.getMessage() != null ? ex.getMessage() : ex.getClass().getName());
+    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.add("Content-Type", "application/json");
+    return new ResponseEntity<>(JsonUtil.toJson(map), headers, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

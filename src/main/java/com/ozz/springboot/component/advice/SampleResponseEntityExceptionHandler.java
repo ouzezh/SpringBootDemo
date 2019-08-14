@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.ozz.springboot.util.JsonUtil;
 
 @ControllerAdvice(basePackages = "com.ozz.springboot.web")
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class SampleResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
   private final Logger log = LoggerFactory.getLogger(getClass());
 
   @ExceptionHandler({Exception.class})

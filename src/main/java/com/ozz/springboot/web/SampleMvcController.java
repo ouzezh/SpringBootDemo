@@ -29,6 +29,12 @@ public class SampleMvcController {
             put("author", "a2");
           }
         });
+        add(new HashMap<String, String>() {
+          {
+            put("title", "");
+            put("author", "");
+          }
+        });
       }
     });
     return "greeting";

@@ -29,8 +29,8 @@
 				<td colspan="3">No Books Available</td>
 			</tr>
 			<tr th:each="book,status : ${books}">
-			  <td th:text="${status.index}"></td>
-				<td th:text="${book.title}"></td>
+			  <td th:text="${status.index+1}"></td>
+				<td th:text="${book.title!=null and book.title!='' ? book.title : 'unknow'}"></td>
 				<td><span th:if="${book.author!=null and book.author!=''}" th:text="${book.author}"/></td>
 			</tr>
 		</tbody>

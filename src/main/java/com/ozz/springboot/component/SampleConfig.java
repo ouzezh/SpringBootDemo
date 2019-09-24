@@ -1,6 +1,7 @@
 package com.ozz.springboot.component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -80,5 +81,10 @@ public class SampleConfig implements WebMvcConfigurer {
 //            .exposedHeaders("header1", "header2")
             .allowCredentials(true)
             .maxAge(3600);
+  }
+
+  @PreDestroy
+  public void destroy() {
+    System.out.println("Callback triggered - @PreDestroy.");
   }
 }

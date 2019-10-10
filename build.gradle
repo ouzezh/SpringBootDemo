@@ -1,30 +1,24 @@
 plugins {
-  id 'org.springframework.boot' version '2.1.6.RELEASE'
+  id 'org.springframework.boot' version '2.1.9.RELEASE'
+  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
   id 'java'
   id 'war'
 }
 
-apply plugin: 'io.spring.dependency-management'
-
-group = 'com.ozz.springboot'
+group = 'com.ozz'
 version = '0.1'
 sourceCompatibility = '1.8'
 
-configurations {
-  developmentOnly
-  runtimeClasspath {
-    extendsFrom developmentOnly
-  }
-}
-
 repositories {
-  mavenLocal()
-  maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
-  mavenCentral()
+    mavenLocal()
+    maven { url "http://testnexuslib.staff.xdf.cn:8081/nexus/content/repositories/central" }
+    maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
+    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web:+'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:+'
 	implementation 'com.google.guava:guava:+'
 	implementation 'ch.qos.logback:logback-classic:1.2.3'
@@ -33,7 +27,7 @@ dependencies {
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
 	implementation 'org.springframework.boot:spring-boot-starter-aop:+'
 
-	testImplementation 'org.springframework.boot:spring-boot-devtools:+'//热部署
-  testImplementation 'org.springframework.boot:spring-boot-starter-test:+'
+	testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'junit:junit:+'
 }

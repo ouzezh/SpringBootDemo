@@ -1,8 +1,8 @@
 plugins {
-  id 'org.springframework.boot' version '2.1.9.RELEASE'
-  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-  id 'java'
-  id 'war'
+    id 'org.springframework.boot' version '2.1.9.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'war'
 }
 
 group = 'com.ozz'
@@ -18,16 +18,16 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:+'
-	implementation 'com.google.guava:guava:+'
-	implementation 'ch.qos.logback:logback-classic:1.2.3'
-	implementation 'org.apache.commons:commons-lang3:+'
-	implementation 'org.apache.commons:commons-csv:+'
-	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
-	implementation 'org.springframework.boot:spring-boot-starter-aop:+'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:+'
+    implementation 'com.google.guava:guava:+'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.apache.commons:commons-lang3:+'
+    implementation 'org.apache.commons:commons-csv:+'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:+'
 
-	testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  testImplementation 'junit:junit:+'
+    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'junit:junit:+'
 }

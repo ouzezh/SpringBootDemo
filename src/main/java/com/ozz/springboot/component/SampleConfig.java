@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,6 +24,7 @@ import com.ozz.springboot.component.interceptor.SampleHandlerInterceptor;
 
 @Configuration
 public class SampleConfig implements WebMvcConfigurer {
+
   @Autowired
   private RequestMappingHandlerAdapter handlerAdapter;
   @Autowired
@@ -44,7 +47,8 @@ public class SampleConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
 //    registry.addInterceptor(corsInterceptor);// 必须放在最前面
-    registry.addInterceptor(sampleHandlerInterceptor).addPathPatterns("/**").excludePathPatterns("/xx/**");
+    registry.addInterceptor(sampleHandlerInterceptor).addPathPatterns("/**")
+        .excludePathPatterns("/xx/**");
   }
 
   /**
@@ -62,25 +66,32 @@ public class SampleConfig implements WebMvcConfigurer {
    */
   @PostConstruct
   public void initWebBinding() {
-    ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter.getWebBindingInitializer();
+    ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter
+        .getWebBindingInitializer();
     if (initializer.getConversionService() != null) {
-      GenericConversionService genericConversionService = (GenericConversionService) initializer.getConversionService();
+      GenericConversionService genericConversionService = (GenericConversionService) initializer
+          .getConversionService();
       genericConversionService.addConverter(new StringToDateConverter());
     }
   }
 
-  /**
-   * 允许跨域访问
-   */
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**")// 允许跨域访问的路径
-            .allowedOrigins("*")
-            .allowedMethods("*")
-            .allowedHeaders("*")
-//            .exposedHeaders("header1", "header2")
-            .allowCredentials(true)
-            .maxAge(3600);
+  private CorsConfiguration buildCorsConfiguration() {
+    CorsConfiguration corsConfiguration = new CorsConfiguration();
+
+    corsConfiguration.addAllowedOrigin("http://localhost:8080");
+    corsConfiguration.addAllowedOrigin("http://localhost");
+
+    corsConfiguration.addAllowedHeader("*");
+    corsConfiguration.addAllowedMethod("*");
+    corsConfiguration.setAllowCredentials(true);
+    return corsConfiguration;
+  }
+
+  @Bean
+  public CorsFilter corsFilter() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", buildCorsConfiguration());
+    return new CorsFilter(source);
   }
 
   @PreDestroy

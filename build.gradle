@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:+'
     implementation 'org.apache.commons:commons-csv:+'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
+    implementation 'com.alibaba:fastjson:+'
 
     testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

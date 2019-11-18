@@ -45,16 +45,15 @@ public class SampleFilter implements Filter {
 
   public void destroy() {}
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
   private ParameterRequestWrapper setInfo(ServletRequest request) {
     try {
-      if (!(request instanceof HttpServletRequest)) {
-        return null;
+      if (request instanceof HttpServletRequest && "application/x-www-form-urlencoded".equals(request.getContentType())) {
+        HashMap<String, String[]> m = new HashMap(request.getParameterMap());
+        m.put("sampleAutosetParam", new String[] {"test"});
+        ParameterRequestWrapper wrapRequest = new ParameterRequestWrapper((HttpServletRequest) request, m);
+        return wrapRequest;
       }
-      HashMap<String, String[]> m = new HashMap(request.getParameterMap());
-      m.put("sampleAutosetParam", new String[] {"test"});
-      ParameterRequestWrapper wrapRequest = new ParameterRequestWrapper((HttpServletRequest) request, m);
-      return wrapRequest;
+      return null;
     } catch (Exception e) {
       log.error(null, e);
       return null;

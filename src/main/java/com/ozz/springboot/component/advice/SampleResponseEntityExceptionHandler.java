@@ -1,5 +1,6 @@
 package com.ozz.springboot.component.advice;
 
+import com.alibaba.fastjson.JSON;
 import java.util.Collections;
 
 import org.apache.commons.lang3.StringUtils;
@@ -7,14 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import com.ozz.springboot.util.JsonUtil;
 
 @ControllerAdvice(basePackages = "com.ozz.springboot.web")
 public class SampleResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -34,8 +34,8 @@ public class SampleResponseEntityExceptionHandler extends ResponseEntityExceptio
     log.error(body == null ? null : body.toString(), ex);
 
     if (body == null) {
-      body = JsonUtil.toJson(Collections.singletonMap("message", StringUtils.isNotEmpty(ex.getMessage()) ? ex.getMessage() : ex.getClass().getName()));
-      headers.add("Content-Type", "application/json");
+      body = JSON.toJSONString(Collections.singletonMap("message", StringUtils.isNotEmpty(ex.getMessage()) ? ex.getMessage() : ex.getClass().getName()));
+      headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
     }
 
     return super.handleExceptionInternal(ex, body, headers, status, request);

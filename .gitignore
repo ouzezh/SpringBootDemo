@@ -15,11 +15,12 @@ hs_err_pid*
 /.classpath
 /.project
 /.gradle/
-/gradle/
 /bin/
 /logs/
 
-/.idea/
+/gradle/
 /gradlew
 /gradlew.bat
+
+/.idea/
 **/rebel.xml

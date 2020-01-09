@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.9.RELEASE'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'war'
@@ -11,7 +11,7 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenLocal()
-    maven { url "http://testnexuslib.staff.xdf.cn:8081/nexus/content/repositories/central" }
+    //maven { url "http://testnexuslib.staff.xdf.cn:8081/nexus/content/repositories/central" }
     maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
     mavenCentral()
     jcenter()
@@ -19,16 +19,24 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
+
     implementation 'com.google.guava:guava:+'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'org.apache.commons:commons-lang3:+'
     implementation 'org.apache.commons:commons-csv:+'
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
     implementation 'com.alibaba:fastjson:+'
+}
 
-    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'junit:junit:+'
+test {
+    useJUnitPlatform()
 }

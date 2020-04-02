@@ -22,4 +22,8 @@ public class SpringUtils implements ApplicationContextAware {
     public static <T> T getBean(String beanName) {
         return (T) applicationContext.getBean(beanName);
     }
+
+    public String[] getActiveProfiles() {
+        return applicationContext.getEnvironment().getActiveProfiles();
+    }
 }

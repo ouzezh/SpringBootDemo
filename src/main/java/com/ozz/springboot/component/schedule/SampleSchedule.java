@@ -21,16 +21,27 @@ public class SampleSchedule {
   /**
    * 固定时间间隔执行，单位：毫秒
    */
-  @Scheduled(fixedDelay = 60000)
+  @Scheduled(fixedDelay = 5)
   public void schedule() {
-    log.info(String.format("schedule run %d at %s, readConfig: %s", ++scheduleCount,
-        DateFormatUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"),
+    log.info(String.format("execute s1 %s start, readConfig: %s", Thread.currentThread().getName(),
         env.getProperty("ozz.sampleConfig")));
+    try {
+      Thread.sleep(60000);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    log.info(String.format("execute s1 %s end", Thread.currentThread().getName()));
   }
 
-//  @Async("xxx")
-  @Scheduled(cron = "5 * * * * ?")
+  @Async("asyncTaskExecutor")
+  @Scheduled(cron = "0/5 * * * * ?")
   public void asyncSchedule() {
-    log.info("execute " + Thread.currentThread().getName());
+    log.info(String.format("execute a1 %s start", Thread.currentThread().getName()));
+    try {
+      Thread.sleep(20000);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    log.info(String.format("execute a1 %s end", Thread.currentThread().getName()));
   }
 }

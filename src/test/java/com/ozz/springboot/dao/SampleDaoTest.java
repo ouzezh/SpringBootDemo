@@ -1,22 +1,29 @@
 package com.ozz.springboot.dao;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.ozz.springboot.service.SampleDao;
+import org.jasypt.encryption.StringEncryptor;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ozz.springboot.service.SampleDao;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class SampleDaoTest {
+
   @Autowired
   SampleDao dao;
+
+  @Autowired
+  StringEncryptor stringEncryptor;
 
   @Test
   public void testService() {
     System.out.println(dao.sevice("p"));
   }
 
+  @Test
+  public void testEncryptPwd() {
+    String result = stringEncryptor.encrypt("Hello, World!");
+    String str = stringEncryptor.decrypt(result);
+    System.out.println(String.format("%s -> %s", result, str));
+  }
 }

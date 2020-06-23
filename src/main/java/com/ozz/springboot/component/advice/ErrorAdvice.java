@@ -30,7 +30,8 @@ public class ErrorAdvice {
   @ExceptionHandler({Exception.class})
   @ResponseBody
   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-  public Map<String, Object> httpStatusHandler(Exception e) {
+  public Map<String, Object> httpStatusHandler(HttpServletResponse response, Exception e) {
+//    throw HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "认证失败", null, null, null);
     return Collections.singletonMap("message", StringUtils.isNotEmpty(e.getMessage()) ? e.getMessage() : e.getClass().getName());
   }
 }

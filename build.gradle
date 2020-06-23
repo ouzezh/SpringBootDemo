@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 	id 'war'
@@ -11,7 +11,7 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenLocal()
-    //maven { url "http://testnexuslib.staff.xdf.cn:8081/nexus/content/repositories/central" }
+    maven { url "http://nexus.staff.xdf.cn/repository/public" }
     maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
     mavenCentral()
     jcenter()

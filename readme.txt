@@ -19,23 +19,23 @@ jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptogra
 testCompile("org.springframework.boot:spring-boot-devtools")
 
 5.拦截器Interceptor
-	SampleHandlerInterceptor,SampleConfiguration
+	MyHandlerInterceptor,MyConfig
 
 6.StringToDateConverter
 
 7.ApplicationRunner
-	SampleApplicationRunner.run
+	MyApplicationRunner.run
 
 8.定时任务
 	@EnableScheduling
-	SampleSchedule
+	MySchedule
 
 9.跨域CROS
-  SampleConfig.corsFilter
+  MyConfig.corsFilter
 
 10.thymeleaf
 build.gradle add spring-boot-starter-thymeleaf
-SampleMvcController add /greeting
+MyMvcController add /greeting
 src/main/resources/templates/greeting.html
 
 11.jasypt

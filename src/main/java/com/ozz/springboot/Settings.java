@@ -4,13 +4,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "ozz")
 public class Settings {
-  private String sampleConfig;
+  private String myConfig;
 
-  public String getSampleConfig() {
-    return sampleConfig;
+  public String getMyConfig() {
+    return myConfig;
   }
-  public void setSampleConfig(String sampleConfig) {
-    this.sampleConfig = sampleConfig;
+  public void setMyConfig(String myConfig) {
+    this.myConfig = myConfig;
   }
 
 }

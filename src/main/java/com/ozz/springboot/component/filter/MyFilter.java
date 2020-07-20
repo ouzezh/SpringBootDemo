@@ -17,22 +17,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ozz.springboot.SpringbootApp;
-import com.ozz.springboot.service.SampleDao;
+import com.ozz.springboot.service.MyDao;
 
 @Component
-public class SampleFilter implements Filter {
+public class MyFilter implements Filter {
 
   private Logger log = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  private SampleDao dao;
+  private MyDao dao;
 
   public void init(FilterConfig filterConfig) throws ServletException {}
 
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    log.debug("do SampleFilter");
+    log.debug("do myFilter");
     if (dao == null) {
-      dao = SpringbootApp.getApplicationContext().getBean(SampleDao.class);
+      dao = SpringbootApp.getApplicationContext().getBean(MyDao.class);
     }
 
     ParameterRequestWrapper w = setInfo(request);
@@ -49,7 +49,7 @@ public class SampleFilter implements Filter {
     try {
       if (request instanceof HttpServletRequest && "application/x-www-form-urlencoded".equals(request.getContentType())) {
         HashMap<String, String[]> m = new HashMap(request.getParameterMap());
-        m.put("sampleAutosetParam", new String[] {"test"});
+        m.put("myAutoSetParam", new String[] {"test"});
         ParameterRequestWrapper wrapRequest = new ParameterRequestWrapper((HttpServletRequest) request, m);
         return wrapRequest;
       }

@@ -1,16 +1,16 @@
 package com.ozz.springboot.dao;
 
-import com.ozz.springboot.service.SampleDao;
+import com.ozz.springboot.service.MyDao;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class SampleDaoTest {
+public class MyDaoTest {
 
   @Autowired
-  SampleDao dao;
+  MyDao dao;
 
   @Autowired
   StringEncryptor stringEncryptor;

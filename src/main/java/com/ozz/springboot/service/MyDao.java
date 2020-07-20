@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SampleDao {
+public class MyDao {
   private Logger log = LoggerFactory.getLogger(getClass());
 
-  @Value("${ozz.sampleConfig}")
-  private String sampleConfig;
+  @Value("${ozz.myConfig}")
+  private String myConfig;
 
   public Map<String, String> sevice(String p) {
-    log.debug("test sample dao service");
+    log.debug("test myDao service");
     Map<String, String> map = new HashMap<>();
     map.put("p", p);
-    map.put("config", sampleConfig);
+    map.put("config", myConfig);
     return map;
   }
 }

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.ozz.springboot.component.converter.StringToDateConverter;
-import com.ozz.springboot.component.interceptor.SampleHandlerInterceptor;
+import com.ozz.springboot.component.interceptor.MyHandlerInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -27,12 +27,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @Configuration
-public class SampleConfig implements WebMvcConfigurer {
+public class MyConfig implements WebMvcConfigurer {
 
   @Autowired
   private RequestMappingHandlerAdapter handlerAdapter;
   @Autowired
-  private SampleHandlerInterceptor sampleHandlerInterceptor;
+  private MyHandlerInterceptor myHandlerInterceptor;
 //  @Resource
 //  private CorsInterceptor corsInterceptor;
 
@@ -51,7 +51,7 @@ public class SampleConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
 //    registry.addInterceptor(corsInterceptor);// 必须放在最前面
-    registry.addInterceptor(sampleHandlerInterceptor).addPathPatterns("/**")
+    registry.addInterceptor(myHandlerInterceptor).addPathPatterns("/**")
         .excludePathPatterns("/xx/**");
   }
 

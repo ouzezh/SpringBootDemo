@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SampleSchedule {
+public class MySchedule {
 
   private Logger log = LoggerFactory.getLogger(getClass());
   private static volatile int scheduleCount = 0;
@@ -24,7 +24,7 @@ public class SampleSchedule {
   @Scheduled(fixedDelay = 5)
   public void schedule() {
     log.info(String.format("execute s1 %s start, readConfig: %s", Thread.currentThread().getName(),
-        env.getProperty("ozz.sampleConfig")));
+        env.getProperty("ozz.myConfig")));
     try {
       Thread.sleep(60000);
     } catch (InterruptedException e) {

@@ -1,8 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id 'war'
 }
 
 group = 'com.ozz'
@@ -12,31 +11,31 @@ sourceCompatibility = '1.8'
 repositories {
     mavenLocal()
     maven { url "http://nexus.staff.xdf.cn/repository/public" }
-    maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
+    maven { url "https://maven.aliyun.com/repository/public" }
     mavenCentral()
     jcenter()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 
     testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
 
-    implementation 'com.google.guava:guava:+'
+    implementation 'com.google.guava:guava:29.0-jre'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'org.apache.commons:commons-lang3:+'
-    implementation 'org.apache.commons:commons-csv:+'
-    implementation 'com.alibaba:fastjson:+'
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-csv:1.8'
+    implementation 'com.alibaba:fastjson:1.2.73'
 }
 
+
 test {
-    useJUnitPlatform()
+	useJUnitPlatform()
 }

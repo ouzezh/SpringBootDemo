@@ -88,8 +88,6 @@ public class MyConfig implements WebMvcConfigurer {
 //        SerializerFeature.WriteMapNullValue,        // 是否输出值为null的字段,默认为false,我们将它打开
 //        SerializerFeature.WriteNullListAsEmpty,     // 将Collection类型字段的字段空值输出为[]
 //        SerializerFeature.WriteNullStringAsEmpty,   // 将字符串类型字段的空值输出为空字符串
-//        SerializerFeature.WriteNullNumberAsZero,    // 将数值类型字段的空值输出为0
-//        SerializerFeature.WriteDateUseDateFormat,
         SerializerFeature.DisableCircularReferenceDetect    // 禁用循环引用
     );
     fastJsonHttpMessageConverter.setFastJsonConfig(config);

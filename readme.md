@@ -1,49 +1,53 @@
-更新日志：
-
-1.添加对jsonp支持
+## 添加对jsonp支持
 	JsonpResponseBodyAdvice
 
-2.添加异常处理：防止SQL信息输出到页面
+## 添加异常处理：防止SQL信息输出到页面
 	RestResponseEntityExceptionHandler
 
-3.添加jasypt加密
---添加jar
+## 添加jasypt加密
+- 添加依赖
+
 com.github.ulisesbocchio:jasypt-spring-boot-starter:1.12
---properties中修改配置
-security.password=ENC(gGPAnX2MZmxKsqLkz4Ns8RiJjGJie1FTlWWi2JqCtGg=)	#密码密文
-jasypt.encryptor.password=ncsoft	#主密码(加密密码的密码)
+
+- properties中修改配置
+```
+security.password=ENC(encoded_password)	#密码密文
+jasypt.encryptor.password=	#主密码(加密密码的密码)
 jasypt.encryptor.algorithm=PBEWithMD5AndDES	#加密算法
 jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptography Extension)
+```
+- 手动加密、解密文件
 
-4.热部署jar包
+@Autowired StringEncryptor
+
+## 热部署jar包
 testCompile("org.springframework.boot:spring-boot-devtools")
 
-5.拦截器Interceptor
+## 拦截器Interceptor
 	MyHandlerInterceptor,MyConfig
 
-6.StringToDateConverter
+## StringToDateConverter
 
-7.ApplicationRunner
+## ApplicationRunner
 	MyApplicationRunner.run
 
-8.定时任务
+## 定时任务
 	@EnableScheduling
 	MySchedule
 
-9.跨域CROS
+## 跨域CROS
   MyConfig.corsFilter
 
-10.thymeleaf
+## thymeleaf
+```
 build.gradle add spring-boot-starter-thymeleaf
 MyMvcController add /greeting
 src/main/resources/templates/greeting.html
+```
 
-11.jasypt
-  application.properties  ENC(JavaUtils...JasyptUtil.encrypt)
-
-12.aspect
+## aspect
   AnnotationAspect
   PointcutAspect
 
-13.Spring应用上下文环境
+## Spring应用上下文环境
   SpringUtils

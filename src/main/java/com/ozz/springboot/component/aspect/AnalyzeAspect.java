@@ -39,10 +39,6 @@ public class AnalyzeAspect {
   ThreadLocal<Map<String, MutablePair<Integer, MutablePair<Integer, Long>>>> sumTime = new ThreadLocal<>();//<key,<timestamp,<count,time>>>
   ThreadLocal<AtomicInteger> invokeOrder = new ThreadLocal<>();
 
-  public static void main(String[] args) {
-    AtomicInteger at = new AtomicInteger(0);
-    System.out.println(at.incrementAndGet());
-  }
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
     MethodSignature signature = (MethodSignature) pjp.getSignature();

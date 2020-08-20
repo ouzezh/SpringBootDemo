@@ -30,7 +30,7 @@ public class AnalyzeAspect {
 
   private Logger log = LoggerFactory.getLogger(getClass());
 
-  @Pointcut("execution(public * cn.xdf.ucan.payroll..*.*(..))")
+  @Pointcut("execution(public * com.ozz.springboot..*.*(..))")
   public void pointcut() {
     // do nothing
   }

@@ -1,10 +1,10 @@
-package com.ozz.springboot.component;
+package com.ozz.springboot.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.ozz.springboot.component.converter.StringToDateConverter;
-import com.ozz.springboot.component.interceptor.MyHandlerInterceptor;
+import com.ozz.springboot.config.converter.StringToDateConverter;
+import com.ozz.springboot.config.interceptor.MyHandlerInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

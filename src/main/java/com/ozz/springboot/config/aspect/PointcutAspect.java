@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.aspect;
+package com.ozz.springboot.config.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;

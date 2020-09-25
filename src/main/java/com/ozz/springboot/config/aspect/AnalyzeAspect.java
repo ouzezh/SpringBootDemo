@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.aspect;
+package com.ozz.springboot.config.aspect;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.filter;
+package com.ozz.springboot.config.filter;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.converter;
+package com.ozz.springboot.config.converter;
 
 import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;

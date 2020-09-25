@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.runner;
+package com.ozz.springboot.config.runner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

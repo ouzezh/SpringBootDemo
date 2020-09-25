@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.interceptor;
+package com.ozz.springboot.config.interceptor;
 
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.schedule;
+package com.ozz.springboot.config.schedule;
 
 import java.util.concurrent.ThreadPoolExecutor;
 import org.springframework.context.annotation.Bean;

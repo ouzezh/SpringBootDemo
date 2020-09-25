@@ -1,4 +1,4 @@
-package com.ozz.springboot.component.context;
+package com.ozz.springboot.config.context;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

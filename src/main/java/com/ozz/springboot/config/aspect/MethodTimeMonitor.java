@@ -27,9 +27,6 @@ public class MethodTimeMonitor {
 
   public static List<Pair<String, Long>> timeLimit;
 
-  public static void main(String[] args) {
-    System.out.println(MethodTimeMonitor.timeLimit);
-  }
   static {
     timeLimit = new ArrayList<Pair<String, Long>>() {{
       add(Pair.of("com.ozz.springboot", 3000L));
@@ -95,7 +92,7 @@ public class MethodTimeMonitor {
         String res = sumInfo.entrySet().stream()
             .map(item -> String.format("%s: %s, %s", item.getKey(), item.getValue().getLeft(), item.getValue().getRight()))
             .collect(Collectors.joining("\n"));
-        System.out.printf("==>\n%s\n<==", res);
+        System.out.printf("==>\n%s\n<==\n", res);
       }
     }
     return object;

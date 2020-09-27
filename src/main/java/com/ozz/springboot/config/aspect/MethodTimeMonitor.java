@@ -41,7 +41,6 @@ public class MethodTimeMonitor {
 
   @Pointcut("execution(public * com.ozz.springboot..*.*(..))")
   public void pointcut() {
-    // do nothing
   }
 
   @Around("pointcut()")

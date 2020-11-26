@@ -15,9 +15,9 @@ spring:
     servlet:
         multipart:
             # 单个文件限制
-            max-file-size: 300MB
+            max-file-size: 10MB
             # 最大请求文件限制
-            max-request-size: 500MB
+            max-request-size: 15MB
 
 #加密密钥
 jasypt:

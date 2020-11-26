@@ -12,6 +12,13 @@ spring:
         #开发配置为false,避免修改模板还要重启服务器
         cache: false
 
+    servlet:
+        multipart:
+            # 单个文件限制
+            max-file-size: 300MB
+            # 最大请求文件限制
+            max-request-size: 500MB
+
 #加密密钥
 jasypt:
     encryptor:

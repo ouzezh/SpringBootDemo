@@ -1,8 +1,9 @@
 package com.ozz.springboot.config.filter;
 
+import com.ozz.springboot.config.context.SpringUtils;
+import com.ozz.springboot.service.MyService;
 import java.io.IOException;
 import java.util.HashMap;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,14 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.ozz.springboot.SpringbootApp;
-import com.ozz.springboot.service.MyService;
 
 @Component
 public class MyFilter implements Filter {
@@ -32,7 +29,7 @@ public class MyFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     log.debug("do myFilter");
     if (dao == null) {
-      dao = SpringbootApp.getApplicationContext().getBean(MyService.class);
+      dao = SpringUtils.getBean(MyService.class);
     }
 
     ParameterRequestWrapper w = setInfo(request);

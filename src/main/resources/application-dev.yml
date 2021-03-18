@@ -6,7 +6,7 @@ spring:
     mail:
         host: smtp.aliyun.com
         username: ouzezh@aliyun.com
-        password: x
+        password:
         port: 25
 #        properties:
 #            mail:

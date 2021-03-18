@@ -92,7 +92,7 @@ public class MethodTimeMonitor {
         String res = sumInfo.entrySet().stream()
             .map(item -> String.format("%s: %s, %s", item.getKey(), item.getValue().getLeft(), item.getValue().getRight()))
             .collect(Collectors.joining("\n"));
-        System.out.printf("==>\n%s\n<==\n", res);
+        System.out.printf("-s->\n%s\n<-e-\n", res);
       }
     }
     return object;

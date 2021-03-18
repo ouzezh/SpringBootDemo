@@ -26,4 +26,11 @@ public class MyDaoTest {
     String str = stringEncryptor.decrypt(result);
     System.out.println(String.format("%s -> %s", result, str));
   }
+
+  @Test
+  public void testSendMail() {
+    dao.sendSimpleMail("ouzezh@yeah.net", "测试主题", "测试正文");
+//    dao.sendMimeMail("ouzezh@yeah.net", "测试附件", "测试正文", Collections.singletonList(
+//        Pair.of("test.txt", new File("C:\\Users\\ouzezhou\\Desktop\\Temp\\202103\\test.txt"))));
+  }
 }

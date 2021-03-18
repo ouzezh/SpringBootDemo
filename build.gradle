@@ -33,6 +33,7 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'

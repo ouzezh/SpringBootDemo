@@ -1,3 +1,18 @@
 #应用配置文件
 ozz:
     myConfig: ENC(XAfcx+f/W0P6a+TILk6641e4mXeuk2NftUBbwIIAbtLPYrdbzWr4kUr3jDZbndY1)
+
+spring:
+    mail:
+        host: smtp.yeah.net
+        username: ouzezh@yeah.net
+        password: x
+        port: 25
+        # default-encoding: UTF-8
+        properties:
+            mail:
+                smtp:
+                    # 配置SSL 加密工厂
+                    socketFactoryClass: javax.net.ssl.SSLSocketFactory
+                #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+                debug: true

@@ -4,8 +4,8 @@ ozz:
 
 spring:
     mail:
-        host: smtp.yeah.net
-        username: ouzezh@yeah.net
+        host: smtp.aliyun.com
+        username: ouzezh@aliyun.com
         password: x
         port: 25
         # default-encoding: UTF-8

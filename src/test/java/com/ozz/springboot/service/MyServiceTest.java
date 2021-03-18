@@ -30,8 +30,8 @@ public class MyServiceTest {
 
   @Test
   public void testSendMail() {
-    mailService.sendSimpleMail("ouzezh@yeah.net", "测试主题", "测试正文");
-//    dao.sendMimeMail("ouzezh@yeah.net", "测试附件", "测试正文", Collections.singletonList(
+    mailService.sendSimpleMail("ouzezh@aliyun.com", "测试主题", "测试正文");
+//    dao.sendMimeMail("ouzezh@aliyun.com", "测试附件", "测试正文", Collections.singletonList(
 //        Pair.of("test.txt", new File("C:\\Users\\ouzezhou\\Desktop\\Temp\\202103\\test.txt"))));
   }
 }

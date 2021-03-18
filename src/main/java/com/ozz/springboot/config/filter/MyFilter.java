@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ozz.springboot.SpringbootApp;
-import com.ozz.springboot.service.MyDao;
+import com.ozz.springboot.service.MyService;
 
 @Component
 public class MyFilter implements Filter {
@@ -25,14 +25,14 @@ public class MyFilter implements Filter {
   private Logger log = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  private MyDao dao;
+  private MyService dao;
 
   public void init(FilterConfig filterConfig) throws ServletException {}
 
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     log.debug("do myFilter");
     if (dao == null) {
-      dao = SpringbootApp.getApplicationContext().getBean(MyDao.class);
+      dao = SpringbootApp.getApplicationContext().getBean(MyService.class);
     }
 
     ParameterRequestWrapper w = setInfo(request);

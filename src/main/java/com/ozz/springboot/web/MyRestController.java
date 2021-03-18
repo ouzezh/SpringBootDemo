@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ozz.springboot.service.MyDao;
+import com.ozz.springboot.service.MyService;
 
 @RestController
 public class MyRestController {
   @Autowired
-  private MyDao myDao;
+  private MyService myDao;
 
   @RequestMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {

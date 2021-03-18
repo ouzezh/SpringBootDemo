@@ -2,40 +2,21 @@ package com.ozz.springboot.service;
 
 import com.sun.tools.javac.util.Pair;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MyDao {
-
-  private Logger log = LoggerFactory.getLogger(getClass());
-
-  @Value("${ozz.myConfig}")
-  private String myConfig;
-  @Value("${spring.mail.username}")
+public class MailService {
   private String mailFrom;
 
   @Autowired
   private JavaMailSender javaMailSender;
-
-  public Map<String, String> sevice(String p) {
-    log.debug("test myDao service");
-    Map<String, String> map = new HashMap<>();
-    map.put("p", p);
-    map.put("config", myConfig);
-    return map;
-  }
 
   public void sendSimpleMail(String mailTo, String subject, String content) {
     SimpleMailMessage message = new SimpleMailMessage();

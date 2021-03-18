@@ -1,23 +1,24 @@
-package com.ozz.springboot.dao;
+package com.ozz.springboot.service;
 
-import com.ozz.springboot.service.MyDao;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class MyDaoTest {
+public class MyServiceTest {
 
   @Autowired
-  MyDao dao;
+  MyService service;
+  @Autowired
+  MailService mailService;
 
   @Autowired
   StringEncryptor stringEncryptor;
 
   @Test
   public void testService() {
-    System.out.println(dao.sevice("p"));
+    System.out.println(service.sevice("p"));
   }
 
   @Test
@@ -29,7 +30,7 @@ public class MyDaoTest {
 
   @Test
   public void testSendMail() {
-    dao.sendSimpleMail("ouzezh@yeah.net", "测试主题", "测试正文");
+    mailService.sendSimpleMail("ouzezh@yeah.net", "测试主题", "测试正文");
 //    dao.sendMimeMail("ouzezh@yeah.net", "测试附件", "测试正文", Collections.singletonList(
 //        Pair.of("test.txt", new File("C:\\Users\\ouzezhou\\Desktop\\Temp\\202103\\test.txt"))));
   }

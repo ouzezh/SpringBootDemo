@@ -5,9 +5,9 @@ ozz:
 spring:
     mail:
         host: smtp.aliyun.com
+        port: 25
         username: ouzezh@aliyun.com
         password:
-        port: 25
 #        properties:
 #            mail:
 #                debug: true

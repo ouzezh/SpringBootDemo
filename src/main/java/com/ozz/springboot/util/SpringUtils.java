@@ -1,4 +1,4 @@
-package com.ozz.springboot.config.context;
+package com.ozz.springboot.util;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
@@ -28,14 +28,14 @@ public class SpringUtils implements ApplicationContextAware {
         return context.getEnvironment().getActiveProfiles();
     }
 
-    public static void shutdown() {
+    public static void shutdownDelay(long millis) {
         new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(millis);
             } catch (InterruptedException e) {
             }
             int exitCode = SpringApplication.exit(context, () -> 0);
-            System.exit(exitCode);
+//            System.exit(exitCode);
         }).start();
     }
 }

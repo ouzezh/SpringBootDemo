@@ -1,6 +1,6 @@
 package com.ozz.springboot.config.filter;
 
-import com.ozz.springboot.config.context.SpringUtils;
+import com.ozz.springboot.util.SpringUtils;
 import com.ozz.springboot.service.MyService;
 import java.io.IOException;
 import java.util.HashMap;

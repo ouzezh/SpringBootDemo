@@ -1,6 +1,6 @@
 package com.ozz.springboot.web;
 
-import com.ozz.springboot.config.context.SpringUtils;
+import com.ozz.springboot.util.SpringUtils;
 import java.io.IOException;
 import javax.naming.OperationNotSupportedException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +11,7 @@ public class ShutdownController {
 
   @PostMapping("/shutdown")
   public int shutdown() throws IOException, OperationNotSupportedException {
-    SpringUtils.shutdown();
+    SpringUtils.shutdownDelay(1000);
     return 0;
   }
 }

@@ -24,8 +24,10 @@ public class MyFilter implements Filter {
   @Autowired
   private MyService dao;
 
+  @Override
   public void init(FilterConfig filterConfig) throws ServletException {}
 
+  @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     log.debug("do myFilter");
     if (dao == null) {
@@ -40,11 +42,14 @@ public class MyFilter implements Filter {
     }
   }
 
-  public void destroy() {}
+  @Override
+  public void destroy() {
+  }
 
   private ParameterRequestWrapper setInfo(ServletRequest request) {
     try {
-      if (request instanceof HttpServletRequest && "application/x-www-form-urlencoded".equals(request.getContentType())) {
+      String contentType = "application/x-www-form-urlencoded";
+      if (request instanceof HttpServletRequest && contentType.equals(request.getContentType())) {
         HashMap<String, String[]> m = new HashMap(request.getParameterMap());
         m.put("myAutoSetParam", new String[] {"test"});
         ParameterRequestWrapper wrapRequest = new ParameterRequestWrapper((HttpServletRequest) request, m);

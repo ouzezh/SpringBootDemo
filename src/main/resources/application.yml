@@ -2,7 +2,6 @@
 #    port:80
 #    servlet:
 #        context-path: /springboot
-
 spring:
     profiles:
         # 区分不同环境下配置文件

@@ -1,5 +1,6 @@
 package com.ozz.springboot.config.schedule;
 
+import com.ozz.springboot.exception.ErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class MySchedule {
     try {
       Thread.sleep(60000);
     } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+      throw new ErrorException(e);
     }
     log.info(String.format("execute s1 %s end", Thread.currentThread().getName()));
   }
@@ -39,7 +40,7 @@ public class MySchedule {
     try {
       Thread.sleep(20000);
     } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+      throw new ErrorException(e);
     }
     log.info(String.format("execute a1 %s end", Thread.currentThread().getName()));
   }

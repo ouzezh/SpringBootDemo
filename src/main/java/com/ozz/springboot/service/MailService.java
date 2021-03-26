@@ -1,10 +1,11 @@
 package com.ozz.springboot.service;
 
-import com.sun.tools.javac.util.Pair;
+import com.ozz.springboot.exception.ErrorException;
 import java.io.File;
 import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -40,11 +41,11 @@ public class MailService {
       helper.setSubject(subject);
       helper.setText(content);
       for (Pair<String, File> attachment : attachments) {
-        helper.addAttachment(attachment.fst, attachment.snd);
+        helper.addAttachment(attachment.getKey(), attachment.getValue());
       }
       javaMailSender.send(mimeMessage);
     } catch (MessagingException e) {
-      throw new RuntimeException(e);
+      throw new ErrorException(e);
     }
   }
 }

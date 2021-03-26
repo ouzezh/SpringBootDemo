@@ -14,8 +14,6 @@ public class MyService {
 
   @Value("${ozz.myConfig}")
   private String myConfig;
-  @Value("${spring.mail.username}")
-  private String mailFrom;
 
   public Map<String, String> sevice(String p) {
     log.debug("test myDao service");

@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableConfigurationProperties({Settings.class})
 @EnableScheduling
-//@ImportResource(locations={"classpath:spring-context.xml"})
 public class SpringbootApp {
 
   public static void main(String[] args) {

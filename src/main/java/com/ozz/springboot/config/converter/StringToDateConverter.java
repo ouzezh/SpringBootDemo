@@ -1,5 +1,6 @@
 package com.ozz.springboot.config.converter;
 
+import com.ozz.springboot.exception.ErrorException;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.convert.converter.Converter;
@@ -22,9 +23,9 @@ public class StringToDateConverter implements Converter<String, Date> {
         return new Date(Long.valueOf(value));
       }
     } catch (Exception e) {
-      throw new RuntimeException(String.format("parser %s to Date fail", value));
+      throw new ErrorException(String.format("parser %s to Date fail", value));
     }
-    throw new RuntimeException(String.format("parser %s to Date fail", value));
+    throw new ErrorException(String.format("parser %s to Date fail", value));
   }
 
 }

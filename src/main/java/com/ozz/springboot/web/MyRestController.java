@@ -1,11 +1,11 @@
 package com.ozz.springboot.web;
 
+import com.ozz.springboot.exception.ErrorException;
+import com.ozz.springboot.service.MyService;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.ozz.springboot.service.MyService;
 
 @RestController
 public class MyRestController {
@@ -48,7 +46,7 @@ public class MyRestController {
   public void testDownload(HttpServletResponse response) {
     try {
       response.reset();
-      response.setContentType("application/vnd.ms-excel; charset=utf-8");// 需要改成对应的文件类型（restlet_client上传可以自动生成）
+      response.setContentType("application/vnd.ms-excel; charset=utf-8");
       response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("test.csv", "UTF-8"));
 
       PrintWriter out = response.getWriter();
@@ -63,7 +61,7 @@ public class MyRestController {
     } catch (RuntimeException e) {
       throw e;
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new ErrorException(e);
     }
   }
 }

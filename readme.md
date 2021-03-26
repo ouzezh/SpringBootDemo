@@ -1,9 +1,3 @@
-## 添加对jsonp支持
-	JsonpResponseBodyAdvice
-
-## 添加异常处理：防止SQL信息输出到页面
-	RestResponseEntityExceptionHandler
-
 ## 添加jasypt加密
 - 添加依赖
 
@@ -28,7 +22,7 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 
 ## StringToDateConverter
 
-## ApplicationRunner
+## 窗口启动初始化 ApplicationRunner
 	MyApplicationRunner.run
 
 ## 定时任务
@@ -51,3 +45,6 @@ src/main/resources/templates/greeting.html
 
 ## Spring应用上下文环境
   SpringUtils
+
+## 停止应用
+  ShutdownController

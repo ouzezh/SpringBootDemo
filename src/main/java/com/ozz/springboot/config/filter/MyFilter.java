@@ -1,7 +1,7 @@
 package com.ozz.springboot.config.filter;
 
-import com.ozz.springboot.util.SpringUtils;
 import com.ozz.springboot.service.MyService;
+import com.ozz.springboot.util.SpringUtils;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.servlet.Filter;
@@ -11,15 +11,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class MyFilter implements Filter {
-
-  private Logger log = LoggerFactory.getLogger(getClass());
 
   @Autowired
   private MyService dao;

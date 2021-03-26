@@ -1,19 +1,18 @@
 package com.ozz.springboot.config.schedule;
 
 import com.ozz.springboot.exception.ErrorException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class MySchedule {
 
-  private Logger log = LoggerFactory.getLogger(getClass());
-  private static volatile int scheduleCount = 0;
+//  private static volatile int scheduleCount = 0;
 
   @Autowired
   private Environment env;

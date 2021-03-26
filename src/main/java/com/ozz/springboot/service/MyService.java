@@ -2,15 +2,13 @@ package com.ozz.springboot.service;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MyService {
-
-  private Logger log = LoggerFactory.getLogger(getClass());
 
   @Value("${ozz.myConfig}")
   private String myConfig;

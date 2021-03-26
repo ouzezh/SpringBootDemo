@@ -1,7 +1,5 @@
 package com.ozz.springboot.config.context;
 
-import java.io.IOException;
-import javax.naming.OperationNotSupportedException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -30,9 +28,14 @@ public class SpringUtils implements ApplicationContextAware {
         return context.getEnvironment().getActiveProfiles();
     }
 
-    public static int shutdown() throws IOException, OperationNotSupportedException {
-        int exitCode = SpringApplication.exit(context, () -> 0);
-        System.exit(exitCode);
-        return exitCode;
+    public static void shutdown() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            int exitCode = SpringApplication.exit(context, () -> 0);
+            System.exit(exitCode);
+        }).start();
     }
 }

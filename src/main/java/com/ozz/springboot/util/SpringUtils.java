@@ -35,7 +35,7 @@ public class SpringUtils implements ApplicationContextAware {
             } catch (InterruptedException e) {
             }
             int exitCode = SpringApplication.exit(context, () -> 0);
-            System.exit(exitCode);
+//            System.exit(exitCode);
         }).start();
     }
 }

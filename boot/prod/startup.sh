@@ -11,7 +11,7 @@ if [ ! -d $LOG_DIR ]; then
     mkdir $LOG_DIR
 fi
 
-JAVA_OPTS="$JAVA_OPTS -Xmx10880M -Xms10880M"
+JAVA_OPTS="$JAVA_OPTS -Xms5440m -Xmx5440m"
 export JAVA_OPTS;
 
 SPRING_BOOT_OPTS="--spring.profiles.active=prod"

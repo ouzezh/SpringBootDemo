@@ -28,8 +28,8 @@ function checkShutdownStatus() {
 
 PIDS=$(getPids)
 if [ -z "$PIDS" ]; then
-    echo "ERROR: The server does not started!"
-    exit 1
+    echo "WARN: The server does not started!"
+    exit 0
 else
   echo -e "Stopping the server ... \c"
   echo $PIDS

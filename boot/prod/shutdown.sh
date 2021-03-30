@@ -12,6 +12,7 @@ if [ -z "$PIDS" ]; then
     echo "ERROR: The server does not started!"
     exit 1
 fi
+ps -ef | grep java | grep "$DEPLOY_DIR" | grep -v grep
 
 echo -e "Stopping the server ...\c"
 for PID in $PIDS ; do

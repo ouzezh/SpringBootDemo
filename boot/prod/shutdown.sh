@@ -7,12 +7,12 @@ jarName="SpringBootDemo-0.1.jar"
 cd `dirname $0`
 DEPLOY_DIR=`pwd`
 
-PIDS=`ps -ef | grep java | grep "$DEPLOY_DIR" | grep -v grep |awk '{print $2}'`
+ps -ef | grep java | grep "$DEPLOY_DIR/${jarName}" | grep -v grep
+PIDS=`ps -ef | grep java | grep "$DEPLOY_DIR/${jarName}" | grep -v grep |awk '{print $2}'`
 if [ -z "$PIDS" ]; then
     echo "ERROR: The server does not started!"
     exit 1
 fi
-ps -ef | grep java | grep "$DEPLOY_DIR" | grep -v grep
 
 echo -e "Stopping the server ...\c"
 for PID in $PIDS ; do

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ShutdownController {
 
+  /**
+   * 停止服务 效果同 kill {pid}
+   */
   @PostMapping("/shutdown")
   public int shutdown(@RequestHeader("token") String token) throws IOException, OperationNotSupportedException {
     String TOKEN = "x";

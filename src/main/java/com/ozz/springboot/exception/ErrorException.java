@@ -1,6 +1,11 @@
 package com.ozz.springboot.exception;
 
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
 public class ErrorException extends RuntimeException {
+  HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
   public ErrorException(String message) {
     super(message);
   }
@@ -9,5 +14,9 @@ public class ErrorException extends RuntimeException {
   }
   public ErrorException(String message, Throwable cause) {
     super(message, cause);
+  }
+  public ErrorException(HttpStatus status, String message) {
+    super(String.format("%s %s", status.value(), message));
+    this.status = status;
   }
 }

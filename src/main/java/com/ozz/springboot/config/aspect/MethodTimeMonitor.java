@@ -22,8 +22,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class MethodTimeMonitor {
-  // <methodPath, Pair<executeCount, executeTime>>
-  ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localSumInfo = new ThreadLocal<>();//<key,<timestamp,<count,time>>>
+  /**
+   * <methodPath, Pair<executeCount, executeTime>>
+   */
+  ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localSumInfo = new ThreadLocal<>();
 
   public static List<Pair<String, Long>> timeLimit;
 

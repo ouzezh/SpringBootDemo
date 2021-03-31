@@ -11,7 +11,13 @@ if [ ! -d $LOG_DIR ]; then
     mkdir $LOG_DIR
 fi
 
+AGENT_OPTS=/xx/xx-agent.jar
+if [ -f "${AGENT_OPTS}" ]; then
+  JAVA_OPTS="${JAVA_OPTS} -javaagent:${AGENT_OPTS}"
+fi
+
 JAVA_OPTS="$JAVA_OPTS -Xms5440m -Xmx5440m"
+
 export JAVA_OPTS;
 
 SPRING_BOOT_OPTS="--spring.profiles.active=dev"

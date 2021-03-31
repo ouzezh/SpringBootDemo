@@ -28,16 +28,16 @@ function checkShutdownStatus() {
 
 PIDS=$(getPids)
 if [ -z "$PIDS" ]; then
-    echo "WARN: The server does not started!"
-    exit 0
-else
-  echo -e "Stopping the server ... \c"
-  echo $PIDS
-  for PID in $PIDS ; do
-    kill $PID || echo "kill $PID failed!"
-  done
-  checkShutdownStatus
+  echo "WARN: The server does not started!"
+  exit 0
 fi
+
+echo -e "Stopping the server ... \c"
+echo $PIDS
+for PID in $PIDS ; do
+  kill $PID || echo "kill $PID failed!"
+done
+checkShutdownStatus
 
 PIDS=$(getPids)
 if [ -z "$PIDS" ]; then

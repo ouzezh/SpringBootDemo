@@ -33,18 +33,10 @@ if [ -z "$PIDS" ]; then
 else
   echo -e "Stopping the server ... \c"
   echo $PIDS
-  curl -X POST "http://localhost:8080/payroll/shutdown" -H 'token: x' || echo "shutdown by curl failed!"
-  echo
+  for PID in $PIDS ; do
+    kill $PID || echo "kill $PID failed!"
+  done
   checkShutdownStatus
-
-  PIDS=$(getPids)
-  if [ -n "$PIDS" ]; then
-    for PID in $PIDS ; do
-      kill $PID || echo "kill failed!"
-    done
-    checkShutdownStatus
-  fi
-
 fi
 
 PIDS=$(getPids)

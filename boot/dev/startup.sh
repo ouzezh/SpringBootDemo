@@ -21,7 +21,7 @@ JAVA_OPTS="$JAVA_OPTS -Xms5440m -Xmx5440m"
 export JAVA_OPTS;
 
 SPRING_BOOT_OPTS="--spring.profiles.active=dev"
-STDOUT_FILE=$LOG_DIR/stdout.log
+STDOUT_FILE=/dev/null #$LOG_DIR/stdout.log
 
 cd $DEPLOY_DIR
 nohup java $JAVA_OPTS -jar "$DEPLOY_DIR/$jarName" $SPRING_BOOT_OPTS >> $STDOUT_FILE 2>&1 &

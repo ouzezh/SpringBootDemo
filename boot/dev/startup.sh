@@ -22,9 +22,11 @@ export JAVA_OPTS;
 
 SPRING_BOOT_OPTS="--spring.profiles.active=dev"
 STDOUT_FILE=$LOG_DIR/stdout.log
+
+cd $DEPLOY_DIR
 nohup java $JAVA_OPTS -jar "$DEPLOY_DIR/$jarName" $SPRING_BOOT_OPTS >> $STDOUT_FILE 2>&1 &
 
 echo "OK!"
-PIDS=$(ps -ef | grep java | grep "$DEPLOY_DIR" |grep -v grep | awk '{print $2}')
+PIDS=$(ps -ef | grep java | grep "$DEPLOY_DIR/$jarName" |grep -v grep | awk '{print $2}')
 echo "PID: $PIDS"
 echo "STDOUT: $STDOUT_FILE"

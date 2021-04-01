@@ -28,7 +28,6 @@ public class ErrorAdvice {
       log.error(null, e);
       response.setStatus(((ErrorException) e).getStatus().value());
     } else if (e instanceof WarnException) {
-      log.warn(e.getMessage());
       response.setStatus(((WarnException) e).getStatus().value());
     } else {
       throw e;

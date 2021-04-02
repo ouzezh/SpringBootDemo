@@ -27,25 +27,24 @@ public class MethodOvertimeWarn {
    */
   ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localTimeSumMap = new ThreadLocal<>();
 
-  public static long OVERTIME_MILLIS = 600000;
-
   private static Cache<Integer, Long> cache = CacheBuilder.newBuilder()
       .maximumSize(1)
       .expireAfterWrite(30, TimeUnit.MINUTES)
       .concurrencyLevel(3)
       .build();
 
-  /**
-   * 从Redis等分布式存储中读取更新后的超时时间
-   */
   private Long refreshTimeLimit() {
     try {
-      // TO DO
-      return null;
+      // TO DO 加载持久化数据
     } catch (Exception e) {
       log.error(null, e);
-      return null;
     }
+    return 600000L;
+  }
+
+  private boolean isInit() {
+    // TO DO 确认 Spring 注入的类加载完成
+    return true;
   }
 
   /**
@@ -61,17 +60,15 @@ public class MethodOvertimeWarn {
     if(timeLimit == null) {
       timeLimit = refreshTimeLimit();
       if(timeLimit != null) {
-        OVERTIME_MILLIS = timeLimit;
         cache.put(key, timeLimit);
       }
-      timeLimit = OVERTIME_MILLIS;
     }
     return timeLimit;
   }
 
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
-    if(getTimeOutMillis() < 0) {
+    if(!isInit() || getTimeOutMillis() < 0) {
       return pjp.proceed();
     }
 

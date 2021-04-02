@@ -1,5 +1,6 @@
 package com.ozz.springboot.exception;
 
+import java.util.Objects;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -18,5 +19,9 @@ public class WarnException extends RuntimeException {
   public WarnException(HttpStatus status, String message) {
     super(String.format("%s %s", status.value(), message));
     this.status = status;
+  }
+  @Override
+  public String getMessage() {
+    return Objects.toString(super.getMessage(), getClass().getName());
   }
 }

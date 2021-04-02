@@ -23,6 +23,6 @@ public class ErrorException extends RuntimeException {
   }
   @Override
   public String getMessage() {
-    return Objects.toString(super.getMessage(), getClass().getName());
+    return Objects.toString(super.getMessage(), getClass().getSimpleName());
   }
 }

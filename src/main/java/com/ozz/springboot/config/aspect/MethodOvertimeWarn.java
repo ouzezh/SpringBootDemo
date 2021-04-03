@@ -84,14 +84,11 @@ public class MethodOvertimeWarn {
         localTimeSumMap.set(timeSumMap);
     }
 
-    MutablePair<AtomicInteger, AtomicLong> v = null;
-    if (timeSumMap != null) {
-      v = timeSumMap.get(methodPath);
-      if (v == null) {
-        // 初始化统计信息
-        v = new MutablePair<>(new AtomicInteger(), new AtomicLong());
-        timeSumMap.put(methodPath, v);
-      }
+    MutablePair<AtomicInteger, AtomicLong> v = timeSumMap.get(methodPath);
+    if (v == null) {
+      // 初始化统计信息
+      v = new MutablePair<>(new AtomicInteger(), new AtomicLong());
+      timeSumMap.put(methodPath, v);
     }
 
     // 执行方法
@@ -111,7 +108,7 @@ public class MethodOvertimeWarn {
       localTimeSumMap.remove();
       if(ts >= getTimeOutMillis()) {
         String res = timeSumMap.entrySet().stream()
-            .map(item -> String.format("%s: %s, %s", item.getKey(), item.getValue().getLeft(), item.getValue().getRight()))
+            .map(item -> String.format("%s: %s, %s", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(item.getValue().getRight().longValue())))
             .collect(Collectors.joining("\n"));
         log.debug(String.format("-start->\n%s\n<-end-\n", res));
       }
@@ -119,4 +116,35 @@ public class MethodOvertimeWarn {
     return object;
   }
 
+  public static String getTimeStringByMillis(long millis) {
+    String[] modUnits = {"d", "H", "m", "s", "ms"};
+    long[] mods = {24, 60, 60, 1000, 1};
+
+    if (millis <= 0) {
+      return millis + modUnits[modUnits.length - 1];
+    }
+
+    long mod = 1;
+    for (long t : mods) {
+      mod = mod * t;
+    }
+
+    long tmpTime = millis;
+    StringBuilder timeString = new StringBuilder();
+    int bit = 0;
+    for (int i = 0; i < modUnits.length && bit <= 2; i++) {
+      long curr = tmpTime / mod;
+      tmpTime = tmpTime % mod;
+      mod = mod / mods[i];
+      if (curr > 0) {
+        bit++;
+        timeString.append(curr).append(modUnits[i]);
+      }
+      if (bit > 0) {
+        bit++;
+      }
+    }
+
+    return timeString.toString();
+  }
 }

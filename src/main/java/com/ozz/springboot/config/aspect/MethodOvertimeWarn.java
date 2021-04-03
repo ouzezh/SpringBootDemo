@@ -99,12 +99,11 @@ public class MethodOvertimeWarn {
       object = pjp.proceed();
       ts = System.currentTimeMillis() - ts;
 
-      if(timeSumMap != null) {
-        // 执行次数
-        v.getLeft().incrementAndGet();
-        // 执行时间
-        v.getRight().addAndGet(ts);
-      }
+      // 执行次数
+      v.getLeft().incrementAndGet();
+      // 执行时间
+      v.getRight().addAndGet(ts);
+
       return object;
     } finally {
       // toString

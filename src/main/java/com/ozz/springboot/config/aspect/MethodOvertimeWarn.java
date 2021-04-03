@@ -94,9 +94,9 @@ public class MethodOvertimeWarn {
       }
 
       // 执行方法
-      ts = System.currentTimeMillis();
+      ts = System.nanoTime();
       Object object = pjp.proceed();
-      ts = System.currentTimeMillis() - ts;
+      ts = System.nanoTime() - ts;
 
       // 执行次数
       v.getLeft().incrementAndGet();
@@ -108,9 +108,9 @@ public class MethodOvertimeWarn {
       // toString
       if (isRoot) {
         localTimeSumMap.remove();
-        if(ts >= getTimeOutMillis()) {
+        if(TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS) >= getTimeOutMillis()) {
           String res = timeSumMap.entrySet().stream()
-              .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(item.getValue().getRight().longValue())))
+              .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(TimeUnit.MILLISECONDS.convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
               .collect(Collectors.joining("\n"));
           log.debug(String.format("-start->\n%s\n<-end-\n", res));
         }

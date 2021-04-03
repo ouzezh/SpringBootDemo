@@ -78,42 +78,46 @@ public class MethodOvertimeWarn {
     Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
 
     boolean isRoot = false;
-    if(timeSumMap == null) {
-        isRoot = true;
-        timeSumMap = new LinkedHashMap<>();
-        localTimeSumMap.set(timeSumMap);
-    }
+    long ts = 0;
+    Object object;
+    try {
+      if(timeSumMap == null) {
+          isRoot = true;
+          timeSumMap = new LinkedHashMap<>();
+          localTimeSumMap.set(timeSumMap);
+      }
 
-    MutablePair<AtomicInteger, AtomicLong> v = timeSumMap.get(methodPath);
-    if (v == null) {
-      // 初始化统计信息
-      v = new MutablePair<>(new AtomicInteger(), new AtomicLong());
-      timeSumMap.put(methodPath, v);
-    }
+      MutablePair<AtomicInteger, AtomicLong> v = timeSumMap.get(methodPath);
+      if (v == null) {
+        // 初始化统计信息
+        v = new MutablePair<>(new AtomicInteger(), new AtomicLong());
+        timeSumMap.put(methodPath, v);
+      }
 
-    // 执行方法
-    long ts = System.currentTimeMillis();
-    Object object = pjp.proceed();
-    ts = System.currentTimeMillis() - ts;
+      // 执行方法
+      ts = System.currentTimeMillis();
+      object = pjp.proceed();
+      ts = System.currentTimeMillis() - ts;
 
-    if(timeSumMap != null) {
-      // 执行次数
-      v.getLeft().incrementAndGet();
-      // 执行时间
-      v.getRight().addAndGet(ts);
-    }
-
-    // toString
-    if (isRoot) {
-      localTimeSumMap.remove();
-      if(ts >= getTimeOutMillis()) {
-        String res = timeSumMap.entrySet().stream()
-            .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(item.getValue().getRight().longValue())))
-            .collect(Collectors.joining("\n"));
-        log.debug(String.format("-start->\n%s\n<-end-\n", res));
+      if(timeSumMap != null) {
+        // 执行次数
+        v.getLeft().incrementAndGet();
+        // 执行时间
+        v.getRight().addAndGet(ts);
+      }
+      return object;
+    } finally {
+      // toString
+      if (isRoot) {
+        localTimeSumMap.remove();
+        if(ts >= getTimeOutMillis()) {
+          String res = timeSumMap.entrySet().stream()
+              .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(item.getValue().getRight().longValue())))
+              .collect(Collectors.joining("\n"));
+          log.debug(String.format("-start->\n%s\n<-end-\n", res));
+        }
       }
     }
-    return object;
   }
 
   public static String getTimeStringByMillis(long millis) {

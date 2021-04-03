@@ -79,7 +79,6 @@ public class MethodOvertimeWarn {
 
     boolean isRoot = false;
     long ts = 0;
-    Object object;
     try {
       if(timeSumMap == null) {
           isRoot = true;
@@ -96,7 +95,7 @@ public class MethodOvertimeWarn {
 
       // 执行方法
       ts = System.currentTimeMillis();
-      object = pjp.proceed();
+      Object object = pjp.proceed();
       ts = System.currentTimeMillis() - ts;
 
       // 执行次数

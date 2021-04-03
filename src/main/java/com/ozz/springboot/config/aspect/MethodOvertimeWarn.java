@@ -20,6 +20,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class MethodOvertimeWarn {
+//  @Value("ozz.overtimeMillis")
+  private long OVERTIME_MILLIS = 600000L;
+
   /**
    * <methodPath, Pair<executeCount, executeTime>>
    */
@@ -37,13 +40,9 @@ public class MethodOvertimeWarn {
   public void pointcut() {
   }
 
-  private long getTimeOutMillis() {
-    return 600000L;
-  }
-
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
-    if(!isInit() || getTimeOutMillis() < 0) {
+    if(!isInit() || OVERTIME_MILLIS < 0) {
       return pjp.proceed();
     }
 
@@ -83,7 +82,7 @@ public class MethodOvertimeWarn {
       // toString
       if (isRoot) {
         localTimeSumMap.remove();
-        if(TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS) >= getTimeOutMillis()) {
+        if(TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS) >= OVERTIME_MILLIS) {
           String res = timeSumMap.entrySet().stream()
               .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(TimeUnit.MILLISECONDS.convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
               .collect(Collectors.joining("\n"));

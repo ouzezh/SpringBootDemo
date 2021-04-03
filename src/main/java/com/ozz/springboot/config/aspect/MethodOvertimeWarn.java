@@ -119,7 +119,7 @@ public class MethodOvertimeWarn {
   }
 
   public static String getTimeStringByMillis(long millis) {
-    String[] modUnits = {"d", "H", "m", "s", "ms"};
+    String[] modUnits = {"天", "时", "分", "秒", "毫秒"};
     long[] mods = {24, 60, 60, 1000, 1};
 
     if (millis <= 0) {

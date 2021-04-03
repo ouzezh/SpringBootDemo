@@ -1,7 +1,5 @@
 package com.ozz.springboot.config.aspect;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,21 +25,6 @@ public class MethodOvertimeWarn {
    */
   ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localTimeSumMap = new ThreadLocal<>();
 
-  private static Cache<Integer, Long> cache = CacheBuilder.newBuilder()
-      .maximumSize(1)
-      .expireAfterWrite(30, TimeUnit.MINUTES)
-      .concurrencyLevel(3)
-      .build();
-
-  private Long refreshTimeLimit() {
-    try {
-      // TO DO 加载持久化数据
-    } catch (Exception e) {
-      log.error(null, e);
-    }
-    return 600000L;
-  }
-
   private boolean isInit() {
     // TO DO 确认 Spring 注入的类加载完成
     return true;
@@ -55,15 +38,7 @@ public class MethodOvertimeWarn {
   }
 
   private long getTimeOutMillis() {
-    Integer key = 1;
-    Long timeLimit = cache.getIfPresent(key);
-    if(timeLimit == null) {
-      timeLimit = refreshTimeLimit();
-      if(timeLimit != null) {
-        cache.put(key, timeLimit);
-      }
-    }
-    return timeLimit;
+    return 600000L;
   }
 
   @Around("pointcut()")

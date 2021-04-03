@@ -108,7 +108,7 @@ public class MethodOvertimeWarn {
       localTimeSumMap.remove();
       if(ts >= getTimeOutMillis()) {
         String res = timeSumMap.entrySet().stream()
-            .map(item -> String.format("%s: count=%s, time=%s", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(item.getValue().getRight().longValue())))
+            .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(item.getValue().getRight().longValue())))
             .collect(Collectors.joining("\n"));
         log.debug(String.format("-start->\n%s\n<-end-\n", res));
       }

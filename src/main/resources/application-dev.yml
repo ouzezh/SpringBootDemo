@@ -1,7 +1,12 @@
-#应用配置文件
+# 应用配置文件
 ozz:
     myConfig: ENC(XAfcx+f/W0P6a+TILk6641e4mXeuk2NftUBbwIIAbtLPYrdbzWr4kUr3jDZbndY1)
+    mail:
+        mailTo: ouzezh@aliyun.com
+    warn:
+        overtimeMillis: 600000
 
+# 邮箱配置
 spring:
     mail:
         host: smtp.aliyun.com

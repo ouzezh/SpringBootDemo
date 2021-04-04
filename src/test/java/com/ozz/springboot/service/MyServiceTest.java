@@ -7,12 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class MyServiceTest {
-
   @Autowired
   MyService service;
-  @Autowired
-  MailService mailService;
-
   @Autowired
   StringEncryptor stringEncryptor;
 
@@ -28,10 +24,4 @@ public class MyServiceTest {
     System.out.println(String.format("%s -> %s", result, str));
   }
 
-  @Test
-  public void testSendMail() {
-    mailService.sendSimpleMail("ouzezh@aliyun.com", "测试主题", "测试正文");
-//    dao.sendMimeMail("ouzezh@aliyun.com", "测试附件", "测试正文", Collections.singletonList(
-//        Pair.of("test.txt", new File("C:\\Users\\ouzezhou\\Desktop\\Temp\\202103\\test.txt"))));
-  }
 }

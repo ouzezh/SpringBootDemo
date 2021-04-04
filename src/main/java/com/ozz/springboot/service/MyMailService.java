@@ -14,31 +14,37 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailService {
+public class MyMailService {
   @Autowired
-  private JavaMailSender javaMailSender;
+  JavaMailSender javaMailSender;
 
   @Value("${spring.mail.username}")
   private String mailFrom;
+  @Value("${ozz.mail.mailTo}")
+  private String mailTo;
 
-  public void sendSimpleMail(String mailTo, String subject, String content) {
+  String getSubject(String subject) {
+    return String.format("[MyTest] %s", subject);
+  }
+
+  public void sendSimpleMail(String subject, String content) {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(mailFrom);
     message.setTo(mailTo);
 //    message.setCc("");// 抄送
 //    message.setBcc("");// 秘密
-    message.setSubject(subject);
+    message.setSubject(getSubject(subject));
     message.setText(content);
     javaMailSender.send(message);
   }
 
-  public void sendMimeMail(String mailTo, String subject, String content, List<Pair<String, File>> attachments) {
+  public void sendMimeMail(String subject, String content, List<Pair<String, File>> attachments) {
     try {
       MimeMessage mimeMessage = javaMailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
       helper.setFrom(mailFrom);
       helper.setTo(mailTo);
-      helper.setSubject(subject);
+      helper.setSubject(getSubject(subject));
       helper.setText(content);
       for (Pair<String, File> attachment : attachments) {
         helper.addAttachment(attachment.getKey(), attachment.getValue());

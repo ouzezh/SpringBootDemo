@@ -1,5 +1,6 @@
 package com.ozz.springboot.config.aspect;
 
+import com.ozz.springboot.service.MyMailService;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,23 +15,27 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
 @Slf4j
 public class MethodOvertimeWarn {
-//  @Value("ozz.overtimeMillis")
-  private long OVERTIME_MILLIS = 600000L;
+  @Value("${ozz.warn.overtimeMillis}")
+  private long OVERTIME_MILLIS = -1;
 
   /**
    * <methodPath, Pair<executeCount, executeTime>>
    */
   ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localTimeSumMap = new ThreadLocal<>();
+  @Autowired
+  MyMailService myMailService;
 
-  private boolean isInit() {
-    // TO DO 确认 Spring 注入的类加载完成
-    return true;
+  private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
+    // 忽略邮件警报，由于结果处理中使用了邮件，防止发生死循环
+    return myMailService==null || methodPath.startsWith(MyMailService.class.getName()) || aClass.isAssignableFrom(MyMailService.class);
   }
 
   /**
@@ -42,7 +47,7 @@ public class MethodOvertimeWarn {
 
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
-    if(!isInit() || OVERTIME_MILLIS < 0) {
+    if(OVERTIME_MILLIS < 0) {
       return pjp.proceed();
     }
 
@@ -82,11 +87,19 @@ public class MethodOvertimeWarn {
       // toString
       if (isRoot) {
         localTimeSumMap.remove();
-        if(TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS) >= OVERTIME_MILLIS) {
+        ts = TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS);
+        if(ts >= OVERTIME_MILLIS) {
           String res = timeSumMap.entrySet().stream()
               .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(TimeUnit.MILLISECONDS.convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
               .collect(Collectors.joining("\n"));
-          log.debug(String.format("-start->\n%s\n<-end-\n", res));
+          log.warn(String.format("%n--start-->%n%s%n<--end--%n", res));
+          try {
+            if(!isIgnoreMail(methodPath, pjp.getTarget().getClass())) {
+              myMailService.sendSimpleMail("运行超时", res);
+            }
+          } catch (Exception e) {
+            log.error(null, e);
+          }
         }
       }
     }

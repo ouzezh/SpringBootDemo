@@ -34,7 +34,7 @@ public class MethodOvertimeWarn {
   MyMailService myMailService;
 
   private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
-    // 忽略邮件警报，由于结果处理中使用了邮件，防止发生死循环
+    // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
     return myMailService==null || methodPath.startsWith(MyMailService.class.getName()) || aClass.isAssignableFrom(MyMailService.class);
   }
 

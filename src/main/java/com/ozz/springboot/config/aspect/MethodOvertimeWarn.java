@@ -1,7 +1,6 @@
 package com.ozz.springboot.config.aspect;
 
 import com.ozz.springboot.service.MyMailService;
-import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -40,8 +39,12 @@ public class MethodOvertimeWarn {
   public void pointcut() {
   }
 
+  /**
+   * 超时时间，可以针对特定请求修改限时设置
+   *
+   * @return 超时时间设置
+   */
   private long getOvertimeMillis() {
-    // 返回超时时间设置，可以针对特定请求修改限时设置
     return OVERTIME_MILLIS;
   }
 
@@ -52,15 +55,13 @@ public class MethodOvertimeWarn {
 
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
-    if(getOvertimeMillis() < 0) {
+    Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
+    // 1.未设置超时时间，2.没有已经启动的超时统计（当设置超时时间不同路径存在不同配置时需要判断此逻辑）
+    if(getOvertimeMillis() < 0 && timeSumMap==null) {
       return pjp.proceed();
     }
 
-    MethodSignature signature = (MethodSignature) pjp.getSignature();
-    Method method = signature.getMethod();
-    String methodPath = String.format("%s.%s()", pjp.getTarget().getClass().getName(), method.getName());
-    Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
-
+    String methodPath = String.format("%s.%s()", pjp.getTarget().getClass().getName(), ((MethodSignature) pjp.getSignature()).getMethod().getName());
     boolean isRoot = false;
     long ts = 0;
     try {

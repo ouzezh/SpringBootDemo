@@ -57,7 +57,7 @@ public class MethodOvertimeWarn {
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
     Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
     // 1.未设置超时时间，2.没有已经启动的超时统计（当设置超时时间不同路径存在不同配置时需要判断此逻辑）
-    if(getOvertimeMillis() < 0 && timeSumMap==null) {
+    if(timeSumMap==null && getOvertimeMillis() < 0) {
       return pjp.proceed();
     }
 

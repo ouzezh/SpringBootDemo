@@ -33,11 +33,6 @@ public class MethodOvertimeWarn {
   @Autowired
   MyMailService myMailService;
 
-  private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
-    // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
-    return myMailService==null || methodPath.startsWith(MyMailService.class.getName()) || aClass.isAssignableFrom(MyMailService.class);
-  }
-
   /**
    * 切面配置
    */
@@ -45,9 +40,19 @@ public class MethodOvertimeWarn {
   public void pointcut() {
   }
 
+  private long getOvertimeMillis() {
+    // 返回超时时间设置，可以针对特定请求修改限时设置
+    return OVERTIME_MILLIS;
+  }
+
+  private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
+    // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
+    return myMailService==null || methodPath.startsWith(MyMailService.class.getName()) || aClass.isAssignableFrom(MyMailService.class);
+  }
+
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
-    if(OVERTIME_MILLIS < 0) {
+    if(getOvertimeMillis() < 0) {
       return pjp.proceed();
     }
 
@@ -88,7 +93,7 @@ public class MethodOvertimeWarn {
       if (isRoot) {
         localTimeSumMap.remove();
         ts = TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS);
-        if(ts >= OVERTIME_MILLIS) {
+        if(ts >= getOvertimeMillis()) {
           String res = timeSumMap.entrySet().stream()
               .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(TimeUnit.MILLISECONDS.convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
               .collect(Collectors.joining("\n"));

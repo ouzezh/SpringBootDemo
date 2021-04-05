@@ -87,11 +87,8 @@ public class MethodOvertimeWarn {
       // 执行时间
       v.getRight().addAndGet(ts);
 
-      return object;
-    } finally {
       // toString
       if (isRoot) {
-        localTimeSumMap.remove();
         ts = TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS);
         if(ts >= getOvertimeMillis()) {
           String res = timeSumMap.entrySet().stream()
@@ -107,6 +104,9 @@ public class MethodOvertimeWarn {
           }
         }
       }
+      return object;
+    } finally {
+      localTimeSumMap.remove();
     }
   }
 

@@ -3,7 +3,6 @@ package com.ozz.springboot.service;
 import com.ozz.springboot.exception.ErrorException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import javax.mail.MessagingException;
@@ -42,7 +41,7 @@ public class MyMailService {
         e.printStackTrace(ps);
       }
       sendSimpleMail(subject, bo.toString());
-    } catch (IOException e2) {
+    } catch (Exception e2) {
       e.addSuppressed(e2);
     }
   }

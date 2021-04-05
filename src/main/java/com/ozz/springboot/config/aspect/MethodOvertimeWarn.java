@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class MethodOvertimeWarn {
+
   @Value("${ozz.warn.overtimeMillis}")
   private long OVERTIME_MILLIS = -1;
 
@@ -50,24 +51,27 @@ public class MethodOvertimeWarn {
 
   private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
     // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
-    return myMailService==null || methodPath.startsWith(MyMailService.class.getName()) || aClass.isAssignableFrom(MyMailService.class);
+    return myMailService == null || methodPath.startsWith(MyMailService.class.getName()) || aClass
+        .isAssignableFrom(MyMailService.class);
   }
 
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
     Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
-    if(timeSumMap==null && getOvertimeMillis()<0) {
+    if (timeSumMap == null && getOvertimeMillis() < 0) {
       return pjp.proceed();
     }
 
-    String methodPath = String.format("%s.%s()", pjp.getTarget().getClass().getName(), ((MethodSignature) pjp.getSignature()).getMethod().getName());
+    String methodPath = String.format("%s.%s()", pjp.getTarget().getClass().getName(),
+        ((MethodSignature) pjp.getSignature()).getMethod().getName());
     boolean isRoot = false;
     long ts = 0;
+    Throwable te = null;
     try {
-      if(timeSumMap == null) {
-          isRoot = true;
-          timeSumMap = new LinkedHashMap<>();
-          localTimeSumMap.set(timeSumMap);
+      if (timeSumMap == null) {
+        isRoot = true;
+        timeSumMap = new LinkedHashMap<>();
+        localTimeSumMap.set(timeSumMap);
       }
 
       MutablePair<AtomicInteger, AtomicLong> v = timeSumMap.get(methodPath);
@@ -79,7 +83,12 @@ public class MethodOvertimeWarn {
 
       // 执行方法
       ts = System.nanoTime();
-      Object object = pjp.proceed();
+      Object object = null;
+      try {
+        object = pjp.proceed();
+      } catch (Throwable e) {
+        te = e;
+      }
       ts = System.nanoTime() - ts;
 
       // 执行次数
@@ -90,23 +99,35 @@ public class MethodOvertimeWarn {
       // toString
       if (isRoot) {
         ts = TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS);
-        if(ts >= getOvertimeMillis()) {
-          String res = timeSumMap.entrySet().stream()
-              .map(item -> String.format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(), getTimeStringByMillis(TimeUnit.MILLISECONDS.convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
-              .collect(Collectors.joining("\n"));
-          log.warn(String.format("%n--start-->%n%s%n<--end--%n", res));
-          try {
-            if(!isIgnoreMail(methodPath, pjp.getTarget().getClass())) {
-              myMailService.sendSimpleMail("运行超时", res);
-            }
-          } catch (Exception e) {
-            log.error(null, e);
-          }
+        if (ts >= getOvertimeMillis()) {
+          printInfo(timeSumMap, te, !isIgnoreMail(methodPath, pjp.getTarget().getClass()));
         }
+      }
+
+      if (te != null) {
+        throw te;
       }
       return object;
     } finally {
       localTimeSumMap.remove();
+    }
+  }
+
+  private void printInfo(Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap,
+      Throwable te, boolean sendMail) {
+    String res = timeSumMap.entrySet().stream()
+        .map(item -> String
+            .format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(),
+                getTimeStringByMillis(TimeUnit.MILLISECONDS
+                    .convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
+        .collect(Collectors.joining("\n"));
+    log.warn(String.format("%n--start-->%n%s%n<--end--%n", res));
+    if (sendMail) {
+      try {
+        myMailService.sendErrorMail(te==null ? "运行超时" : "运行超时+异常", res, te);
+      } catch (Exception e) {
+        log.error(null, e);
+      }
     }
   }
 

@@ -1,11 +1,15 @@
 package com.ozz.springboot.service;
 
 import com.ozz.springboot.exception.ErrorException;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -25,6 +29,22 @@ public class MyMailService {
 
   String getSubject(String subject) {
     return String.format("[MyTest] %s", subject);
+  }
+
+  public void sendErrorMail(String subject, String content, Throwable e) {
+    try (ByteArrayOutputStream bo = new ByteArrayOutputStream(); PrintStream ps = new PrintStream(
+        bo, true, "utf-8");) {
+      if(Strings.isNotBlank(content)) {
+        ps.print(content);
+        ps.print("\n\n");
+      }
+      if(e != null) {
+        e.printStackTrace(ps);
+      }
+      sendSimpleMail(subject, bo.toString());
+    } catch (IOException e2) {
+      e.addSuppressed(e2);
+    }
   }
 
   public void sendSimpleMail(String subject, String content) {

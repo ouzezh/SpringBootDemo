@@ -58,7 +58,8 @@ public class MethodOvertimeWarn {
   @Around("pointcut()")
   public Object aroundPointcut(ProceedingJoinPoint pjp) throws Throwable {
     Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
-    if (timeSumMap == null && getOvertimeMillis() < 0) {
+    long overtimeMillis = getOvertimeMillis();
+    if (timeSumMap == null && overtimeMillis < 0) {
       return pjp.proceed();
     }
 
@@ -99,7 +100,7 @@ public class MethodOvertimeWarn {
       // toString
       if (isRoot) {
         ts = TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS);
-        if (ts >= getOvertimeMillis()) {
+        if (ts >= overtimeMillis) {
           printInfo(timeSumMap, te, !isIgnoreMail(methodPath, pjp.getTarget().getClass()));
         }
       }

@@ -109,7 +109,9 @@ public class MethodOvertimeWarn {
       }
       return object;
     } finally {
-      localTimeSumMap.remove();
+      if(isRoot) {
+        localTimeSumMap.remove();
+      }
     }
   }
 

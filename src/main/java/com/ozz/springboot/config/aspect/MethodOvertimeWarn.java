@@ -16,11 +16,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
 @Slf4j
+@DependsOn("myMailService")
 public class MethodOvertimeWarn {
 
   @Value("${ozz.warn.overtimeMillis}")
@@ -51,7 +53,7 @@ public class MethodOvertimeWarn {
 
   private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
     // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
-    return myMailService == null || methodPath.startsWith(MyMailService.class.getName()) || aClass
+    return methodPath.startsWith(MyMailService.class.getName()) || aClass
         .isAssignableFrom(MyMailService.class);
   }
 

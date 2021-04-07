@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MyMailService {
   @Autowired
@@ -42,7 +44,11 @@ public class MyMailService {
       }
       sendSimpleMail(subject, bo.toString());
     } catch (Exception e2) {
-      e.addSuppressed(e2);
+      if(e != null) {
+        e.addSuppressed(e2);
+      } else {
+        log.error(subject + "\n" + content, e2);
+      }
     }
   }
 

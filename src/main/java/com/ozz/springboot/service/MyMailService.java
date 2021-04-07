@@ -26,7 +26,7 @@ public class MyMailService {
   @Value("${spring.mail.username}")
   private String mailFrom;
   @Value("${ozz.mail.mailTo}")
-  private String mailTo;
+  private String[] mailTo;
 
   String getSubject(String subject) {
     return String.format("[MyTest] %s", subject);

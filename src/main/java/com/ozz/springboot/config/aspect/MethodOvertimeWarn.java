@@ -38,7 +38,7 @@ public class MethodOvertimeWarn {
   /**
    * 切面配置
    */
-  @Pointcut("execution(public * com.ozz.springboot..*.*(..)) || execution(public * org.springframework.data.redis..*.*(..))")
+  @Pointcut("execution(public * com.ozz..*.*(..))")
   public void pointcut() {
   }
 

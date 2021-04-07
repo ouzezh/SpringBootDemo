@@ -42,7 +42,7 @@ public class MyMailService {
       if(e != null) {
         e.printStackTrace(ps);
       }
-      sendSimpleMail(subject, bo.toString());
+      sendMail(subject, bo.toString());
     } catch (Exception e2) {
       if(e != null) {
         e.addSuppressed(e2);
@@ -52,7 +52,7 @@ public class MyMailService {
     }
   }
 
-  public void sendSimpleMail(String subject, String content) {
+  public void sendMail(String subject, String content) {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(mailFrom);
     message.setTo(mailTo);

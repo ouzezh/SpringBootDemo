@@ -101,7 +101,7 @@ public class MethodOvertimeWarn {
 
       // toString
       if (isRoot) {
-        ts = TimeUnit.MILLISECONDS.convert(ts, TimeUnit.NANOSECONDS);
+        ts = TimeUnit.NANOSECONDS.toMillis(ts);
         if (ts >= overtimeMillis) {
           printInfo(timeSumMap, te, !isIgnoreMail(methodPath, pjp.getTarget().getClass()));
         }
@@ -123,8 +123,7 @@ public class MethodOvertimeWarn {
     String res = timeSumMap.entrySet().stream()
         .map(item -> String
             .format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(),
-                getTimeStringByMillis(TimeUnit.MILLISECONDS
-                    .convert(item.getValue().getRight().longValue(), TimeUnit.NANOSECONDS))))
+                getTimeStringByMillis(TimeUnit.NANOSECONDS.toMillis(item.getValue().getRight().longValue()))))
         .collect(Collectors.joining("\n"));
     log.warn(String.format("%n--start-->%n%s%n<--end--%n", res));
     if (sendMail) {

@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 @DependsOn("myMailService")
 public class MethodOvertimeWarn {
 
-  @Value("${ozz.warn.overtimeMillis}")
+  @Value("${ozz.warn.overtimeMillis:-1}")
   private long OVERTIME_MILLIS = -1;
 
   /**
@@ -120,11 +120,10 @@ public class MethodOvertimeWarn {
 
   private void printInfo(Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap,
       Throwable te, boolean sendMail) {
-    String res = timeSumMap.entrySet().stream()
-        .map(item -> String
-            .format("%s: count=%s, time=[%s]", item.getKey(), item.getValue().getLeft(),
-                getTimeStringByMillis(TimeUnit.NANOSECONDS.toMillis(item.getValue().getRight().longValue()))))
-        .collect(Collectors.joining("\n"));
+    String res = timeSumMap.entrySet().stream().map(item -> String.format("[%s][%s]%s",
+        getTimeStringByMillis(
+            TimeUnit.NANOSECONDS.toMillis(item.getValue().getRight().longValue())),
+        item.getValue().getLeft(), item.getKey())).collect(Collectors.joining("\n"));
     log.warn(String.format("%n--start-->%n%s%n<--end--%n", res));
     if (sendMail) {
       try {

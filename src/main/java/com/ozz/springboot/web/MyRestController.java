@@ -4,8 +4,10 @@ import com.ozz.springboot.exception.ErrorException;
 import com.ozz.springboot.service.MyService;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RestController
 public class MyRestController {
   @Autowired
-  private MyService myDao;
+//  @Qualifier("myService")
+  private MyService myService;
 
   @RequestMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {
-    return myDao.sevice(p);
+    return myService.sevice(p);
   }
 
   @RequestMapping(value = "/v1/test_map")
@@ -38,8 +42,8 @@ public class MyRestController {
 
   @RequestMapping(value = "/v1/test/upload")
   public void testUpload(MultipartFile file) {
-    System.out.println(file.getName());
-    System.out.println(file.getSize());
+    log.info(file.getName());
+    log.info(String.valueOf(file.getSize()));
   }
 
   @RequestMapping(value = "/v1/test/download")
@@ -50,12 +54,13 @@ public class MyRestController {
       response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("test.csv", "UTF-8"));
 
       PrintWriter out = response.getWriter();
-      String bomStr = new String(new byte[] {(byte) 0xef, (byte) 0xbb, (byte) 0xbf}, "UTF-8");
+      String bomStr = new String(new byte[] {(byte) 0xef, (byte) 0xbb, (byte) 0xbf}, StandardCharsets.UTF_8);
       out.print(bomStr);
 
-      CSVFormat format = CSVFormat.EXCEL.withHeader(new String[] {"name"});
+      CSVFormat format = CSVFormat.EXCEL.withHeader("id", "name");
       try(CSVPrinter printer = new CSVPrinter(out, format);) {
-        printer.printRecord("john");
+        printer.printRecord("1", "john");
+        printer.print("2");
         printer.print("bob");
       }
     } catch (RuntimeException e) {

@@ -3,11 +3,9 @@ package com.ozz.springboot;
 import com.ozz.springboot.exception.ErrorException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableConfigurationProperties({MyBindConfig.class})
 @EnableScheduling
 public class SpringbootApp {
 

@@ -1,6 +1,7 @@
 package com.ozz.springboot.config.runner;
 
-import com.ozz.springboot.Settings;
+import com.alibaba.fastjson.JSON;
+import com.ozz.springboot.MyBindConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -17,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class MyApplicationRunner implements ApplicationRunner {
 
   @Autowired
-  private Settings settings;
+  private MyBindConfig myBindConfig;
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    log.info("start {}: read config: {}", this.getClass().getSimpleName(), settings.getMyConfig());
+    log.info("start {}: read config: {}", this.getClass().getSimpleName(), JSON.toJSONString(myBindConfig));
   }
 }

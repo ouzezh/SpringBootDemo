@@ -1,5 +1,6 @@
 package com.ozz.springboot;
 
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ToString
 @ConfigurationProperties(prefix = "ozz")
-public class Settings {
+public class MyBindConfig {
   private String myConfig;
+  private Map<String, Long> myMapConfig;
 }

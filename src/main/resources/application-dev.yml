@@ -14,6 +14,9 @@ spring:
 # 应用配置文件
 ozz:
     myConfig: ENC(XAfcx+f/W0P6a+TILk6641e4mXeuk2NftUBbwIIAbtLPYrdbzWr4kUr3jDZbndY1)
+    myMapConfig:
+        key1: 1
+        key2: 2
     mail:
         mailTo: ouzezh@aliyun.com,ouzezh@aliyun.com
     warn:

@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableConfigurationProperties({Settings.class})
+@EnableConfigurationProperties({MyBindConfig.class})
 @EnableScheduling
 public class SpringbootApp {
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @Order(value = 0)
-public class MyApplicationRunner implements ApplicationRunner {
+public class MyAppRunner implements ApplicationRunner {
 
   @Autowired
   private MyBindConfig myBindConfig;

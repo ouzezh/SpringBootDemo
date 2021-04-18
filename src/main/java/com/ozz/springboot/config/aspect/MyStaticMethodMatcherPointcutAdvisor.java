@@ -26,6 +26,7 @@ public class MyStaticMethodMatcherPointcutAdvisor extends StaticMethodMatcherPoi
     return false;
   }
 
+  // MethodBeforeAdvice, AfterReturningAdvice
   public static class MyMethodInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {

@@ -19,6 +19,4 @@ ozz:
         key2: 2
     mail:
         mailTo: ouzezh@aliyun.com,ouzezh@aliyun.com
-    warn:
-        overtimeMillis: 600000
 

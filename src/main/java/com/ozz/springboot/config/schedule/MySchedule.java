@@ -11,9 +11,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class MySchedule {
-
-//  private static volatile int scheduleCount = 0;
-
   @Autowired
   private Environment env;
 
@@ -25,7 +22,7 @@ public class MySchedule {
     log.info(String.format("execute s1 %s start, readConfig: %s", Thread.currentThread().getName(),
         env.getProperty("ozz.myConfig")));
     try {
-      Thread.sleep(60000);
+      Thread.sleep(30000);
     } catch (InterruptedException e) {
       throw new ErrorException(e);
     }

@@ -13,7 +13,7 @@ public class MyService {
   @Value("${ozz.myConfig}")
   private String myConfig;
 
-  public Map<String, String> sevice(String p) {
+  public Map<String, String> myService(String p) {
     log.debug("test myDao service");
     Map<String, String> map = new HashMap<>();
     map.put("p", p);

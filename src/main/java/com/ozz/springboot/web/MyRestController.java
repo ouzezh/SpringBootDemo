@@ -27,7 +27,7 @@ public class MyRestController {
 
   @RequestMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {
-    return myService.sevice(p);
+    return myService.myService(p);
   }
 
   @RequestMapping(value = "/v1/test_map")

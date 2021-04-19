@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest("--spring.profiles.active=dev")
-class MyStaticMethodMatcherPointcutAdvisorServiceTest {
+class MyServiceTest {
   @Autowired
   MyService service;
   @Autowired
@@ -14,7 +14,7 @@ class MyStaticMethodMatcherPointcutAdvisorServiceTest {
 
   @Test
   void testService() {
-    System.out.println(service.sevice("p"));
+    System.out.println(service.myService("p"));
   }
 
   @Test

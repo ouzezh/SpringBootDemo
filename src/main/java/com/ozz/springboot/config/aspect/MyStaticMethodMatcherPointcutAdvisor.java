@@ -30,7 +30,7 @@ public class MyStaticMethodMatcherPointcutAdvisor extends StaticMethodMatcherPoi
   public static class MyMethodInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-      System.out.println(String.format("---->%s()", invocation.getMethod().getName()));
+      System.out.println(String.format("---->%s.%s()", invocation.getMethod().getDeclaringClass().getName(), invocation.getMethod().getName()));
       return invocation.proceed();
     }
   }

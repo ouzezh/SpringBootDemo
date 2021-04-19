@@ -23,19 +23,21 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Slf4j
 public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
+  private static long timeoutMillis = 60000L;
+  private static String timeoutPackage = "com.ozz";
   @Override
   public boolean matches(Method method, Class<?> targetClass) {
 //    if (java.lang.reflect.Modifier.isFinal(targetClass.getModifiers())) {
 //      return false;
 //    }
-    if(targetClass.getName().startsWith("org.springframework.boot") || targetClass.getName().startsWith("org.springframework.web")) {
-      return false;
+    if (targetClass.getName().startsWith(timeoutPackage)) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   public MethodTimeoutAdvisor() {
-    setAdvice(new MyMethodInterceptor(60000L, "com.ozz"));
+    setAdvice(new MyMethodInterceptor());
   }
   @Autowired
   public void setOvertimeMillis(MyMailService myMailService) {
@@ -46,18 +48,11 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
   @Accessors(chain = true)
   protected static class MyMethodInterceptor implements MethodInterceptor {
     private MyMailService myMailService;
-    private long timeoutMillis = -1;
-    private String timeoutPackage = "-1";
 
     /**
      * <methodPath, Pair<executeCount, executeTime>>
      */
     ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localTimeSumMap = new ThreadLocal<>();
-
-    public MyMethodInterceptor(long timeoutMillis, String timeoutPackage) {
-      this.timeoutMillis = timeoutMillis;
-      this.timeoutPackage = timeoutPackage;
-    }
 
     /**
      * 超时时间，可以针对特定请求修改限时设置
@@ -136,7 +131,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
       Throwable te = null;
       try {
         if (timeSumMap == null) {
-          if (overtimeMillis < 0 || !methodPath.startsWith(this.timeoutPackage)) {
+          if (overtimeMillis < 0 || !methodPath.startsWith(timeoutPackage)) {
             return invocation.proceed();
           }
           isRoot = true;

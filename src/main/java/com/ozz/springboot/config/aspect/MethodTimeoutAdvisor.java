@@ -25,10 +25,13 @@ import org.springframework.stereotype.Component;
 public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
   @Override
   public boolean matches(Method method, Class<?> targetClass) {
-    if (targetClass.getName().startsWith("com.ozz")) {
-      return true;
+//    if (java.lang.reflect.Modifier.isFinal(targetClass.getModifiers())) {
+//      return false;
+//    }
+    if(targetClass.getName().startsWith("org.springframework.boot") || targetClass.getName().startsWith("org.springframework.web")) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   public MethodTimeoutAdvisor() {

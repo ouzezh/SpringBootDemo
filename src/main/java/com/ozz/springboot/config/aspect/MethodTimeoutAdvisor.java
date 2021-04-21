@@ -63,31 +63,34 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
       return timeoutMillis;
     }
 
-    private boolean isIgnoreMail(String methodPath, Class<?> aClass) {
+    private boolean ifSendMail(String methodPath, Class<?> aClass) {
       // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
-      return myMailService==null || methodPath.startsWith(MyMailService.class.getName()) || aClass
-          .isAssignableFrom(MyMailService.class);
+      return !(myMailService == null || methodPath.startsWith(MyMailService.class.getName())
+          || aClass.isAssignableFrom(MyMailService.class));
     }
 
     private void printInfo(Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap,
-        Throwable te, boolean sendMail) {
-      String res = timeSumMap.entrySet().stream().map(item -> String.format("[%s][%s]%s",
+        Throwable te, boolean ifSendMail) {
+      String msg = timeSumMap.entrySet().stream().map(item -> String.format("[%s][%s]%s",
           getTimeStringByMillis(
               TimeUnit.NANOSECONDS.toMillis(item.getValue().getRight().longValue())),
-          item.getValue().getLeft(), item.getKey())).collect(Collectors.joining("\n"));
-      log.warn(String.format("%n--start-->%n%s%n<--end--%n", res));
-      if (sendMail) {
+          item.getValue().getLeft(), item.getKey()))
+          .collect(Collectors.joining("\n", "\n--start-->\n", "\n<--end--\n"));
+      if (ifSendMail) {
+        log.warn(msg);
         try {
-          myMailService.sendErrorMail(te == null ? "运行超时" : "运行超时+异常", res, te);
+          myMailService.sendErrorMail(te == null ? "运行超时" : "运行超时+异常", msg, te);
         } catch (Exception e) {
           log.error(null, e);
         }
+      } else {
+        log.info(msg);
       }
     }
 
     public static String getTimeStringByMillis(long millis) {
-      String[] modUnits = {"天", "时", "分", "秒", "毫秒"};
-      long[] mods = {24, 60, 60, 1000, 1};
+      String[] modUnits = {"分", "秒", "毫秒"};
+      long[] mods = {60, 1000, 1};
 
       if (millis <= 0) {
         return millis + modUnits[modUnits.length - 1];
@@ -166,7 +169,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
           ts = TimeUnit.NANOSECONDS.toMillis(ts);
           if (ts >= overtimeMillis) {
             printInfo(timeSumMap, te,
-                !isIgnoreMail(methodPath, invocation.getMethod().getDeclaringClass()));
+                ifSendMail(methodPath, invocation.getMethod().getDeclaringClass()));
           }
         }
 

@@ -52,7 +52,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
     /**
      * <methodPath, Pair<executeCount, executeTime>>
      */
-    ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localTimeSumMap = new ThreadLocal<>();
+    static ThreadLocal<Map<String, MutablePair<AtomicInteger, AtomicLong>>> localTimeSumMap = new ThreadLocal<>();
 
     /**
      * 超时时间，可以针对特定请求修改限时设置

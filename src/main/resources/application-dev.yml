@@ -4,9 +4,9 @@ logging:
 # 邮箱配置
 spring:
     mail:
-        host: smtp.aliyun.com
+        host: smtp.yeah.net
         port: 25
-        username: ouzezh@aliyun.com
+        username: noreply_me@yeah.net
         password:
 #        properties:
 #            mail.debug: true
@@ -18,5 +18,5 @@ ozz:
         key1: 1
         key2: 2
     mail:
-        mailTo: ouzezh@aliyun.com,ouzezh@aliyun.com
+        mailTo: noreply_me@yeah.net,noreply_me@yeah.net
 

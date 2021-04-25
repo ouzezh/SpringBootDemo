@@ -40,7 +40,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
     setAdvice(new MyMethodInterceptor());
   }
   @Autowired
-  public void setOvertimeMillis(MyMailService myMailService) {
+  public void setMyMailService(MyMailService myMailService) {
     ((MyMethodInterceptor)getAdvice()).setMyMailService(myMailService);
   }
 
@@ -120,21 +120,19 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
       return timeString.toString();
     }
 
-    @Override
+//    @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
       Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
-      long overtimeMillis = getTimeoutMillis();
+      long timeoutMillis = getTimeoutMillis();
 
       String methodPath = String
           .format("%s.%s()", invocation.getMethod().getDeclaringClass().getName(),
               invocation.getMethod().getName());
 
       boolean isRoot = false;
-      long ts = 0;
-      Throwable te = null;
       try {
         if (timeSumMap == null) {
-          if (overtimeMillis < 0 || !methodPath.startsWith(timeoutPackage)) {
+          if (timeoutMillis < 0 || !methodPath.startsWith(timeoutPackage)) {
             return invocation.proceed();
           }
           isRoot = true;
@@ -150,8 +148,9 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
         }
 
         // 执行方法
-        ts = System.nanoTime();
+        long ts = System.nanoTime();
         Object object = null;
+        Throwable te = null;
         try {
           object = invocation.proceed();
         } catch (Throwable e) {
@@ -167,7 +166,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
         // toString
         if (isRoot) {
           ts = TimeUnit.NANOSECONDS.toMillis(ts);
-          if (ts >= overtimeMillis) {
+          if (ts >= timeoutMillis) {
             printInfo(timeSumMap, te,
                 ifSendMail(methodPath, invocation.getMethod().getDeclaringClass()));
           }

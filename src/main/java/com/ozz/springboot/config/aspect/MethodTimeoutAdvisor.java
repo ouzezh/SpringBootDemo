@@ -30,10 +30,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
 //    if (java.lang.reflect.Modifier.isFinal(targetClass.getModifiers())) {
 //      return false;
 //    }
-    if (targetClass.getName().startsWith(timeoutPackage)) {
-      return true;
-    }
-    return false;
+    return targetClass.getName().startsWith(timeoutPackage);
   }
 
   public MethodTimeoutAdvisor() {
@@ -120,7 +117,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
       return timeString.toString();
     }
 
-//    @Override
+    @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
       Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap = localTimeSumMap.get();
       long timeoutMillis = getTimeoutMillis();

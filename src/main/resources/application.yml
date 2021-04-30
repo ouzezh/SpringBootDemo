@@ -4,9 +4,8 @@
 #        context-path: /springboot
 
 spring:
-#    profiles:
-#        # 区分不同环境下配置文件 (从启动参数中动态读取)
-#        active: dev
+#    # 区分不同环境下配置文件 (从启动参数中动态读取)
+#    profiles.active: dev
 
     thymeleaf:
         #开发配置为false,避免修改模板还要重启服务器

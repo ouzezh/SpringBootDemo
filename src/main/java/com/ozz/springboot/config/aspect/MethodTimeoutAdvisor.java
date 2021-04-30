@@ -63,7 +63,7 @@ public class MethodTimeoutAdvisor extends StaticMethodMatcherPointcutAdvisor {
     private boolean ifSendMail(String methodPath, Class<?> aClass) {
       // 忽略邮件警报，由于处理超时时使用了邮件，防止发生死循环
       return !(myMailService == null || methodPath.startsWith(MyMailService.class.getName())
-          || aClass.isAssignableFrom(MyMailService.class));
+          || MyMailService.class.isAssignableFrom(aClass));
     }
 
     private void printInfo(Map<String, MutablePair<AtomicInteger, AtomicLong>> timeSumMap,

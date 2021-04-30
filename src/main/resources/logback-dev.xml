@@ -7,7 +7,7 @@ scanPeriod:
 debug:
 	当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
 -->
-<configuration scan="true" scanPeriod="1800 seconds" debug="false">
+<configuration scan="false" scanPeriod="1800 seconds" debug="false">
 	<property name="USER_HOME" value="logs" />
 	<property name="FILE_NAME" value="logback" />
 

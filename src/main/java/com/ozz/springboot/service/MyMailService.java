@@ -76,7 +76,7 @@ public class MyMailService {
       }
       javaMailSender.send(mimeMessage);
     } catch (MessagingException e) {
-      throw new ErrorException(e);
+      throw new RuntimeException(e);
     }
   }
 }

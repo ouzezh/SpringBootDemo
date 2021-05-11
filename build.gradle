@@ -1,12 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.2.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
 group = 'com.ozz'
 version = '0.1'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -24,7 +24,6 @@ repositories {
     maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
     maven { url 'https://maven.aliyun.com/repository/grails-core' }
     maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
-    jcenter()
     mavenCentral()
 }
 
@@ -34,22 +33,25 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
-    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3' // 加密
 
     implementation 'com.google.guava:guava:30.1.1-jre'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.apache.commons:commons-csv:1.8'
     implementation 'com.alibaba:fastjson:1.2.73'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    /*
+     * Generate metadata for developers to offer contextual help and "code completion" when working with custom configuration keys (ex.application.properties/.yml files).
+     * https://docs.spring.io/spring-boot/docs/2.2.8.RELEASE/reference/html/appendix-configuration-metadata.html#configuration-metadata-annotation-processor
+    */
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	
+    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
 }
 
 

@@ -1,10 +1,10 @@
 package com.ozz.springboot.config.converter;
 
+import com.google.common.base.Strings;
 import com.ozz.springboot.exception.ErrorException;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.util.StringUtils;
 
 public class StringToDateConverter implements Converter<String, Date> {
 
@@ -12,7 +12,7 @@ public class StringToDateConverter implements Converter<String, Date> {
 
   @Override
   public Date convert(String value) {
-    if (StringUtils.isEmpty(value)) {
+    if (Strings.isNullOrEmpty(value)) {
       return null;
     }
     value = value.trim();

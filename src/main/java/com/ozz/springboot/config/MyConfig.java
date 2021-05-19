@@ -21,6 +21,7 @@ import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,8 +30,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Configuration
 public class MyConfig implements WebMvcConfigurer {
 
-  @Autowired
-  private RequestMappingHandlerAdapter handlerAdapter;
   @Autowired
   private MyHandlerInterceptor myHandlerInterceptor;
 
@@ -48,7 +47,6 @@ public class MyConfig implements WebMvcConfigurer {
    */
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-//    registry.addInterceptor(corsInterceptor);// 必须放在最前面
     registry.addInterceptor(myHandlerInterceptor).addPathPatterns("/**")
         .excludePathPatterns("/xx/**");
   }
@@ -57,7 +55,7 @@ public class MyConfig implements WebMvcConfigurer {
    * HTTP请求参数格式转化:String->Date
    */
   @PostConstruct
-  public void initWebBinding() {
+  public void initWebBinding(RequestMappingHandlerAdapter handlerAdapter) {
     ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter
         .getWebBindingInitializer();
     if (initializer.getConversionService() != null) {
@@ -102,25 +100,25 @@ public class MyConfig implements WebMvcConfigurer {
     converters.add(fastJsonHttpMessageConverter);
   }
 
-  private CorsConfiguration buildCorsConfiguration() {
-    CorsConfiguration corsConfiguration = new CorsConfiguration();
-
-//    corsConfiguration.addAllowedOrigin("http://localhost:8080");
-//    corsConfiguration.addAllowedOrigin("http://localhost");
-    corsConfiguration.addAllowedOrigin("*");
-
-    corsConfiguration.addAllowedHeader("*");
-    corsConfiguration.addAllowedMethod("*");
-    corsConfiguration.setAllowCredentials(true);
-    return corsConfiguration;
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("*").allowedOrigins("*").allowedHeaders("*").allowedMethods("*")
+        .allowCredentials(true);
   }
-
-  @Bean
-  public CorsFilter corsFilter() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", buildCorsConfiguration());
-    return new CorsFilter(source);
-  }
+//  private CorsConfiguration buildCorsConfiguration() {
+//    CorsConfiguration corsConfiguration = new CorsConfiguration();
+//    corsConfiguration.addAllowedOrigin("*");
+//    corsConfiguration.addAllowedHeader("*");
+//    corsConfiguration.addAllowedMethod("*");
+//    corsConfiguration.setAllowCredentials(true);
+//    return corsConfiguration;
+//  }
+//  @Bean
+//  public CorsFilter corsFilter() {
+//    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//    source.registerCorsConfiguration("/**", buildCorsConfiguration());
+//    return new CorsFilter(source);
+//  }
 
   @PreDestroy
   public void destroy() {

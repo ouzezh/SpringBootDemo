@@ -1,6 +1,5 @@
 package com.ozz.springboot.service;
 
-import com.ozz.springboot.exception.ErrorException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;

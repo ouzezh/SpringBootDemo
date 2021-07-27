@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * 请求参数包，用于在请求中添加参数
  * 
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ParameterRequestWrapper extends HttpServletRequestWrapper {
   private Map params;
 

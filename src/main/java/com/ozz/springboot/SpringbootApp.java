@@ -10,15 +10,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class SpringbootApp {
 
   public static void main(String[] args) {
-    String profile = null;
     try {
-      profile = args[0].replace("--spring.profiles.active=", "");
+      new SpringApplicationBuilder().sources(SpringbootApp.class).profiles(args[0].replace("--spring.profiles.active=", "")).run(args);
     } catch (Exception e) {
       ErrorException ee = new ErrorException("parse args --spring.profiles.active={profile} error");
       ee.addSuppressed(e);
       throw ee;
     }
-    new SpringApplicationBuilder().sources(SpringbootApp.class).profiles(profile).run(args);
   }
 
 }

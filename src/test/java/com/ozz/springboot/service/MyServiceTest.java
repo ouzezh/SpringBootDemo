@@ -19,7 +19,7 @@ class MyServiceTest {
 
   @Test
   void testEncryptPwd() {
-    String result = stringEncryptor.encrypt("Hello, World!");
+    String result = stringEncryptor.encrypt("my config");
     String str = stringEncryptor.decrypt(result);
     System.out.println(String.format("%s -> %s", result, str));
   }

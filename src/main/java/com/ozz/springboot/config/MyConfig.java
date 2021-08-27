@@ -48,20 +48,6 @@ public class MyConfig implements WebMvcConfigurer {
   }
 
   /**
-   * HTTP请求参数格式转化:String->Date
-   */
-  @PostConstruct
-  public void initWebBinding(RequestMappingHandlerAdapter handlerAdapter) {
-    ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter
-        .getWebBindingInitializer();
-    if (initializer.getConversionService() != null) {
-      GenericConversionService genericConversionService = (GenericConversionService) initializer
-          .getConversionService();
-      genericConversionService.addConverter(new StringToDateConverter());
-    }
-  }
-
-  /**
    * 使用fastjson代替jackson
    */
   @Override

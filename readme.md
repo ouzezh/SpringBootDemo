@@ -5,7 +5,7 @@ com.github.ulisesbocchio:jasypt-spring-boot-starter:1.12
 
 - properties中修改配置
 ```
-security.password=ENC(encoded_password)	#密码密文
+myPwd=ENC(encoded_password)	#密码密文
 jasypt.encryptor.password=	#主密码(加密密码的密码)
 jasypt.encryptor.algorithm=PBEWithMD5AndDES	#加密算法
 jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptography Extension)

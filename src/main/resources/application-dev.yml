@@ -13,7 +13,7 @@ spring:
 
 # 应用配置文件
 ozz:
-    myConfig: ENC(EPJXbH4RkwPSR8EKyUVQjcROyYQgpE3vCJWOFJ587W+A7D0u1FnvLoC0MsoO2iAG)
+    myConfig: my config
     myMapConfig:
         key1: 1
         key2: 2

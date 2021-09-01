@@ -18,7 +18,7 @@ spring:
             # 最大请求文件限制
             max-request-size: 15MB
 
-#加密密钥
-jasypt:
-    encryptor:
-        password: 2BTRS4Q6cmDsXOvquQq0qmjWtqvKnHEW
+##加密密钥
+#jasypt:
+#    encryptor:
+#        password: 2BTRS4Q6cmDsXOvquQq0qmjWtqvKnHEW

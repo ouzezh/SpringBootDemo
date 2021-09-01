@@ -52,6 +52,7 @@ public class MyMailService {
   }
 
   public void sendMail(String subject, String content) {
+    log.info(String.format("send mail start : %s", subject));
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(mailFrom);
     message.setTo(mailTo);
@@ -60,9 +61,11 @@ public class MyMailService {
     message.setSubject(getSubject(subject));
     message.setText(content);
     javaMailSender.send(message);
+    log.info(String.format("send mail end : %s", subject));
   }
 
   public void sendMimeMail(String subject, String content, List<Pair<String, File>> attachments) {
+    log.info(String.format("send mail start : %s", subject));
     try {
       MimeMessage mimeMessage = javaMailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
@@ -77,5 +80,6 @@ public class MyMailService {
     } catch (MessagingException e) {
       throw new RuntimeException(e);
     }
+    log.info(String.format("send mail end : %s", subject));
   }
 }

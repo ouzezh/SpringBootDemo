@@ -1,0 +1,30 @@
+package com.ozz.springboot.kafka;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.config.KafkaListenerContainerFactory;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Slf4j
+@Component
+public class MyKafkaListener {
+    @Bean
+    public KafkaListenerContainerFactory myBatchFactory(@Autowired ConsumerFactory consumerFactory) {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory);
+        factory.setBatchListener(true);
+        return factory;
+    }
+
+    @KafkaListener(groupId = "myGroup", topics = "myTopic", containerFactory = "myBatchFactory")
+    public void listenRoomBoxPlayback(List<String> records) {
+        log.info(records.stream().collect(Collectors.joining("\n", String.format("fetch records roombox-playback count: %s%n", records.size()), StringUtils.EMPTY)));
+    }
+}

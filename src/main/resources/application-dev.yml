@@ -11,6 +11,20 @@ spring:
 #        properties:
 #            mail.debug: true
 
+#    kafka:
+#        consumer:
+#            auto-offset-reset: earliest
+#            enable-auto-commit: true
+#            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#            isolation-level: read_committed
+#            max-poll-records: 500
+#            security.protocol: SASL_PLAINTEXT
+#            bootstrap-servers: localhost:9192,localhost:9193
+#            properties:
+#                sasl.mechanism: PLAIN
+#                sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="myUsr" password="myPwd";
+
 # 应用配置文件
 ozz:
     myConfig: my config

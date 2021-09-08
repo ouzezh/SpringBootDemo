@@ -30,7 +30,7 @@ public class MySchedule {
   }
 
   @Async("asyncTaskExecutor")
-  @Scheduled(cron = "0/5 * * * * ?")
+  @Scheduled(cron = "0 0 1 * * ?") // 每天一点执行
   public void asyncSchedule() {
     log.info(String.format("execute a1 %s start", Thread.currentThread().getName()));
     try {

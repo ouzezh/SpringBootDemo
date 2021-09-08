@@ -2,8 +2,10 @@ package com.ozz.springboot.exception;
 
 import java.util.Objects;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+@NoArgsConstructor
 @Getter
 public class WarnException extends RuntimeException {
   HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;

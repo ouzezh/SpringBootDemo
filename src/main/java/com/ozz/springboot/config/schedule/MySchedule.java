@@ -17,7 +17,8 @@ public class MySchedule {
   /**
    * 固定时间间隔执行，单位：毫秒
    */
-  @Scheduled(fixedDelay = 5)
+  @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
+//  @Scheduled(fixedRate = 5000)// 任务开始时间开始计时
   public void schedule() {
     log.info(String.format("execute s1 %s start, readConfig: %s", Thread.currentThread().getName(),
         env.getProperty("ozz.myConfig")));

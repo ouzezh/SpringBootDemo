@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
@@ -52,7 +54,7 @@ public class SpringUtils implements ApplicationContextAware {
 
     @PostConstruct
     void init() {
-        RequestMappingHandlerMapping mapping = context.getBean(RequestMappingHandlerMapping.class);
+        RequestMappingHandlerMapping mapping = SpringUtils.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> handlerMethods =  mapping.getHandlerMethods();
         log.info("-- start print request mapping -->");
         AtomicInteger no = new AtomicInteger(0);
@@ -63,5 +65,10 @@ public class SpringUtils implements ApplicationContextAware {
             log.info(String.format("%d:\t%s\t%s", no.incrementAndGet(), method, url));
         });
         log.info("<-- end print request mapping -->");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Callback triggered - @PreDestroy.");
     }
 }

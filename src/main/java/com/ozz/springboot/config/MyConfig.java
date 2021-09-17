@@ -97,9 +97,4 @@ public class MyConfig implements WebMvcConfigurer {
 //    return new CorsFilter(source);
 //  }
 
-  @PreDestroy
-  public void destroy() {
-    System.out.println("Callback triggered - @PreDestroy.");
-  }
-
 }

@@ -11,7 +11,7 @@ debug:
 	<property name="USER_HOME" value="logs" />
 	<property name="FILE_NAME" value="logback" />
 
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} %-4relative %-5level %logger{35} - %msg%n
 			</pattern>
@@ -34,12 +34,12 @@ debug:
 	</appender>
 
 	<root level="ERROR" additivity="false">
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="console" />
 <!--		<appender-ref ref="file" />-->
 	</root>
 
 	<logger name="com.ozz" level="DEBUG" additivity="false">
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="console" />
 <!--		<appender-ref ref="file" />-->
 	</logger>
 </configuration>

@@ -18,7 +18,7 @@ debug:
 		</encoder>
 	</appender>
 
-	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${USER_HOME}/${FILE_NAME}.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- rollover daily -->
@@ -35,11 +35,11 @@ debug:
 
 	<root level="ERROR" additivity="false">
 		<appender-ref ref="console" />
-<!--		<appender-ref ref="file" />-->
+<!--		<appender-ref ref="logFile" />-->
 	</root>
 
 	<logger name="com.ozz" level="DEBUG" additivity="false">
 		<appender-ref ref="console" />
-<!--		<appender-ref ref="file" />-->
+<!--		<appender-ref ref="logFile" />-->
 	</logger>
 </configuration>

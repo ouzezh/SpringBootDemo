@@ -33,6 +33,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    /*
+     * Generate metadata for developers to offer contextual help and "code completion" when working with custom configuration keys (ex.application.properties/.yml files).
+     * https://docs.spring.io/spring-boot/docs/2.2.8.RELEASE/reference/html/appendix-configuration-metadata.html#configuration-metadata-annotation-processor
+     */
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
 //    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3' // 加密
 
 //    implementation 'org.springframework.kafka:spring-kafka:{version}'
@@ -43,18 +54,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.apache.commons:commons-csv:1.8'
     implementation 'com.alibaba:fastjson:1.2.73'
-
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-
-    /*
-     * Generate metadata for developers to offer contextual help and "code completion" when working with custom configuration keys (ex.application.properties/.yml files).
-     * https://docs.spring.io/spring-boot/docs/2.2.8.RELEASE/reference/html/appendix-configuration-metadata.html#configuration-metadata-annotation-processor
-    */
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	
-    testImplementation 'org.springframework.boot:spring-boot-devtools'//热部署
 }
 
 

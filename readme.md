@@ -51,3 +51,11 @@ jasypt.encryptor.providerName=SunJCE	#算法供应商(default Sun Java Cryptogra
 
 ## 集成 Kafka
 https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.messaging.kafka
+
+## Swagger
+SwaggerConfig
+
+样例:
+https://github.com/ityouknow/spring-boot-examples/tree/master/spring-boot-swagger
+
+http://localhost:8080/swagger-ui/index.html

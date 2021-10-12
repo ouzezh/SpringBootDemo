@@ -9,6 +9,10 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@Api(tags = "我的分组")
 @Slf4j
 @RestController
 public class MyRestController {
@@ -28,19 +33,22 @@ public class MyRestController {
 //  @Qualifier("myService")
   private MyService myService;
 
-  @RequestMapping(value = "/v1/test")
+  @ApiOperation("测试方法")
+  @ApiResponse(code = 200, message = "测试结果")
+  @GetMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String p) {
     return myService.myService(p);
+  }
+
+  @ApiOperation("测试方法2")
+  @GetMapping(value = "/v1/test/{id}")
+  public String testPathParam(@PathVariable Long id) {
+    return "id=" + id;
   }
 
   @RequestMapping(value = "/v1/test_map")
   public Map<String, String> testMap(@RequestParam Map<String, String> map) {
     return map;
-  }
-
-  @GetMapping(value = "/v1/test/{id}")
-  public String testPathParam(@PathVariable Long id) {
-    return "id=" + id;
   }
 
   @RequestMapping(value = "/v1/test/upload")

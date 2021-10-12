@@ -39,10 +39,10 @@ public class SpringUtils implements ApplicationContextAware {
         return (T) context.getBean(beanName);
     }
 
-    public String[] getActiveProfiles() {
+    public static String[] getActiveProfiles() {
         return context.getEnvironment().getActiveProfiles();
     }
-    public boolean acceptsProfiles(String... profiles) {
+    public static boolean acceptsProfiles(String... profiles) {
         return context.getEnvironment().acceptsProfiles(Profiles.of(profiles));
     }
 

@@ -22,6 +22,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .enable(SpringUtils.acceptsProfiles("dev"))// 可区分不同环境关闭
                 .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.ozz"))
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())

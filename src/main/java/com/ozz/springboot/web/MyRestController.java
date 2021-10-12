@@ -1,6 +1,7 @@
 package com.ozz.springboot.web;
 
 import com.ozz.springboot.exception.ErrorException;
+import com.ozz.springboot.model.MyModel;
 import com.ozz.springboot.service.MyService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,19 +11,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "我的分组")
@@ -34,13 +29,21 @@ public class MyRestController {
   private MyService myService;
 
   @ApiOperation("测试方法")
+  @ApiImplicitParams({
+    @ApiImplicitParam(name = "name", value = "测试参数", required = false, dataType = "String", example = "n1")
+  })
   @ApiResponse(code = 200, message = "测试结果")
-  @GetMapping(value = "/v1/test")
-  public Map<String, String> test(@RequestParam(required=true) String p) {
-    return myService.myService(p);
+  @GetMapping(value = "/v1/test2")
+  public Map<String, String> test2(@RequestParam(required=true) String name) {
+    return myService.myService(name);
   }
 
   @ApiOperation("测试方法2")
+  @PostMapping(value = "/v1/test")
+  public MyModel test(@RequestBody MyModel myModel) {
+    return myModel;
+  }
+
   @GetMapping(value = "/v1/test/{id}")
   public String testPathParam(@PathVariable Long id) {
     return "id=" + id;

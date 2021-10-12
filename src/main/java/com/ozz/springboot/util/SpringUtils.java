@@ -3,6 +3,7 @@ package com.ozz.springboot.util;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
@@ -39,6 +41,9 @@ public class SpringUtils implements ApplicationContextAware {
 
     public String[] getActiveProfiles() {
         return context.getEnvironment().getActiveProfiles();
+    }
+    public boolean acceptsProfiles(String... profiles) {
+        return context.getEnvironment().acceptsProfiles(Profiles.of(profiles));
     }
 
     public static void shutdownDelay(long millis) {

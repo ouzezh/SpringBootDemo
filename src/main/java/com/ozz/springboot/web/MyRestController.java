@@ -12,6 +12,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -28,19 +31,19 @@ public class MyRestController {
 //  @Qualifier("myService")
   private MyService myService;
 
-  @ApiOperation("测试方法")
+  @ApiOperation(value = "测试方法")
   @ApiImplicitParams({
     @ApiImplicitParam(name = "name", value = "测试参数", required = false, dataType = "String", example = "n1")
   })
-  @ApiResponse(code = 200, message = "测试结果")
-  @GetMapping(value = "/v1/test2")
-  public Map<String, String> test2(@RequestParam(required=true) String name) {
+  @ApiResponse(responseCode = "200 data", description = "返回数据schema", content = @Content(schema = @Schema(implementation = MyModel.class)))
+  @GetMapping(value = "/v1/test")
+  public Map<String, String> test(@RequestParam(required=true) String name) {
     return myService.myService(name);
   }
 
   @ApiOperation("测试方法2")
-  @PostMapping(value = "/v1/test")
-  public MyModel test(@RequestBody MyModel myModel) {
+  @PostMapping(value = "/v1/test2")
+  public MyModel test2(@RequestBody MyModel myModel) {
     return myModel;
   }
 

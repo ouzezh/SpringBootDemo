@@ -16,7 +16,7 @@ public class MyService {
   public Map<String, String> myService(String p) {
     log.debug("test myDao service");
     Map<String, String> map = new HashMap<>();
-    map.put("p", p);
+    map.put("name", p);
     map.put("config", myConfig);
     return map;
   }

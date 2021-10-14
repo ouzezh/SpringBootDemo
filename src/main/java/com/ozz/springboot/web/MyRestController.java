@@ -35,8 +35,9 @@ public class MyRestController {
   @ApiImplicitParams({
     @ApiImplicitParam(name = "name", value = "测试参数", required = false, dataType = "String", example = "n1")
   })
-  @ApiResponse(responseCode = "data", description = "返回数据", content = @Content(schema = @Schema(implementation = MyModel.class)))
-  @RequestMapping(value = "/v1/test")
+//  @io.swagger.annotations.ApiResponse(code = 500, message = "我的错误", response = MyModel.class) // response无效问题需配置 springfox.documentation.swagger.use-model-v3=false
+  @ApiResponse(responseCode = "500", description = "返回数据", content = @Content(schema = @Schema(implementation = MyModel.class)))
+  @GetMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String name) {
     return myService.myService(name);
   }

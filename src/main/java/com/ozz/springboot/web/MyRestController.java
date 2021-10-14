@@ -31,12 +31,12 @@ public class MyRestController {
 //  @Qualifier("myService")
   private MyService myService;
 
-  @ApiOperation(value = "测试方法")
+  @ApiOperation(value = "测试方法", httpMethod = "GET")
   @ApiImplicitParams({
     @ApiImplicitParam(name = "name", value = "测试参数", required = false, dataType = "String", example = "n1")
   })
   @ApiResponse(responseCode = "data", description = "返回数据", content = @Content(schema = @Schema(implementation = MyModel.class)))
-  @GetMapping(value = "/v1/test")
+  @RequestMapping(value = "/v1/test")
   public Map<String, String> test(@RequestParam(required=true) String name) {
     return myService.myService(name);
   }

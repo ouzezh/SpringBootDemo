@@ -20,19 +20,23 @@ public class ErrorAdvice {
    * <p>
    * 强制指定返回状态码: @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
    */
-  @ExceptionHandler({ErrorException.class, WarnException.class})
+  @ExceptionHandler({WarnException.class})
   @ResponseBody
-  public Map<String, Object> exceptionHandler(HttpServletResponse response, Exception e)
-      throws Exception {
-    if (e instanceof ErrorException) {
-      log.error(null, e);
-      response.setStatus(((ErrorException) e).getStatus().value());
-    } else if (e instanceof WarnException) {
-      response.setStatus(((WarnException) e).getStatus().value());
-    } else {
-      throw e;
-    }
+  public Map<String, Object> warnHandler(HttpServletResponse response, WarnException e) {
+    response.setStatus(e.getStatus().value());
+    return getMessage(e);
+  }
+
+  @ExceptionHandler({ErrorException.class})
+  @ResponseBody
+  public Map<String, Object> errorHandler(HttpServletResponse response, ErrorException e) {
+    log.error(null, e);
+    response.setStatus(e.getStatus().value());
+    return getMessage(e);
+  }
+
+  private Map<String, Object> getMessage(Throwable e) {
     return Collections
-        .singletonMap("message", Objects.toString(e.getMessage(), e.getClass().getName()));
+            .singletonMap("message", Objects.toString(e.getMessage(), e.getClass().getName()));
   }
 }

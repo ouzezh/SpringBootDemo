@@ -1,6 +1,5 @@
 package com.ozz.springboot.config.schedule;
 
-import com.ozz.springboot.exception.ErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -25,7 +24,7 @@ public class MySchedule {
     try {
       Thread.sleep(30000);
     } catch (InterruptedException e) {
-      throw new ErrorException(e);
+      throw new RuntimeException(e);
     }
     log.info(String.format("execute s1 %s end", Thread.currentThread().getName()));
   }
@@ -37,7 +36,7 @@ public class MySchedule {
     try {
       Thread.sleep(20000);
     } catch (InterruptedException e) {
-      throw new ErrorException(e);
+      throw new RuntimeException(e);
     }
     log.info(String.format("execute a1 %s end", Thread.currentThread().getName()));
   }

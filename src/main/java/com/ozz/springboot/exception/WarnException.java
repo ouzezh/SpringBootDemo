@@ -12,12 +12,6 @@ public class WarnException extends RuntimeException {
   public WarnException(String message) {
     super(message);
   }
-  public WarnException(Throwable cause) {
-    super(cause);
-  }
-  public WarnException(String message, Throwable cause) {
-    super(message, cause);
-  }
   public WarnException(HttpStatus status, String message) {
     super(String.format("%s %s", status.value(), message));
     this.status = status;

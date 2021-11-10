@@ -10,35 +10,35 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class MySchedule {
-  @Autowired
-  private Environment env;
+    @Autowired
+    private Environment env;
 
-  /**
-   * 固定时间间隔执行，单位：毫秒
-   */
-  @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
+    /**
+     * 固定时间间隔执行，单位：毫秒
+     */
+    @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
 //  @Scheduled(fixedRate = 5000)// 任务开始时间开始计时
-  public void schedule() {
-      log.info(String.format("task run in thread %s start, readConfig: %s", Thread.currentThread().getName(),
-              env.getProperty("ozz.myConfig")));
-    try {
-      Thread.sleep(30000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+    public void schedule() {
+        log.info(String.format("task run in thread %s start, readConfig: %s", Thread.currentThread().getName(),
+                env.getProperty("ozz.myConfig")));
+        sleep();
+        log.info(String.format("task run in thread %s end", Thread.currentThread().getName()));
     }
-    log.info(String.format("task run in thread %s end", Thread.currentThread().getName()));
-  }
 
-  @Async("myTaskExecutor")
+    @Async("myTaskExecutor")
 //  @Scheduled(cron = "0 0 1 * * ?") // 每天一点执行
-  @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
-  public void asyncSchedule() {
-    log.info(String.format("task run in async thread %s start", Thread.currentThread().getName()));
-    try {
-      Thread.sleep(20000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+    @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
+    public void asyncSchedule() {
+        log.info(String.format("task run in async thread %s start", Thread.currentThread().getName()));
+        sleep();
+        log.info(String.format("task run in async thread %s end", Thread.currentThread().getName()));
     }
-    log.info(String.format("task run in async thread %s end", Thread.currentThread().getName()));
-  }
+
+    private void sleep() {
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

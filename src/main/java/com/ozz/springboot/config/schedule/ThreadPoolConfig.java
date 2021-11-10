@@ -1,9 +1,11 @@
 package com.ozz.springboot.config.schedule;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -14,10 +16,10 @@ public class ThreadPoolConfig {
   /**
    * 异步定时任务线程池配置
    */
-  @Bean("asyncTaskExecutor")
-  public AsyncTaskExecutor threadExecutor() {
+  @Bean("myTaskExecutor")
+  public TaskExecutor myTaskExecutor() {
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-    executor.setThreadNamePrefix("AsyncTaskExecutor-");
+    executor.setThreadNamePrefix("myTaskExecutor-");
     executor.setCorePoolSize(1);//线程池维护线程的最少数量（最小线程数）
     executor.setMaxPoolSize(1);//线程池维护线程的最大数量（最大线程数）
     executor.setQueueCapacity(10);//缓存队列

@@ -19,25 +19,26 @@ public class MySchedule {
   @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
 //  @Scheduled(fixedRate = 5000)// 任务开始时间开始计时
   public void schedule() {
-    log.info(String.format("execute s1 %s start, readConfig: %s", Thread.currentThread().getName(),
-        env.getProperty("ozz.myConfig")));
+      log.info(String.format("task run in thread %s start, readConfig: %s", Thread.currentThread().getName(),
+              env.getProperty("ozz.myConfig")));
     try {
       Thread.sleep(30000);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-    log.info(String.format("execute s1 %s end", Thread.currentThread().getName()));
+    log.info(String.format("task run in thread %s end", Thread.currentThread().getName()));
   }
 
-  @Async("asyncTaskExecutor")
-  @Scheduled(cron = "0 0 1 * * ?") // 每天一点执行
+  @Async("myTaskExecutor")
+//  @Scheduled(cron = "0 0 1 * * ?") // 每天一点执行
+  @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
   public void asyncSchedule() {
-    log.info(String.format("execute a1 %s start", Thread.currentThread().getName()));
+    log.info(String.format("task run in async thread %s start", Thread.currentThread().getName()));
     try {
       Thread.sleep(20000);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-    log.info(String.format("execute a1 %s end", Thread.currentThread().getName()));
+    log.info(String.format("task run in async thread %s end", Thread.currentThread().getName()));
   }
 }

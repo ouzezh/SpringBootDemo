@@ -26,7 +26,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
-                .build().enable(true);
+                .build();
     }
 
     //基本信息的配置，信息会在api文档上显示

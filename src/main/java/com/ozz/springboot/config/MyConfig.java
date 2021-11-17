@@ -55,7 +55,7 @@ public class MyConfig implements WebMvcConfigurer {
     }
 
     // fastjson config
-    FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+    FastJsonHttpMessageConverter messageConverter = new FastJsonHttpMessageConverter();
     FastJsonConfig config = new FastJsonConfig();
     config.setSerializerFeatures(
 //        // 是否输出值为null的字段,默认为false
@@ -67,14 +67,14 @@ public class MyConfig implements WebMvcConfigurer {
         // 禁用循环引用
         SerializerFeature.DisableCircularReferenceDetect
     );
-    fastJsonHttpMessageConverter.setFastJsonConfig(config);
+    messageConverter.setFastJsonConfig(config);
 
     // MediaType support
     List<MediaType> fastMediaTypes = new ArrayList<>();
     fastMediaTypes.add(MediaType.APPLICATION_JSON);
-    fastJsonHttpMessageConverter.setSupportedMediaTypes(fastMediaTypes);
+    messageConverter.setSupportedMediaTypes(fastMediaTypes);
 
-    converters.add(fastJsonHttpMessageConverter);
+    converters.add(messageConverter);
   }
 
   @Override

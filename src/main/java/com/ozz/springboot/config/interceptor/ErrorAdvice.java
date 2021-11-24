@@ -1,15 +1,16 @@
-package com.ozz.springboot.config.advice;
+package com.ozz.springboot.config.interceptor;
 
 import com.ozz.springboot.exception.ErrorException;
 import com.ozz.springboot.exception.WarnException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
-import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @ControllerAdvice

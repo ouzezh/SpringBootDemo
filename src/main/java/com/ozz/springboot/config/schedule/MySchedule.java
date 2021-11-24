@@ -26,8 +26,7 @@ public class MySchedule {
     }
 
     @Async("myTaskExecutor")
-//  @Scheduled(cron = "0 0 1 * * ?") // 每天一点执行
-    @Scheduled(fixedDelay = 5000)// 任务结束时间开始计时
+    @Scheduled(cron = "0 0 1 * * ?") // 每天一点执行
     public void asyncSchedule() {
         log.info(String.format("task run in async thread %s start", Thread.currentThread().getName()));
         sleep();

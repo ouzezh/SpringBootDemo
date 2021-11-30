@@ -36,6 +36,9 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public void setEnvironment(Environment environment) {
+        if(environment.getActiveProfiles().length==0) {
+            throw new RuntimeException("active profile not set, please use --spring.profiles.active=dev and restart");
+        }
         this.environment = (ConfigurableEnvironment) environment;
     }
 

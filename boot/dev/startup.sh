@@ -16,7 +16,7 @@ if [ -f "${AGENT_OPTS}" ]; then
   JAVA_OPTS="${JAVA_OPTS} -javaagent:${AGENT_OPTS}"
 fi
 
-JAVA_OPTS="$JAVA_OPTS -Xms5440m -Xmx5440m"
+JAVA_OPTS="$JAVA_OPTS -Xms1024m -Xmx1024m"
 
 export JAVA_OPTS;
 

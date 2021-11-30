@@ -1,5 +1,6 @@
 package com.ozz.springboot.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -16,6 +17,7 @@ import org.springframework.core.env.PropertySource;
  * 配置文件覆盖配置中心的配置
  */
 @Configuration
+@Slf4j
 public class MyPropertyProcessor implements BeanFactoryPostProcessor, EnvironmentAware, PriorityOrdered {
 
     private ConfigurableEnvironment environment;
@@ -25,6 +27,8 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
         MutablePropertySources psList = environment.getPropertySources();
         for (PropertySource<?> ps : psList) {
             if (ps.getName().matches(".*config/application.*\\.(yml|properties).*")) {
+                log.info("change property source priority to first {}", ps.getName());
+                psList.remove(ps.getName());
                 psList.addFirst(ps);
             }
         }
@@ -37,7 +41,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
 }

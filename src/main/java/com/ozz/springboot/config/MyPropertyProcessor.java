@@ -24,7 +24,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         MutablePropertySources psList = environment.getPropertySources();
         for (PropertySource<?> ps : psList) {
-            if(ps.getName().matches(".*/config/application\\.(yml|properties).*")) {
+            if(ps.getName().matches(".*config/application.*\\.(yml|properties).*")) {
                 psList.addFirst(ps);
             }
         }

@@ -28,10 +28,6 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
                 psList.addFirst(ps);
             }
         }
-        for (PropertySource<?> ps : psList) {
-            System.out.println(ps.getName());
-        }
-        System.out.println();
     }
 
     @Override

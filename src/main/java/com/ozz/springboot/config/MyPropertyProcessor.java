@@ -1,5 +1,6 @@
 package com.ozz.springboot.config;
 
+import com.ozz.springboot.exception.ErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -12,6 +13,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
+
+import javax.annotation.Nonnull;
 
 /**
  * 配置文件覆盖配置中心的配置
@@ -36,8 +39,8 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public void setEnvironment(Environment environment) {
-        if(environment.getActiveProfiles().length==0) {
-            throw new RuntimeException("active profile not set, please use --spring.profiles.active=dev and restart");
+        if (environment.getActiveProfiles().length == 0) {
+            throw new ErrorException("active profile not set, please use --spring.profiles.active=dev and restart");
         }
         this.environment = (ConfigurableEnvironment) environment;
     }

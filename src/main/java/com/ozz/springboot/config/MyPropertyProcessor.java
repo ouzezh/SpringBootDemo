@@ -30,7 +30,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
         MutablePropertySources psList = environment.getPropertySources();
         for (PropertySource<?> ps : psList) {
             if (ps.getName().matches(".*config/application.*\\.(yml|properties).*")) {
-                log.info("change property source priority to first {}", ps.getName());
+                log.info("change priority of property source to first {}", ps.getName());
                 psList.remove(ps.getName());
                 psList.addFirst(ps);
             }

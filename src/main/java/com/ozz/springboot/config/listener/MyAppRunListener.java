@@ -1,4 +1,4 @@
-package com.ozz.springboot.config.runner;
+package com.ozz.springboot.config.listener;
 
 import com.ozz.springboot.exception.ErrorException;
 import lombok.extern.slf4j.Slf4j;

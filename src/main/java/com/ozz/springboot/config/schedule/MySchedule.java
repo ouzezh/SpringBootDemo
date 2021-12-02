@@ -6,6 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 
 @Slf4j
 @Component
@@ -36,8 +37,8 @@ public class MySchedule {
     private void sleep() {
         try {
             Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            ReflectionUtils.rethrowRuntimeException(e);
         }
     }
 }

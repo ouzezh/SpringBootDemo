@@ -14,6 +14,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,7 +68,7 @@ public class MyRestController {
     try {
       System.out.println(String.format("--Start--\r\n%s\r\n--End--", StringUtils.toEncodedString(file.getBytes(), Charset.defaultCharset())));
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      ReflectionUtils.rethrowRuntimeException(e);
     }
   }
 
@@ -88,10 +89,8 @@ public class MyRestController {
         printer.print("2");
         printer.print("bob");
       }
-    } catch (RuntimeException e) {
-      throw e;
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      ReflectionUtils.rethrowRuntimeException(e);
     }
   }
 }

@@ -1,5 +1,6 @@
 package com.ozz.springboot.config.runner;
 
+import com.ozz.springboot.exception.ErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ConfigurableBootstrapContext;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +28,9 @@ public class MyAppRunListener implements SpringApplicationRunListener {
     @Override
     public void environmentPrepared(ConfigurableBootstrapContext bootstrapContext,
                                     ConfigurableEnvironment environment) {
+        if (environment.getActiveProfiles().length == 0) {
+            throw new ErrorException("spring.profiles.active is null");
+        }
         log("environmentPrepared");
     }
 

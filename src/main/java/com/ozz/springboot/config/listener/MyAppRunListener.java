@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ConfigurableBootstrapContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
+import org.springframework.cglib.core.Local;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -22,44 +23,44 @@ public class MyAppRunListener implements SpringApplicationRunListener {
 
     @Override
     public void starting(ConfigurableBootstrapContext bootstrapContext) {
-        log("starting");
+        log();
     }
 
     @Override
     public void environmentPrepared(ConfigurableBootstrapContext bootstrapContext,
                                     ConfigurableEnvironment environment) {
+        log();
         if (environment.getActiveProfiles().length == 0) {
             throw new ErrorException("spring.profiles.active is null");
         }
-        log("environmentPrepared");
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
-        log("contextPrepared");
+        log();
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
-        log("contextLoaded");
+        log();
     }
 
     @Override
     public void started(ConfigurableApplicationContext context) {
-        log("started");
+        log();
     }
 
     @Override
     public void running(ConfigurableApplicationContext context) {
-        log("running");
+        log();
     }
 
     @Override
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
-        log("failed");
+        log();
     }
 
-    private void log(String msg) {
-        log.info("{} {}", getClass().getName(), msg);
+    private void log() {
+        log.info("{} {}", getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 }

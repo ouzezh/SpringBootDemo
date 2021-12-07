@@ -26,12 +26,14 @@ public class ErrorAdvice {
 
     /**
      * 处理异常
-     * <p>
+     *
      * 强制指定返回状态码: @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
      */
     @ExceptionHandler({WarnException.class})
     @ResponseBody
     public Map<String, Object> warnHandler(HttpServletResponse response, WarnException e) {
+        StackTraceElement trace = e.getStackTrace()[0];
+        log.warn("{}.{}:{} - {}", trace.getClassName().replaceAll("(\\w)\\w+\\.", "$1\\."), trace.getMethodName(), trace.getLineNumber(), e.getMessage());
         response.setStatus(e.getStatus().value());
         return getMessage(e);
     }

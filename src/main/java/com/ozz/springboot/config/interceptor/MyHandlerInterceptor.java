@@ -17,7 +17,7 @@ import java.util.UUID;
 public class MyHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        MDC.put("myMdc", UUID.randomUUID().toString());
+        MDC.put("myMdc", UUID.randomUUID().toString().replaceAll("-", ""));
         response.setHeader("myMdc", MDC.get("myMdc"));
         System.out.println(String.format("%s.preHandle(): contextPath=%s, requestURI=%s", getClass().getSimpleName(),
                 request.getContextPath(), request.getRequestURI()));

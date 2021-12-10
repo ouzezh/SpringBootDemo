@@ -33,7 +33,7 @@ public class ErrorAdvice {
     @ResponseBody
     public Map<String, Object> warnHandler(HttpServletResponse response, WarnException e) {
         StackTraceElement trace = e.getStackTrace()[0];
-        log.warn("{}.{}:{} - {}", trace.getClassName().replaceAll("(\\w)\\w+\\.", "$1\\."), trace.getMethodName(), trace.getLineNumber(), e.getMessage());
+        log.warn(e.getMessage());
         response.setStatus(e.getStatus().value());
         return getMessage(e);
     }

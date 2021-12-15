@@ -15,8 +15,19 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class MyKafkaListener {
+    @Data
+    @Component
+    @ConfigurationProperties(prefix = "spring.kafka")
+    public static class MyKafkaProp {
+        private KafkaProperties myKafka;
+    }
+
     @Bean
-    public KafkaListenerContainerFactory myBatchFactory(@Autowired ConsumerFactory consumerFactory) {
+    /* kafka 多源 */
+    public KafkaListenerContainerFactory batchFactory(@Autowired MyKafkaProp props) {
+        ConsumerFactory consumerFactory = new DefaultKafkaConsumerFactory(props.getMyKafka.buildConsumerProperties());
+//    /* kafka 单源 */
+//    public KafkaListenerContainerFactory batchFactory(@Autowired ConsumerFactory consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
         factory.setBatchListener(true);

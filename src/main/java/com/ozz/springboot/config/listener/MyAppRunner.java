@@ -1,4 +1,4 @@
-package com.ozz.springboot.config.runner;
+package com.ozz.springboot.config.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.ozz.springboot.MyBindConfig;

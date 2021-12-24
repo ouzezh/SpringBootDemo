@@ -23,6 +23,10 @@ public class ErrorException extends RuntimeException {
     super(String.format("%s %s", status.value(), message));
     this.status = status;
   }
+  public ErrorException(HttpStatus status, String message, Throwable cause) {
+    super(String.format("%s %s", status.value(), message), cause);
+    this.status = status;
+  }
   @Override
   public String getMessage() {
     return Objects.toString(super.getMessage(), getClass().getSimpleName());

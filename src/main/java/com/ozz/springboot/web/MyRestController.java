@@ -1,17 +1,11 @@
 package com.ozz.springboot.web;
 
-import com.ozz.springboot.exception.ErrorException;
 import com.ozz.springboot.model.MyModel;
 import com.ozz.springboot.service.MyService;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
-
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,8 +14,17 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @Api(tags = "我的分组")
 @Slf4j
@@ -65,7 +68,7 @@ public class MyRestController {
     try {
       System.out.println(String.format("--Start--\r\n%s\r\n--End--", StringUtils.toEncodedString(file.getBytes(), Charset.defaultCharset())));
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      ReflectionUtils.rethrowRuntimeException(e);
     }
   }
 
@@ -86,10 +89,8 @@ public class MyRestController {
         printer.print("2");
         printer.print("bob");
       }
-    } catch (RuntimeException e) {
-      throw e;
     } catch (Exception e) {
-      throw new ErrorException(e);
+      ReflectionUtils.rethrowRuntimeException(e);
     }
   }
 }

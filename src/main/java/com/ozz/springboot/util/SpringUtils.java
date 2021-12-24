@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -51,6 +52,7 @@ public class SpringUtils implements ApplicationContextAware {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
+                ReflectionUtils.rethrowRuntimeException(e);
             }
             int exitCode = SpringApplication.exit(context, () -> 0);
 //            System.exit(exitCode);

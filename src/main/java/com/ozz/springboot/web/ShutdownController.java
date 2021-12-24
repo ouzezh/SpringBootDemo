@@ -4,6 +4,8 @@ import com.ozz.springboot.exception.ErrorException;
 import com.ozz.springboot.util.SpringUtils;
 import java.io.IOException;
 import javax.naming.OperationNotSupportedException;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,7 @@ public class ShutdownController {
   public int shutdown(@RequestHeader("token") String token) throws IOException, OperationNotSupportedException {
     String TOKEN = "x";
     if(!TOKEN.equals(token)) {
-      throw new ErrorException("403 token invalid");
+      throw new ErrorException(HttpStatus.UNAUTHORIZED, "token invalid");
     }
     SpringUtils.shutdownDelay(1000);
     return 0;

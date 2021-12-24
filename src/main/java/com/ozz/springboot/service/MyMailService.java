@@ -15,6 +15,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 @Slf4j
 @Service
@@ -78,7 +79,7 @@ public class MyMailService {
       }
       javaMailSender.send(mimeMessage);
     } catch (MessagingException e) {
-      throw new RuntimeException(e);
+      ReflectionUtils.rethrowRuntimeException(e);
     }
     log.info(String.format("send mail end : %s", subject));
   }

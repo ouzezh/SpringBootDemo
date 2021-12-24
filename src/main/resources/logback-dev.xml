@@ -8,38 +8,42 @@ debug:
 	当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
 -->
 <configuration scan="false" scanPeriod="1800 seconds" debug="false">
-	<property name="USER_HOME" value="logs" />
-	<property name="FILE_NAME" value="logback" />
+	<property name="log.path" value="logs" />
+	<property name="log.name" value="logback" />
+    <property name="log.maxHistory" value="10"/>
+    <property name="log.maxFileSize" value="20MB"/>
+    <property name="log.pattern.console"
+              value="%yellow(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue(%thread) %blue(%file:%line) %cyan(%logger{10}) - %green(%X{myMdc}) %msg%n"/>
+    <property name="log.pattern.file"
+              value="%d{yyyy-MM-dd HH:mm:ss} %-5level %thread %file:%line %logger{10} - %X{myMdc} %msg%n"/>
+
 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} %-4relative %-5level %logger{35} - %msg%n
-			</pattern>
+			<pattern>${log.pattern.console}</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${USER_HOME}/${FILE_NAME}.log</file>
+		<file>${log.path}/${log.name}.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${USER_HOME}/%d{yyyy-MM-dd, aux}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
+			<fileNamePattern>${log.path}/%d{yyyy-MM-dd, aux}/${log.name}-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
 	        <!-- each file should be at most 20MB, keep 10000 days worth of history, but at most 200GB -->
-	        <maxFileSize>20MB</maxFileSize>    
-	        <maxHistory>10</maxHistory>
+	        <maxFileSize>${log.maxFileSize}</maxFileSize>
+	        <maxHistory>${log.maxHistory}</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative %-5level %logger{35} - %msg%n
-			</pattern>
+			<pattern>${log.pattern.file}</pattern>
 		</encoder>
 	</appender>
 
-	<root level="WARN">
+
+	<root level="ERROR">
 		<appender-ref ref="console" />
 <!--		<appender-ref ref="logFile" />-->
 	</root>
 
-	<logger name="com.ozz" level="DEBUG" additivity="false">
-		<appender-ref ref="console" />
-<!--		<appender-ref ref="logFile" />-->
+	<logger name="com.ozz" level="DEBUG">
 	</logger>
 </configuration>

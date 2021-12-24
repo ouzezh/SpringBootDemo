@@ -39,7 +39,7 @@ debug:
 	</appender>
 
 
-	<root level="ERROR">
+	<root level="WARN">
 		<appender-ref ref="console" />
 <!--		<appender-ref ref="logFile" />-->
 	</root>

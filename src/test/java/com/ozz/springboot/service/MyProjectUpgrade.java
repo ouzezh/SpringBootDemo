@@ -12,19 +12,17 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Function;
 
 public class MyProjectUpgrade {
-    static Pair<String, String> pair = Pair.of("'org.springframework.boot'", "2.6.2");
-
     public static void main(String[] args) throws IOException {
         System.out.println("--start--");
         Set<String> ps = new TreeSet<>();
 
         upgradeProject(ps, MyProjectUpgrade::upgradeGradle);
-//        upgradeProject(ps, MyProjectUpgrade::upgradeDependency);
 
         ps.stream().forEach(System.out::println);
         System.out.println("--end--");
@@ -73,9 +71,4 @@ public class MyProjectUpgrade {
         return null;
     }
 
-    private static boolean upgradeDependency(Path path) {
-        boolean flag = false;
-        System.out.println(path.toString());
-        return flag;
-    }
 }

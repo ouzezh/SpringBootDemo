@@ -44,6 +44,5 @@ debug:
 <!--		<appender-ref ref="logFile" />-->
 	</root>
 
-	<logger name="com.ozz" level="DEBUG">
-	</logger>
+	<logger name="com.ozz" level="DEBUG"></logger>
 </configuration>

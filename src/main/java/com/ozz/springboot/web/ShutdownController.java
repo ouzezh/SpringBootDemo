@@ -22,7 +22,7 @@ public class ShutdownController {
     if(!TOKEN.equals(token)) {
       throw new ErrorException(HttpStatus.UNAUTHORIZED, "token invalid");
     }
-    SpringUtils.shutdownDelay(1000);
+    SpringUtils.shutdownDelay(5000);
     return 0;
   }
 }

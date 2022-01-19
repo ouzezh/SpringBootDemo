@@ -1,5 +1,6 @@
 package com.ozz.springboot;
 
+import com.ozz.springboot.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ public class SpringbootApp {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringbootApp.class, args);
+        System.out.println("swagger: http://localhost:8080/swagger-ui/index.html");
     }
 
 }

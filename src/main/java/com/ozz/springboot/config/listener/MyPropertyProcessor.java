@@ -30,7 +30,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        MDC.put(Constant.MDC, "SortPropertySource");
+        MDC.put(Constant.TRACE_ID, "SortPropertySource");
         try {
             MutablePropertySources psList = environment.getPropertySources();
             Iterator<PropertySource<?>> it = psList.iterator();
@@ -57,7 +57,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
                 }
             }
         } finally {
-            MDC.remove(Constant.MDC);
+            MDC.remove(Constant.TRACE_ID);
         }
     }
 

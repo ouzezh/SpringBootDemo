@@ -68,7 +68,8 @@ public class SpringUtils implements ApplicationContextAware {
         AtomicInteger no = new AtomicInteger(0);
         handlerMethods.forEach((requestMappingInfo, handlerMethod) -> {
             try {
-                String url = requestMappingInfo.getPathPatternsCondition().getPatterns().stream().map(PathPattern::getPatternString).collect(Collectors.joining(" | "));
+//                String url = requestMappingInfo.getPathPatternsCondition().getPatterns().stream().map(PathPattern::getPatternString).collect(Collectors.joining(" | "));
+                String url = requestMappingInfo.getPatternsCondition().getPatterns().stream().collect(Collectors.joining(" | "));
                 Set<RequestMethod> requestMethods = requestMappingInfo.getMethodsCondition().getMethods();
                 String method = requestMethods.isEmpty() ? "*" : requestMethods.stream().map(RequestMethod::toString).collect(Collectors.joining(","));
                 log.info(String.format("%d:\t%s\t%s", no.incrementAndGet(), method, url));

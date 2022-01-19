@@ -1,6 +1,7 @@
 package com.ozz.springboot.config.interceptor;
 
 import com.ozz.springboot.util.Constant;
+import com.ozz.springboot.util.LogUtil;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,8 +20,7 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         MDC.put(Constant.TRACE_ID, UUID.randomUUID().toString().replaceAll("-", ""));
         response.setHeader(Constant.TRACE_ID, MDC.get(Constant.TRACE_ID));
-        System.out.println(String.format("%s.preHandle(): contextPath=%s, requestURI=%s", getClass().getSimpleName(),
-                request.getContextPath(), request.getRequestURI()));
+        LogUtil.log();
         return true;
     }
 
@@ -31,7 +31,6 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 @Nullable Exception ex) throws Exception {
         MDC.clear();
-        System.out.println(String.format("%s.afterCompletion(): contextPath=%s, requestURI=%s",
-                getClass().getSimpleName(), request.getContextPath(), request.getRequestURI()));
+        LogUtil.log();
     }
 }

@@ -1,5 +1,6 @@
 package com.ozz.springboot.config.listener;
 
+import com.ozz.springboot.exception.ErrorException;
 import com.ozz.springboot.util.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -63,6 +64,9 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public void setEnvironment(Environment environment) {
+        if (environment.getActiveProfiles().length == 0) {
+            throw new ErrorException("spring.profiles.active is null");
+        }
         this.environment = (ConfigurableEnvironment) environment;
     }
 

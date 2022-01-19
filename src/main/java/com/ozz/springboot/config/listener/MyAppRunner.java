@@ -2,6 +2,7 @@ package com.ozz.springboot.config.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.ozz.springboot.MyBindConfig;
+import com.ozz.springboot.util.LogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 /**
  * Springboot 启动后执行初始化
  */
-@Slf4j
 @Component
 @Order(value = 0)
 public class MyAppRunner implements ApplicationRunner {
@@ -22,6 +22,6 @@ public class MyAppRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    log.info("start {}: read config: {}", this.getClass().getSimpleName(), JSON.toJSONString(myBindConfig));
+    LogUtil.log(String.format("read config: %s", JSON.toJSONString(myBindConfig)));
   }
 }

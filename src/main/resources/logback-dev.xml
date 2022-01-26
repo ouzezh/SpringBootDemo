@@ -13,7 +13,7 @@ debug:
     <property name="log.maxHistory" value="10"/>
     <property name="log.maxFileSize" value="20MB"/>
     <property name="log.pattern.console"
-              value="%yellow(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue(%thread) %green(%file:%line) %cyan(%logger{10}) - %green(%X{traceId}) %msg%n"/>
+              value="%yellow(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue(%thread) %green(%file:%line) %cyan(%logger{10}) - %magenta(%X{traceId}) %msg%n"/>
     <property name="log.pattern.file"
               value="%d{yyyy-MM-dd HH:mm:ss} %-5level %thread %file:%line %logger{10} - %X{traceId} %msg%n"/>
 

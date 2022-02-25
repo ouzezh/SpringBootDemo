@@ -2,17 +2,17 @@
 #export JAVA_HOME=${JAVA_HOME8}
 #export PATH=$JAVA_HOME/bin:$PATH
 
-jarName="SpringBootDemo-0.1.jar"
+appName="SpringBootDemo"
 
 # 进入脚本目录
 cd `dirname $0`
 DEPLOY_DIR=`pwd`
 
 # 显示进程信息
-ps -ef | grep java | grep "$DEPLOY_DIR/${jarName}" | grep -v grep
+ps -ef | grep java | grep "$DEPLOY_DIR/${appName}.jar" | grep -v grep
 
 function getPid() {
-  ps -ef | grep java | grep "$DEPLOY_DIR/${jarName}" | grep -v grep | awk '{print $2}'
+  ps -ef | grep java | grep "$DEPLOY_DIR/${appName}.jar" | grep -v grep | awk '{print $2}'
 }
 
 function checkShutdownStatus() {

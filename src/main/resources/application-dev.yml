@@ -1,6 +1,6 @@
 # 日志配置
 logging:
-  config: classpath:logback-dev.xml
+  config: classpath:logback-spring.xml
 # 邮箱配置
 spring:
   mail:

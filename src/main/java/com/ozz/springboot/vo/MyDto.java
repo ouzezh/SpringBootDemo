@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @ApiModel(value = "测试Model", description = "测试Model描述")
 @Data
-public class MyVo {
+public class MyDto {
     @ApiModelProperty(value = "名称", notes = "my notes", example = "n1", allowableValues = "n1 名称1, n2 名称2")
     private String name;
     @ApiModelProperty(hidden = true)

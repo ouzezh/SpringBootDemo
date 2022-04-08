@@ -1,6 +1,6 @@
 package com.ozz.springboot.web;
 
-import com.ozz.springboot.vo.MyVo;
+import com.ozz.springboot.vo.MyDto;
 import com.ozz.springboot.service.MyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -40,7 +40,7 @@ public class MyRestController {
 //  @io.swagger.annotations.ApiResponse(code = 500, message = "我的错误", response = MyModel.class) // response无效问题需配置
 //  springfox.documentation.swagger.use-model-v3=false
     @ApiResponse(responseCode = "500", description = "返回数据", content = @Content(schema = @Schema(implementation =
-            MyVo.class)))
+            MyDto.class)))
     @GetMapping(value = "/v1/test")
     public Map<String, String> test(@RequestParam(required = true) String name) {
         return myService.myService(name);
@@ -48,7 +48,7 @@ public class MyRestController {
 
     @ApiOperation("测试方法2")
     @PostMapping(value = "/v1/test2")
-    public MyVo test2(@RequestBody MyVo myModel) {
+    public MyDto test2(@RequestBody MyDto myModel) {
         return myModel;
     }
 

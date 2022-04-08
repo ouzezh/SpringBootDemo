@@ -55,7 +55,9 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#fea
 ## Swagger
 SwaggerConfig
 
-样例:
-https://github.com/ityouknow/spring-boot-examples/tree/master/spring-boot-swagger
+knife4j:
+https://gitee.com/xiaoym/knife4j
 
+原版:
+https://github.com/ityouknow/spring-boot-examples/tree/master/spring-boot-swagger
 http://localhost:8080/swagger-ui/index.html

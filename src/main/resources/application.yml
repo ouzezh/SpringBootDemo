@@ -1,0 +1,30 @@
+server:
+    port:80
+    servlet:
+        context-path:
+
+spring:
+  #    # 区分不同环境下配置文件 (从启动参数中动态读取)
+  #    profiles.active: dev
+
+  thymeleaf:
+    #开发配置为false,避免修改模板还要重启服务器
+    cache: false
+
+  servlet:
+    multipart:
+      # 单个文件限制
+      max-file-size: 10MB
+      # 最大请求文件限制
+      max-request-size: 15MB
+
+  # 修改路径映射策略（swagger不支持默认策略PATH_PATTERN_PARSER）
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+##加密密钥
+#jasypt:
+#    encryptor:
+#        password: 2BTRS4Q6cmDsXOvquQq0qmjWtqvKnHEW
+

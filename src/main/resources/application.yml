@@ -1,7 +1,7 @@
-#server:
-#    port:80
-#    servlet:
-#        context-path: /springboot
+server:
+    port: 80
+    servlet:
+        context-path:
 
 spring:
 #    # 区分不同环境下配置文件 (从启动参数中动态读取)

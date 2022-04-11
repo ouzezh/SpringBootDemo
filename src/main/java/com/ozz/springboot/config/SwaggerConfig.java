@@ -15,6 +15,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 @EnableOpenApi
+//@ConditionalOnProperty(prefix = "swagger.config", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {

@@ -1,7 +1,9 @@
 package com.ozz.springboot.web;
 
-import com.ozz.springboot.vo.MyDto;
+import cn.hutool.core.text.csv.CsvUtil;
+import cn.hutool.core.text.csv.CsvWriter;
 import com.ozz.springboot.service.MyService;
+import com.ozz.springboot.vo.MyDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -11,8 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -82,11 +82,8 @@ public class MyRestController {
         String bomStr = new String(new byte[]{(byte) 0xef, (byte) 0xbb, (byte) 0xbf}, StandardCharsets.UTF_8);
         out.print(bomStr);
 
-        CSVFormat format = CSVFormat.EXCEL.withHeader("id", "name");
-        try (CSVPrinter printer = new CSVPrinter(out, format);) {
-            printer.printRecord("1", "john");
-            printer.print("2");
-            printer.print("bob");
-        }
+        CsvWriter w = CsvUtil.getWriter(response.getWriter());
+        w.writeLine("1", "john");
+        w.writeLine("2", "bob");
     }
 }

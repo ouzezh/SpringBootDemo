@@ -13,6 +13,9 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Configuration
 @EnableOpenApi
 //@ConditionalOnProperty(prefix = "swagger.config", name = "enabled", havingValue = "true", matchIfMissing = true)
@@ -21,6 +24,7 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
+//                .directModelSubstitute(LocalDateTime.class, String.class)// 替换文档中接口类型
                 .enable(SpringUtils.acceptsProfiles("dev"))// 可区分不同环境关闭
                 .select()
 //                .apis(RequestHandlerSelectors.basePackage("com.ozz"))

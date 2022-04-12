@@ -47,6 +47,7 @@ dependencies {
     // swagger
 //    implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.3'//前端Swagger文档ui模块
+//    implementation 'com.github.xiaoymin:knife4j-annotations:3.0.3'//微服务项目引用注解,同UI剥离
 
 //    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3' // 加密
 

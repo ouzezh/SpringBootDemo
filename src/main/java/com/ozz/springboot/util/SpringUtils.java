@@ -7,8 +7,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.swing.*;
 
+import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -23,29 +26,23 @@ import org.springframework.web.util.pattern.PathPattern;
 
 @Slf4j
 @Component
-public class SpringUtils implements ApplicationContextAware {
-    private static ApplicationContext context;
-
-    @Override public void setApplicationContext(ApplicationContext applicationContext) {
-        SpringUtils.context = applicationContext;
-    }
-
+public class SpringUtils {
     /**
      * get impl at runtime
      */
     public static <T> T getBean(Class<T> beanClass) {
-        return context.getBean(beanClass);
+        return SpringUtil.getBean(beanClass);
     }
 
     public static <T> T getBean(String beanName) {
-        return (T) context.getBean(beanName);
+        return (T) SpringUtil.getBean(beanName);
     }
 
     public static String[] getActiveProfiles() {
-        return context.getEnvironment().getActiveProfiles();
+        return SpringUtil.getActiveProfiles();
     }
     public static boolean acceptsProfiles(String... profiles) {
-        return context.getEnvironment().acceptsProfiles(Profiles.of(profiles));
+        return SpringUtil.getApplicationContext().getEnvironment().acceptsProfiles(Profiles.of(profiles));
     }
 
     public static void shutdownDelay(long millis) {
@@ -55,7 +52,7 @@ public class SpringUtils implements ApplicationContextAware {
             } catch (InterruptedException e) {
                 ReflectionUtils.rethrowRuntimeException(e);
             }
-            int exitCode = SpringApplication.exit(context, () -> 0);
+            int exitCode = SpringApplication.exit(SpringUtil.getApplicationContext(), () -> 0);
 //            System.exit(exitCode);
         }).start();
     }

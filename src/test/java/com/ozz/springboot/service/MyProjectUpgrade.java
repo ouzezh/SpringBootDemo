@@ -1,7 +1,7 @@
 package com.ozz.springboot.service;
 
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.google.common.collect.Lists;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.util.DigestUtils;
 
@@ -42,7 +42,7 @@ public class MyProjectUpgrade {
     }
 
     private static boolean upgradeGradle(Path path) {
-        List<String> list = Lists.newArrayList("gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.properties", "gradle/wrapper/gradle-wrapper.jar");
+        List<String> list = ListUtil.toList("gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.properties", "gradle/wrapper/gradle-wrapper.jar");
         String root = getProjectPath();
 
         boolean flag = false;

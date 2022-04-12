@@ -1,7 +1,7 @@
 package com.ozz.springboot.kafka;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -36,6 +36,6 @@ public class MyKafkaListener {
 
     @KafkaListener(groupId = "myGroup", topics = "myTopic", containerFactory = "myBatchFactory")
     public void listenRoomBoxPlayback(List<String> records) {
-        log.info(records.stream().collect(Collectors.joining("\n", String.format("fetch records roombox-playback count: %s%n", records.size()), StringUtils.EMPTY)));
+        log.info(records.stream().collect(Collectors.joining("\n", String.format("fetch records roombox-playback count: %s%n", records.size()), StrUtil.EMPTY)));
     }
 }

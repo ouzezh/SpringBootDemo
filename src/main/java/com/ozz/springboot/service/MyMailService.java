@@ -1,9 +1,10 @@
 package com.ozz.springboot.service;
 
+import cn.hutool.core.lang.Pair;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -34,8 +35,8 @@ public class MyMailService {
 
     public void sendErrorMail(String subject, String content, Throwable e) {
         try (ByteArrayOutputStream bo = new ByteArrayOutputStream(); PrintStream ps = new PrintStream(
-                bo, true, "utf-8");) {
-            if (Strings.isNotBlank(content)) {
+                bo, true, CharsetUtil.UTF_8);) {
+            if (StrUtil.isNotBlank(content)) {
                 ps.print(content);
                 ps.print("\n\n");
             }

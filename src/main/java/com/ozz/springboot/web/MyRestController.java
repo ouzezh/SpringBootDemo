@@ -2,6 +2,8 @@ package com.ozz.springboot.web;
 
 import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.text.csv.CsvWriter;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
 import com.ozz.springboot.service.MyService;
 import com.ozz.springboot.vo.MyDto;
 import io.swagger.annotations.Api;
@@ -13,7 +15,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -67,8 +67,7 @@ public class MyRestController {
     public void testUpload(MultipartFile file) {
         log.info(file.getName());
         log.info(String.valueOf(file.getSize()));
-        System.out.println(String.format("--Start--\r\n%s\r\n--End--", StringUtils.toEncodedString(file.getBytes(),
-                Charset.defaultCharset())));
+        System.out.println(String.format("--Start--\r\n%s\r\n--End--", StrUtil.str(file.getBytes(), CharsetUtil.CHARSET_UTF_8)));
     }
 
     @SneakyThrows

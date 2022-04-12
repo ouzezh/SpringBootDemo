@@ -57,7 +57,6 @@ dependencies {
     implementation 'cn.hutool:hutool-all:5.8.0.M2'// Hutool是一个小而全的Java工具类库implementation 'cn.hutool:hutool-all:5.8.0.M2'// Hutool是一个小而全的Java工具类库
 
     implementation 'com.google.guava:guava:31.1-jre'
-    implementation 'org.apache.commons:commons-csv:1.9.0'
     implementation 'com.alibaba:fastjson:1.2.80'
 }
 

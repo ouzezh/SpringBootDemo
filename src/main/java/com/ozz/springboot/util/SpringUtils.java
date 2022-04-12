@@ -1,28 +1,22 @@
 package com.ozz.springboot.util;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.swing.*;
-
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.util.pattern.PathPattern;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -50,7 +44,7 @@ public class SpringUtils {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
-                ReflectionUtils.rethrowRuntimeException(e);
+                ExceptionUtil.wrapRuntime(e);
             }
             int exitCode = SpringApplication.exit(SpringUtil.getApplicationContext(), () -> 0);
 //            System.exit(exitCode);
@@ -71,7 +65,7 @@ public class SpringUtils {
                 String method = requestMethods.isEmpty() ? "*" : requestMethods.stream().map(RequestMethod::toString).collect(Collectors.joining(","));
                 log.info(String.format("%d:\t%s\t%s", no.incrementAndGet(), method, url));
             } catch (Exception e) {
-                ReflectionUtils.rethrowRuntimeException(e);
+                ExceptionUtil.wrapRuntime(e);
             }
         });
         log.info("<-- end print request mapping -->");

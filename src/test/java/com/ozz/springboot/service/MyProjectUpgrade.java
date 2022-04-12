@@ -1,10 +1,9 @@
 package com.ozz.springboot.service;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +54,7 @@ public class MyProjectUpgrade {
                 try (InputStream in = Files.newInputStream(src); OutputStream out = Files.newOutputStream(dest)) {
                     IOUtils.copy(in, out);
                 } catch (Exception e) {
-                    ReflectionUtils.rethrowRuntimeException(e);
+                    ExceptionUtil.wrapRuntime(e);
                 }
             }
         }
@@ -66,7 +65,7 @@ public class MyProjectUpgrade {
         try (InputStream input = Files.newInputStream(path)) {
             return DigestUtils.md5DigestAsHex(input);
         } catch (Exception e) {
-            ReflectionUtils.rethrowRuntimeException(e);
+            ExceptionUtil.wrapRuntime(e);
         }
         return null;
     }

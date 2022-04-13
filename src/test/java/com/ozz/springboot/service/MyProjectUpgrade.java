@@ -2,7 +2,7 @@ package com.ozz.springboot.service;
 
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.exceptions.ExceptionUtil;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import cn.hutool.core.io.IoUtil;
 import org.springframework.util.DigestUtils;
 
 import java.io.IOException;
@@ -21,16 +21,16 @@ public class MyProjectUpgrade {
         System.out.println("--start--");
         Set<String> ps = new TreeSet<>();
 
-        upgradeProject(ps, MyProjectUpgrade::upgradeGradle);
+        upgradeProject(ps);
 
         ps.stream().forEach(System.out::println);
         System.out.println("--end--");
     }
 
-    private static void upgradeProject(Set<String> ps, Function<Path, Boolean> fun) throws IOException {
+    private static void upgradeProject(Set<String> ps) throws IOException {
         Path start = Paths.get(getProjectPath()).getParent();
         Files.walk(start, 2).filter(Files::isDirectory).forEach(p -> {
-            Boolean flag = fun.apply(p);
+            Boolean flag = upgradeGradle(p);
             if (flag) {
                 ps.add(p.toString());
             }
@@ -52,9 +52,9 @@ public class MyProjectUpgrade {
             if (Files.exists(src) && Files.exists(dest) && !digest(src).equals(digest(dest))) {
                 flag = true;
                 try (InputStream in = Files.newInputStream(src); OutputStream out = Files.newOutputStream(dest)) {
-                    IOUtils.copy(in, out);
+                    IoUtil.copy(in, out);
                 } catch (Exception e) {
-                    ExceptionUtil.wrapRuntime(e);
+                    ExceptionUtil.wrapAndThrow(e);
                 }
             }
         }
@@ -65,7 +65,7 @@ public class MyProjectUpgrade {
         try (InputStream input = Files.newInputStream(path)) {
             return DigestUtils.md5DigestAsHex(input);
         } catch (Exception e) {
-            ExceptionUtil.wrapRuntime(e);
+            ExceptionUtil.wrapAndThrow(e);
         }
         return null;
     }

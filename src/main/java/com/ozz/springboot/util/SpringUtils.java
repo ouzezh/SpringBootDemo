@@ -44,7 +44,7 @@ public class SpringUtils {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
-                ExceptionUtil.wrapRuntime(e);
+                ExceptionUtil.wrapAndThrow(e);
             }
             int exitCode = SpringApplication.exit(SpringUtil.getApplicationContext(), () -> 0);
 //            System.exit(exitCode);
@@ -65,7 +65,7 @@ public class SpringUtils {
                 String method = requestMethods.isEmpty() ? "*" : requestMethods.stream().map(RequestMethod::toString).collect(Collectors.joining(","));
                 log.info(String.format("%d:\t%s\t%s", no.incrementAndGet(), method, url));
             } catch (Exception e) {
-                ExceptionUtil.wrapRuntime(e);
+                ExceptionUtil.wrapAndThrow(e);
             }
         });
         log.info("<-- end print request mapping -->");

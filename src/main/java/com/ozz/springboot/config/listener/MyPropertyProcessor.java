@@ -1,7 +1,7 @@
 package com.ozz.springboot.config.listener;
 
 import com.ozz.springboot.exception.ErrorException;
-import com.ozz.springboot.util.Constant;
+import com.ozz.springboot.util.MdcUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.BeansException;
@@ -31,34 +31,29 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        MDC.put(Constant.TRACE_ID, "SortPropertySource");
-        try {
-            MutablePropertySources psList = environment.getPropertySources();
-            Iterator<PropertySource<?>> it = psList.iterator();
-            List<PropertySource<?>> list = new ArrayList<>();
-            PropertySource<?> ps;
-            while(it.hasNext()) {
-                ps = it.next();
-                if (ps.getName().matches(".*config/application.*\\.(yml|properties).*")) {
-                    psList.remove(ps.getName());
-                    list.add(ps);
-                }
+        MutablePropertySources psList = environment.getPropertySources();
+        Iterator<PropertySource<?>> it = psList.iterator();
+        List<PropertySource<?>> list = new ArrayList<>();
+        PropertySource<?> ps;
+        while (it.hasNext()) {
+            ps = it.next();
+            if (ps.getName().matches(".*config/application.*\\.(yml|properties).*")) {
+                psList.remove(ps.getName());
+                list.add(ps);
             }
-            it = list.iterator();
-            if (it.hasNext()) {
+        }
+        it = list.iterator();
+        if (it.hasNext()) {
+            ps = it.next();
+            log.info("SortPropertySource: change \"{}\" first", ps.getName());
+            psList.addFirst(ps);
+            String before;
+            while (it.hasNext()) {
+                before = ps.getName();
                 ps = it.next();
-                log.info("modify \"{}\" first", ps.getName());
-                psList.addFirst(ps);
-                String before;
-                while (it.hasNext()) {
-                    before = ps.getName();
-                    ps = it.next();
-                    log.info("modify \"{}\" after \"{}\"", ps.getName(), before);
-                    psList.addAfter(before, ps);
-                }
+                log.info("SortPropertySource: change \"{}\" after \"{}\"", ps.getName(), before);
+                psList.addAfter(before, ps);
             }
-        } finally {
-            MDC.remove(Constant.TRACE_ID);
         }
     }
 

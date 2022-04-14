@@ -4,6 +4,7 @@ import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.text.csv.CsvWriter;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.ozz.springboot.service.MyService;
 import com.ozz.springboot.vo.MyDto;
 import io.swagger.annotations.Api;
@@ -67,7 +68,7 @@ public class MyRestController {
     public void testUpload(MultipartFile file) {
         log.info(file.getName());
         log.info(String.valueOf(file.getSize()));
-        System.out.println(String.format("--Start--\r\n%s\r\n--End--", StrUtil.str(file.getBytes(), CharsetUtil.CHARSET_UTF_8)));
+        StaticLog.info(String.format("--Start--\r\n%s\r\n--End--", StrUtil.str(file.getBytes(), CharsetUtil.CHARSET_UTF_8)));
     }
 
     @SneakyThrows

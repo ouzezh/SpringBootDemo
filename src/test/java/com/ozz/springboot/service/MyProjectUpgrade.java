@@ -3,6 +3,7 @@ package com.ozz.springboot.service;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.log.StaticLog;
 import org.springframework.util.DigestUtils;
 
 import java.io.IOException;
@@ -14,17 +15,16 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.function.Function;
 
 public class MyProjectUpgrade {
     public static void main(String[] args) throws IOException {
-        System.out.println("--start--");
+        StaticLog.info("--start--");
         Set<String> ps = new TreeSet<>();
 
         upgradeProject(ps);
 
         ps.stream().forEach(System.out::println);
-        System.out.println("--end--");
+        StaticLog.info("--end--");
     }
 
     private static void upgradeProject(Set<String> ps) throws IOException {

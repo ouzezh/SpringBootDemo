@@ -1,5 +1,7 @@
 package com.ozz.springboot.service;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,14 +15,14 @@ class MyServiceTest {
 
   @Test
   void testService() {
-    System.out.println(service.myService("p"));
+    StaticLog.info(StrUtil.toString(service.myService("p")));
   }
 
 //  @Test
 //  void testEncryptPwd() {
 //    String result = stringEncryptor.encrypt("my config");
 //    String str = stringEncryptor.decrypt(result);
-//    System.out.println(String.format("%s -> %s", result, str));
+//    StaticLog.info(String.format("%s -> %s", result, str));
 //  }
 
 }

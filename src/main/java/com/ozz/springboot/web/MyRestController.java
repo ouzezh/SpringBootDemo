@@ -58,13 +58,13 @@ public class MyRestController {
         return "id=" + id;
     }
 
-    @RequestMapping(value = "/v1/test_map")
+    @GetMapping(value = "/v1/test_map")
     public Map<String, String> testMap(@RequestParam Map<String, String> map) {
         return map;
     }
 
     @SneakyThrows
-    @RequestMapping(value = "/v1/test/upload")
+    @PostMapping(value = "/v1/test/upload")
     public void testUpload(MultipartFile file) {
         log.info(file.getName());
         log.info(String.valueOf(file.getSize()));
@@ -72,7 +72,7 @@ public class MyRestController {
     }
 
     @SneakyThrows
-    @RequestMapping(value = "/v1/test/download")
+    @GetMapping(value = "/v1/test/download")
     public void testDownload(HttpServletResponse response) {
         response.reset();
         response.setContentType("application/vnd.ms-excel; charset=utf-8");

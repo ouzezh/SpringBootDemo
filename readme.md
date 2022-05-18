@@ -57,6 +57,9 @@ SwaggerConfig
 
 knife4j:
 https://gitee.com/xiaoym/knife4j
+https://doc.xiaominfo.com/knife4j/documentation
+demo:
+https://gitee.com/xiaoym/swagger-bootstrap-ui-demo/tree/master/knife4j-springfox-boot-v3-demo
 
 原版:
 https://github.com/ityouknow/spring-boot-examples/tree/master/spring-boot-swagger

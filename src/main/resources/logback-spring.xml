@@ -10,7 +10,7 @@ debug:
 -->
 <configuration scan="false" scanPeriod="1800 seconds" debug="false">
 	<property name="log.path" value="logs" />
-	<property name="log.name" value="logback" />
+	<property name="log.name" value="app" />
     <property name="log.maxHistory" value="10"/>
     <property name="log.maxFileSize" value="20MB"/>
     <property name="log.pattern.console"

@@ -11,8 +11,9 @@ debug:
 <configuration scan="false" scanPeriod="1800 seconds" debug="false">
 	<property name="log.path" value="logs" />
 	<property name="log.name" value="app" />
+	<property name="log.maxFileSize" value="20MB"/>
     <property name="log.maxHistory" value="10"/>
-    <property name="log.maxFileSize" value="20MB"/>
+	<property name="log.totalSizeCap" value="2GB"/>
     <property name="log.pattern.console"
               value="%yellow(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue(%thread) %green(%file:%line) %cyan(%logger{10}) - %magenta(%X{traceId}) %msg%n"/>
     <property name="log.pattern.file"
@@ -29,10 +30,14 @@ debug:
 		<file>${log.path}/${log.name}.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${log.path}/%d{yyyy-MM-dd, aux}/${log.name}-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
-	        <!-- each file should be at most 20MB, keep 10000 days worth of history, but at most 200GB -->
+            <!-- 多个日期时必须有一个主日期，其他的需打auxiliary标记 -->
+			<fileNamePattern>${log.path}/%d{yyyy-MM-dd, aux}/${log.name}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
 	        <maxFileSize>${log.maxFileSize}</maxFileSize>
+			<!-- 文件总数限制 -->
 	        <maxHistory>${log.maxHistory}</maxHistory>
+			<!-- 文件总大小限制 -->
+			<totalSizeCap>${log.totalSizeCap}</totalSizeCap>
 		</rollingPolicy>
 		<encoder>
 			<pattern>${log.pattern.file}</pattern>

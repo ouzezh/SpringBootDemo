@@ -13,7 +13,7 @@ testCompile("org.springframework.boot:spring-boot-devtools")
 	@EnableScheduling
 	MySchedule
 
-## 跨域CROS
+## 跨域CORS
   MyConfig.corsFilter
 
 ## thymeleaf

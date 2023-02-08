@@ -79,6 +79,7 @@ public class MyConfig implements WebMvcConfigurer {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
+    // https://docs.ksyun.com/documents/870
     registry.addMapping("*").allowedOrigins("*")
             .allowedHeaders("*")// 不支持星号
 //            .allowedMethods("*")

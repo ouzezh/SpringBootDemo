@@ -1,5 +1,6 @@
 package com.ozz.springboot.config.listener;
 
+import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import com.ozz.springboot.exception.ErrorException;
 import com.ozz.springboot.util.MdcUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -31,38 +32,32 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        MutablePropertySources psList = environment.getPropertySources();
-        Iterator<PropertySource<?>> it = psList.iterator();
-        List<PropertySource<?>> list = new ArrayList<>();
-        PropertySource<?> ps;
-        while (it.hasNext()) {
-            ps = it.next();
-            if (ps.getName().matches(".*config/application.*\\.(yml|properties).*")) {
-                psList.remove(ps.getName());
-                list.add(ps);
-            }
-        }
-        it = list.iterator();
-        if (it.hasNext()) {
-            ps = it.next();
-            log.info("SortPropertySource: change \"{}\" first", ps.getName());
-            psList.addFirst(ps);
-            String before;
-            while (it.hasNext()) {
-                before = ps.getName();
-                ps = it.next();
-                log.info("SortPropertySource: change \"{}\" after \"{}\"", ps.getName(), before);
-                psList.addAfter(before, ps);
-            }
-        }
+//        beanFactory.registerResolvableDependency(RocketMQTemplate.class, new RocketMQTemplate());
     }
 
     @Override
     public void setEnvironment(Environment environment) {
+        this.environment = (ConfigurableEnvironment) environment;
+        sortPropertySource();
+
         if (environment.getActiveProfiles().length == 0) {
             throw new ErrorException("spring.profiles.active is null");
         }
-        this.environment = (ConfigurableEnvironment) environment;
+    }
+
+    private void sortPropertySource() {
+        MutablePropertySources psList = this.environment.getPropertySources();
+        LinkedList<PropertySource<?>> list = new LinkedList<>();
+        for (PropertySource<?> ps : psList) {
+            if (ps.getName().matches(".*config/.*\\.(yml|properties).*")) {
+                list.addFirst(ps);
+            }
+        }
+        for (PropertySource<?> ps : list) {
+            System.out.println(StrUtil.format("MyPropertySource: addFirst {}", ps.getName()));
+            psList.remove(ps.getName());
+            psList.addFirst(ps);
+        }
     }
 
     @Override

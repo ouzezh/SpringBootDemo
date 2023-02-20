@@ -1,13 +1,16 @@
 package com.ozz.springboot.config.listener;
 
-import com.github.xiaoymin.knife4j.core.util.StrUtil;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.ozz.springboot.exception.ErrorException;
-import com.ozz.springboot.util.MdcUtil;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.boot.env.OriginTrackedMapPropertySource;
+import org.springframework.boot.env.PropertiesPropertySourceLoader;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -16,9 +19,10 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -46,6 +50,10 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
     }
 
     private void sortPropertySource() {
+        // 增加生产环境配置
+        addProPropertySource(this.environment.getPropertySources());
+
+        // 配置排序
         MutablePropertySources psList = this.environment.getPropertySources();
         LinkedList<PropertySource<?>> list = new LinkedList<>();
         for (PropertySource<?> ps : psList) {
@@ -54,10 +62,23 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
             }
         }
         for (PropertySource<?> ps : list) {
-            System.out.println(StrUtil.format("MyPropertySource: addFirst {}", ps.getName()));
+            StaticLog.info(StrUtil.format("MyPropertySource: addFirst {}", ps.getName()));
             psList.remove(ps.getName());
             psList.addFirst(ps);
         }
+    }
+
+    @SneakyThrows
+    private void addProPropertySource(MutablePropertySources psList) {
+        String name = "/config/application-PRO.properties";
+        Resource resource = new ClassPathResource(name);
+        PropertiesPropertySourceLoader loader = new PropertiesPropertySourceLoader();
+        List<PropertySource<?>> tmpList = loader.load(name, resource);
+        Assert.isTrue(tmpList.size() == 1);
+        PropertySource<?> tmp = tmpList.get(0);
+//        OriginTrackedMapPropertySource m = (OriginTrackedMapPropertySource) tmp;
+//        m.getSource().put("db.port", dbPort);
+        psList.addFirst(tmp);
     }
 
     @Override

@@ -51,7 +51,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     private void sortPropertySource() {
         // 增加生产环境配置
-        addProPropertySource(this.environment.getPropertySources());
+        addProPropertySource();
 
         // 配置排序
         MutablePropertySources psList = this.environment.getPropertySources();
@@ -69,16 +69,19 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
     }
 
     @SneakyThrows
-    private void addProPropertySource(MutablePropertySources psList) {
-        String name = "/config/application-PRO.properties";
-        Resource resource = new ClassPathResource(name);
-        PropertiesPropertySourceLoader loader = new PropertiesPropertySourceLoader();
-        List<PropertySource<?>> tmpList = loader.load(name, resource);
-        Assert.isTrue(tmpList.size() == 1);
-        PropertySource<?> tmp = tmpList.get(0);
-//        OriginTrackedMapPropertySource m = (OriginTrackedMapPropertySource) tmp;
-//        m.getSource().put("db.port", dbPort);
-        psList.addFirst(tmp);
+    private void addProPropertySource() {
+        Integer dbPort = this.environment.getProperty("pro.db.port", Integer.class);
+        if(dbPort != null) {
+            String name = "/config/application-PRO.properties";
+            Resource resource = new ClassPathResource(name);
+            PropertiesPropertySourceLoader loader = new PropertiesPropertySourceLoader();
+            List<PropertySource<?>> tmpList = loader.load(name, resource);
+            Assert.isTrue(tmpList.size() == 1);
+            PropertySource<?> tmp = tmpList.get(0);
+            OriginTrackedMapPropertySource m = (OriginTrackedMapPropertySource) tmp;
+            m.getSource().put("db.port", dbPort);
+            this.environment.getPropertySources().addFirst(tmp);
+        }
     }
 
     @Override

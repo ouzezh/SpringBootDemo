@@ -51,4 +51,10 @@ debug:
 	</root>
 
 	<logger name="com.ozz" level="DEBUG"></logger>
+
+<!--    <springProfile name="FAT,DEV">-->
+<!--        <root level="WARN">-->
+<!--            <appender-ref ref="console" />-->
+<!--        </root>-->
+<!--    </springProfile>-->
 </configuration>

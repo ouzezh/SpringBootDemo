@@ -39,13 +39,16 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 //        beanFactory.registerResolvableDependency(RocketMQTemplate.class, new RocketMQTemplate());
     }
 
+    @SneakyThrows
     @Override
     public void setEnvironment(Environment environment) {
+        Assert.isTrue(environment.acceptsProfiles("FAT"));
+
         this.environment = (ConfigurableEnvironment) environment;
         sortPropertySource();
 
-        if (environment.getActiveProfiles().length == 0) {
-            throw new ErrorException("spring.profiles.active is null");
+        if(environment.getActiveProfiles().length == 0) {
+            throw new RuntimeException("spring.profiles.active is null");
         }
     }
 
@@ -70,16 +73,15 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
 
     @SneakyThrows
     private void addProPropertySource() {
-        Integer dbPort = this.environment.getProperty("pro.db.port", Integer.class);
-        if(dbPort != null) {
-            String name = "/config/application-PRO.properties";
+        String toProfile = this.environment.getProperty("my.toProfile");
+        if(StrUtil.isNotEmpty(toProfile) && !environment.acceptsProfiles(toProfile)) {
+            String name = StrUtil.format("/config/application-{}.properties", toProfile);
             Resource resource = new ClassPathResource(name);
             PropertiesPropertySourceLoader loader = new PropertiesPropertySourceLoader();
             List<PropertySource<?>> tmpList = loader.load(name, resource);
             Assert.isTrue(tmpList.size() == 1);
             PropertySource<?> tmp = tmpList.get(0);
             OriginTrackedMapPropertySource m = (OriginTrackedMapPropertySource) tmp;
-            m.getSource().put("db.port", dbPort);
             this.environment.getPropertySources().addFirst(tmp);
         }
     }

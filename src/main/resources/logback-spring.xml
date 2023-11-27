@@ -44,10 +44,13 @@ debug:
 		</encoder>
 	</appender>
 
+    <appender name="asyncLogFile" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="logFile"/>
+    </appender>
 
-	<root level="WARN">
+	<root level="INFO">
 		<appender-ref ref="console" />
-<!--		<appender-ref ref="logFile" />-->
+<!--		<appender-ref ref="asyncLogFile" />-->
 	</root>
 
 	<logger name="com.ozz" level="DEBUG"></logger>

@@ -45,6 +45,12 @@ debug:
 	</appender>
 
     <appender name="asyncLogFile" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 阻塞队列的最大容量。默认情况下，queueSize设置为256 -->
+        <queueSize>100000</queueSize>
+        <!-- 默认值20，队列剩余20%时仅保留警告和错误事件，其他丢弃 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 队列满时丢消息 -->
+<!--        <neverBlock>false</neverBlock>-->
         <appender-ref ref="logFile"/>
     </appender>
 

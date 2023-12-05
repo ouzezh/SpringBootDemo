@@ -1,63 +1,33 @@
 package com.ozz.springboot.config.filter;
 
-import java.io.IOException;
-import java.util.HashMap;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ozz.springboot.util.MdcUtil;
 import org.springframework.stereotype.Component;
 
-import com.ozz.springboot.SpringbootApp;
-import com.ozz.springboot.service.MyDao;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Component
 public class MyFilter implements Filter {
-
-  private Logger log = LoggerFactory.getLogger(getClass());
-
-  @Autowired
-  private MyDao dao;
-
-  public void init(FilterConfig filterConfig) throws ServletException {}
-
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    log.debug("do myFilter");
-    if (dao == null) {
-      dao = SpringbootApp.getApplicationContext().getBean(MyDao.class);
+    @Override
+    public void init(FilterConfig filterConfig) {
     }
 
-    ParameterRequestWrapper w = setInfo(request);
-    if (w == null) {
-      chain.doFilter(request, response);
-    } else {
-      chain.doFilter(w, response);
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        try {
+            MdcUtil.generateTraceId();
+            if(response instanceof HttpServletResponse) {
+                ((HttpServletResponse) response).setHeader(MdcUtil.KEY_TRACE_ID, MdcUtil.getTraceId());
+            }
+            chain.doFilter(request, response);
+        } finally {
+            MdcUtil.clearTraceId();
+        }
     }
-  }
 
-  public void destroy() {}
-
-  private ParameterRequestWrapper setInfo(ServletRequest request) {
-    try {
-      if (request instanceof HttpServletRequest && "application/x-www-form-urlencoded".equals(request.getContentType())) {
-        HashMap<String, String[]> m = new HashMap(request.getParameterMap());
-        m.put("myAutoSetParam", new String[] {"test"});
-        ParameterRequestWrapper wrapRequest = new ParameterRequestWrapper((HttpServletRequest) request, m);
-        return wrapRequest;
-      }
-      return null;
-    } catch (Exception e) {
-      log.error(null, e);
-      return null;
+    @Override
+    public void destroy() {
     }
-  }
 
 }

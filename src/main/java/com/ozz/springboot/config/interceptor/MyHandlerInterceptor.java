@@ -1,6 +1,7 @@
 package com.ozz.springboot.config.interceptor;
 
 import cn.hutool.core.util.StrUtil;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,12 +19,14 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        LoginUserContext.set();
 
-        // 跨域 CORS
-        response.setHeader("Access-Control-Allow-Origin",
-                Optional.ofNullable(request.getHeader("Origin")).orElse("true"));
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers",
-                Optional.ofNullable(request.getHeader("Access-Control-Request-Headers")).map(StrUtil::emptyToNull).orElse("GET,POST,OPTIONS"));
+        if(HttpMethod.OPTIONS.name().equals(request.getMethod())) {
+            // 跨域 CORS
+            response.setHeader("Access-Control-Allow-Origin",
+                    Optional.ofNullable(request.getHeader("Origin")).orElse("*"));
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Allow-Headers",
+                    Optional.ofNullable(request.getHeader("Access-Control-Request-Headers")).map(StrUtil::emptyToNull).orElse("*"));
+        }
 
         return true;
     }

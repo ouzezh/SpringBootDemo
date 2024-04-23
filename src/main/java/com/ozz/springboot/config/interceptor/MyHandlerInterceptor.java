@@ -19,10 +19,10 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        LoginUserContext.set();
 
-        if(HttpMethod.OPTIONS.name().equals(request.getMethod())) {
-            // 跨域 CORS
-            response.setHeader("Access-Control-Allow-Origin",
-                    Optional.ofNullable(request.getHeader("Origin")).orElse("*"));
+        // 跨域 CORS
+        String origin = request.getHeader("Origin");
+        if(StrUtil.isNotEmpty(origin)) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Headers",
                     Optional.ofNullable(request.getHeader("Access-Control-Request-Headers")).map(StrUtil::emptyToNull).orElse("*"));

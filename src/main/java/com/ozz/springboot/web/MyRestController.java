@@ -65,7 +65,7 @@ public class MyRestController {
 
     @SneakyThrows
     @PostMapping(value = "/v1/test/upload")
-    public void testUpload(MultipartFile file) {
+    public void testUpload(@RequestPart MultipartFile file) {
         log.info(file.getName());
         log.info(String.valueOf(file.getSize()));
         StaticLog.info(String.format("--Start--\r\n%s\r\n--End--", StrUtil.str(file.getBytes(), CharsetUtil.CHARSET_UTF_8)));

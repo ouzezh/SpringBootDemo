@@ -1,13 +1,20 @@
 package com.ozz.springboot.config.schedule;
 
+import cn.hutool.core.date.DateUtil;
 import com.ozz.springboot.util.LogUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.support.CronSequenceGenerator;
+import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Slf4j
 @Component
@@ -23,6 +30,14 @@ public class MySchedule {
 //    @Scheduled(fixedRate = 5000)// 任务开始时间开始计时
     public void schedule() {
         LogUtil.log("readProp: " + env.getProperty("ozz.myConfig"));
+
+        CronTrigger trigger = new CronTrigger("0 0/5 * * * ?");
+        LogUtil.log(trigger.getExpression());
+        TriggerContext context = new SimpleTriggerContext();
+        trigger.nextExecutionTime(context);
+        for(int i=0; i<10; i++) {
+            LogUtil.log(DateUtil.formatDateTime(trigger.nextExecutionTime(context)));
+        }
     }
 
     @SneakyThrows

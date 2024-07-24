@@ -3,6 +3,7 @@ package com.ozz.springboot.config.listener;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
+import com.alibaba.fastjson.JSON;
 import com.ozz.springboot.exception.ErrorException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class MyPropertyProcessor implements BeanFactoryPostProcessor, Environmen
     @SneakyThrows
     @Override
     public void setEnvironment(Environment environment) {
-        Assert.isTrue(environment.acceptsProfiles("FAT"));
+//        Assert.isTrue(environment.getActiveProfiles()[0].equals("dev"), JSON.toJSONString(environment.getActiveProfiles()));
 
         this.environment = (ConfigurableEnvironment) environment;
         sortPropertySource();

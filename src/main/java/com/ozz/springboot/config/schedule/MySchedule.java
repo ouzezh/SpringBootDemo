@@ -31,12 +31,15 @@ public class MySchedule {
     public void schedule() {
         LogUtil.log("readProp: " + env.getProperty("ozz.myConfig"));
 
-        CronTrigger trigger = new CronTrigger("0 0/5 * * * ?");
-        LogUtil.log(trigger.getExpression());
-        TriggerContext context = new SimpleTriggerContext();
-        trigger.nextExecutionTime(context);
+        CronTrigger cronTrigger = new CronTrigger("0 0/5 * * * ?");
+        LogUtil.log(cronTrigger.getExpression());
+        SimpleTriggerContext context = new SimpleTriggerContext();
+        cronTrigger.nextExecutionTime(context);
         for(int i=0; i<10; i++) {
-            LogUtil.log(DateUtil.formatDateTime(trigger.nextExecutionTime(context)));
+            Date date = cronTrigger.nextExecutionTime(context);
+            LogUtil.log(DateUtil.formatDateTime(date));
+            assert date != null;
+            context.update(date, date, date);
         }
     }
 
